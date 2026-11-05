@@ -1,0 +1,265 @@
+import pytest
+
+from agent import AgentAssistant
+from auditor import audit
+from rag import kb
+
+
+@pytest.fixture(scope="module")
+def agent():
+    return AgentAssistant(use_llm=False)
+
+
+@pytest.mark.parametrize(
+    "question, attendu",
+    [
+        ("Je veux renouveler mon passeport", "passeport"),
+        ("J'ai perdu mon passeport", "passeport"),
+        ("I want to renew my passport", "passeport"),
+        ("How do I get a birth certificate?", "acte_naissance"),
+        ("Je veux un acte de mariage", "acte_mariage"),
+        ("Je veux déclarer un décès", "acte_deces"),
+        ("Je veux un permis de construire", "permis_construire"),
+        ("Comment créer une association ?", "association"),
+        ("Comment payer la patente ?", "patente"),
+        ("Je veux immatriculer ma voiture", "carte_grise"),
+        ("Comment déclarer mes salariés à la CNPS ?", "cnps_immatriculation"),
+        ("Quelle est la procédure pour un titre foncier par mutation ?", "titre_foncier"),
+        ("Je veux m'inscrire au fichier des importateurs", "fichier_importateurs"),
+    ],
+)
+def test_detection_de_la_demarche(agent, question, attendu):
+    assert agent.catalogue.detecter(question).demarche["id"] == attendu
+
+
+@pytest.mark.parametrize(
+    "question",
+    ["Mon ingénieur demande une facture", "Je fais une technique passive", "Quel est le prix du pain ?"],
+)
+def test_pas_de_faux_positif(agent, question):
+    assert agent.respond(question)["type_reponse"] == "hors_perimetre"
+
+
+def test_scenario_de_l_etude_renouveler_ma_carte_demande_une_precision(agent):
+    reponse = agent.respond("Je veux renouveler ma carte")
+    assert reponse["type_reponse"] == "clarification"
+    assert {"Carte nationale d'identité (CNI)", "Carte grise (immatriculation d'un véhicule)", "Carte de séjour"} <= {o["libelle"] for o in reponse["options"]}
+
+
+def test_precision_apres_clarification_retrouve_la_demarche_et_le_cas(agent):
+    reponse = agent.respond("je l'ai perdue", ["Je veux une CNI"])
+    assert reponse["procedure_id"] == "cni" and reponse["cas"] == "perte"
+
+
+def test_cni_perdue_exige_l_attestation_et_non_la_liste_generique(agent):
+    reponse = agent.respond("Je veux renouveler ma CNI, je l'ai perdue")
+    assert reponse["cas"] == "perte"
+    pieces = " ".join(p["texte"] for p in reponse["pieces_requises"])
+    assert "attestation de déclaration de perte" in pieces
+    assert "certificat de nationalité" not in pieces
+
+
+def test_cni_perimee_n_exige_pas_le_certificat_de_nationalite(agent):
+    reponse = agent.respond("Ma CNI est périmée, je veux la renouveler")
+    assert reponse["cas"] == "peremption"
+    pieces = " ".join(p["texte"] for p in reponse["pieces_requises"]).lower()
+    assert "carte nationale d'identité périmée" in pieces
+    assert "certificat de nationalité" not in pieces
+
+
+def test_citations_toutes_sur_la_demarche(agent):
+    reponse = agent.respond("Je veux un permis de construire")
+    assert reponse["citations"]
+    assert {c["procedure_id"] for c in reponse["citations"]} == {"permis_construire"}
+
+
+def test_cas_de_titre_foncier_limite_a_la_bonne_fiche(agent):
+    reponse = agent.respond("Titre foncier suite à un morcellement")
+    assert reponse["cas"] == "morcellement"
+    assert {c["doc"] for c in reponse["citations"]} == {"eregulations_47_25"}
+
+
+def test_lacune_annoncee_sans_rien_inventer(agent):
+    reponse = agent.respond("Je veux obtenir mon permis de conduire")
+    assert reponse["type_reponse"] == "lacune"
+    assert not reponse["etapes"] and not reponse["pieces_requises"] and not reponse["citations"]
+    assert "source ouverte" in reponse["reponse"]
+
+
+def test_demande_illicite_refusee(agent):
+    assert agent.respond("Comment pirater le site idcam ?")["type_reponse"] == "refus"
+    assert agent.respond("Je veux faire un faux passeport")["type_reponse"] == "refus"
+
+
+def test_reponse_en_anglais(agent):
+    reponse = agent.respond("I want to renew my passport", langue="EN")
+    assert "Procedure : Passport" in reponse["reponse"]
+    assert "You remain responsible" in reponse["reponse"]
+
+
+def test_journal_indique_le_vrai_mode_quand_le_llm_est_absent(monkeypatch):
+    monkeypatch.setenv("LLM_URL", "http://127.0.0.1:9/api/generate")
+    monkeypatch.setenv("LLM_TIMEOUT", "1")
+    reponse = AgentAssistant(use_llm=True).respond("Je veux un passeport")
+    assert reponse["mode_generation"] == "extraits_sources_llm_indisponible"
+    assert reponse["audit_log"][2]["mode"] == "extraits_sources_llm_indisponible"
+
+
+def test_reponse_llm_inventee_ecartee_au_profit_des_extraits(monkeypatch):
+    monkeypatch.setattr("agent.appeler_llm", lambda prompt: "Le passeport coûte 500 000 FCFA. Vous êtes responsable.")
+    reponse = AgentAssistant(use_llm=True).respond("Je veux un passeport")
+    assert reponse["mode_generation"] == "extraits_sources_apres_rejet_llm"
+    assert "500 000" not in reponse["reponse"]
+
+
+def test_reponse_llm_fidele_conservee(monkeypatch):
+    monkeypatch.setattr("agent.appeler_llm", lambda prompt: "La validité du passeport est de 5 ans [Articles 5 et 6]. Vous restez responsable.")
+    reponse = AgentAssistant(use_llm=True).respond("Je veux un passeport")
+    assert reponse["mode_generation"] == "llm"
+
+
+def test_le_prompt_recoit_la_question_masquee(monkeypatch):
+    vu = {}
+    monkeypatch.setattr("agent.appeler_llm", lambda prompt: vu.setdefault("prompt", prompt))
+    AgentAssistant(use_llm=True).respond("Je m'appelle Jean Mballa, tel 699123456, je veux un passeport")
+    assert "Mballa" not in vu["prompt"] and "699123456" not in vu["prompt"]
+
+
+# ------------------------------------------------------------------ Auditeur
+def _citation(identifiant="decret_2021_347_passeport::art_5_6"):
+    chunk = kb.par_id[identifiant]
+    return {"id": chunk["id"], "doc": chunk["doc"], "procedure_id": chunk["procedure_id"], "article": chunk["article"],
+            "texte": chunk["texte"], "source_url": chunk["source_url"], "statut_verification": chunk["statut_verification"]}
+
+
+def _audit(reponse, citations, **options):
+    return audit(reponse, citations, base=kb.par_id, procedure_id="passeport", **options)
+
+
+def test_auditeur_bloque_un_montant_invente():
+    resultat = _audit("La CNI coûte 500 000 FCFA, vous êtes responsable.", [_citation()])
+    assert resultat.verdict == "non_conforme" and resultat.decision == "bloquer"
+
+
+def test_auditeur_bloque_un_delai_invente():
+    assert _audit("Délai : 12 jours, vous êtes responsable.", [_citation()]).decision == "bloquer"
+
+
+def test_auditeur_bloque_un_article_inexistant():
+    assert _audit("Selon l'article 99, vous êtes responsable.", [_citation()]).decision == "bloquer"
+
+
+def test_auditeur_bloque_une_citation_hors_sujet():
+    hors_sujet = _citation("ordonnance_81_02_etat_civil::art_48")
+    hors_sujet["procedure_id"] = "acte_mariage"
+    assert _audit("Vous êtes responsable.", [hors_sujet]).decision == "bloquer"
+
+
+def test_auditeur_bloque_une_citation_falsifiee():
+    faux = _citation()
+    faux["texte"] = "La validité du passeport est de 50 ans."
+    resultat = _audit("La validité est de 50 ans, vous êtes responsable.", [faux])
+    assert resultat.decision == "bloquer"
+    assert any(c.nom == "integrite" and c.resultat == "echec" for c in resultat.controles)
+
+
+def test_auditeur_bloque_une_reponse_sans_source():
+    assert audit("Faites comme ceci, vous êtes responsable.", [], base=kb.par_id).decision == "bloquer"
+
+
+def test_auditeur_valide_un_fait_present_dans_la_source():
+    resultat = _audit("La validité du passeport est de 5 ans [Articles 5 et 6]. Vous restez responsable.", [_citation()])
+    assert resultat.verdict == "conforme" and resultat.decision == "publier"
+
+
+def test_auditeur_reserve_si_source_a_verifier():
+    resultat = _audit("Passez par passcam.cm. Vous restez responsable.", [_citation("procedure_passcam_passeport::etape_1")])
+    assert resultat.verdict == "partiel" and resultat.decision == "publier_avec_reserve"
+
+
+def test_auditeur_reserve_si_ton_subjectif():
+    assert _audit("Je pense que la validité est de 5 ans. Vous restez responsable.", [_citation()]).verdict == "partiel"
+
+
+def test_toutes_les_reponses_composees_passent_l_audit(agent):
+    """Chaque démarche et chaque cas : la réponse sourcée ne doit jamais être bloquée."""
+    for demarche in agent.catalogue.demarches:
+        if demarche["statut"] == "lacune":
+            continue
+        for cas in demarche["cas"] or [None]:
+            for langue in ("FR", "EN"):
+                reponse = agent._repondre(demarche["nom"], demarche, cas, langue, None)
+                resultat = audit(
+                    reponse["reponse"], reponse["citations"], base=kb.par_id, procedure_id=demarche["id"],
+                    procedures_admises=[demarche["id"], *demarche.get("procedures_liees", [])],
+                    type_reponse="reponse", statut_demarche=demarche["statut"],
+                )
+                assert resultat.decision != "bloquer", (demarche["id"], cas and cas["id"], langue, resultat.gaps)
+
+
+# ------------------------------------------------------------------ Questions de précision
+def test_chaque_nom_de_demarche_se_retrouve_lui_meme(agent):
+    """Un bouton de précision envoie le nom de la démarche : il ne doit jamais boucler."""
+    for demarche in agent.catalogue.demarches:
+        for nom in (demarche["nom"], demarche["nom_en"]):
+            detection = agent.catalogue.detecter(nom)
+            assert detection.demarche and detection.demarche["id"] == demarche["id"], nom
+
+
+def test_chaque_bouton_de_cas_aboutit_au_bon_cas(agent):
+    for demarche in agent.catalogue.demarches:
+        for langue, cle in (("FR", "libelle"), ("EN", "libelle_en")):
+            nom = demarche["nom_en"] if langue == "EN" else demarche["nom"]
+            for cas in demarche["cas"]:
+                reponse = agent.respond(f"{nom} : {cas[cle]}", langue=langue)
+                assert reponse["procedure_id"] == demarche["id"], cas[cle]
+                assert reponse["cas"] == cas["id"], cas[cle]
+
+
+def test_les_boutons_proposes_par_une_clarification_aboutissent(agent):
+    reponse = agent.respond("Je veux créer mon entreprise")
+    assert reponse["type_reponse"] == "clarification"
+    for option in reponse["options"]:
+        suite = agent.respond(option["message"], ["Je veux créer mon entreprise"])
+        assert suite["procedure_id"], option
+
+
+@pytest.mark.parametrize(
+    "historique, message, attendu",
+    [
+        (["Je veux une CNI"], "je l'ai perdue", "cni"),
+        (["Je veux un permis de construire"], "combien ça coûte ?", "permis_construire"),
+        (["Je veux un passeport"], "quelles pièces ?", "passeport"),
+    ],
+)
+def test_une_suite_de_conversation_garde_la_demarche(agent, historique, message, attendu):
+    assert agent.catalogue.detecter(message, historique).demarche["id"] == attendu
+
+
+@pytest.mark.parametrize(
+    "message",
+    ["Quel est le prix du pain au marché ?", "Quelle est la capitale du Cameroun ?"],
+)
+def test_une_question_sans_rapport_ne_reprend_pas_la_demarche_precedente(agent, message):
+    assert agent.respond(message, ["Je veux une CNI"])["type_reponse"] == "hors_perimetre"
+
+
+def test_un_mot_vague_prime_sur_une_demarche_incompatible_de_l_historique(agent):
+    reponse = agent.respond("et pour un permis ?", ["Je veux une CNI"])
+    assert reponse["type_reponse"] == "clarification"
+
+
+# ------------------------------------------------------------------ Mémoire du cas
+def test_le_cas_annonce_juste_avant_est_repris(agent):
+    reponse = agent.respond("Carte nationale d'identité (CNI)", ["Je veux renouveler ma carte"])
+    assert reponse["cas"] == "peremption"
+    assert agent.respond("combien ça coûte ?", ["Ma CNI est perdue"])["cas"] == "perte"
+
+
+def test_un_ancien_cas_ne_resert_pas_pour_une_nouvelle_demande(agent):
+    historique = ["Je veux renouveler ma carte", "Carte nationale d'identité (CNI)"]
+    assert agent.respond("Je veux une CNI", historique)["type_reponse"] == "clarification"
+
+
+def test_le_cas_d_une_autre_demarche_n_est_pas_repris(agent):
+    assert agent.respond("Je veux une CNI", ["J'ai perdu mon passeport"])["type_reponse"] == "clarification"

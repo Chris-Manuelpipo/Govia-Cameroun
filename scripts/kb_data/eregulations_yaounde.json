@@ -1,0 +1,1798 @@
+{
+ "portail": "https://yaounde.eregulations.org",
+ "date_extraction": "2026-11-05",
+ "fiches": [
+  {
+   "procedure_id": "commercant_individuel",
+   "fiche": "180_135",
+   "libelle": "S'enregistrer comme commerçant individuel — dossier au CFCE",
+   "source_url": "https://yaounde.eregulations.org/procedure/180/135?l=fr",
+   "en_revision": true,
+   "etapes": [
+    "Obtenir les formulaires",
+    "Déposer le dossier de création d'entreprise au CFCE",
+    "Retirer les pièces attestant la création d'entreprise"
+   ],
+   "ou_aller": [
+    "Centre des Formalités de Création des Entreprises (CFCE)"
+   ],
+   "resultats": [
+    "Immatriculation RCCM - personne physique",
+    "Attestation d'immatriculation fiscale",
+    "Attestation de création d'entreprise",
+    "Reçu de paiement - immatriculation RCCM",
+    "Quittance d'enregistrement aux impôts du RCCM"
+   ],
+   "documents": [
+    "Plan de localisation du siège social",
+    "Déclaration sur l'honneur - antécédents judiciaires",
+    "Pièce d'Identité",
+    "Acte de mariage",
+    "Demande d'immatriculation au RCCM - personne physique",
+    "Fiche d'identification du promoteur",
+    "Chemise de circulation du dossier",
+    "Demande de carte de contribuable - personne physique",
+    "Récépissé de dépôt dossier CFCE"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 41,650",
+    "150 XAF pour les photocopies de formulaires",
+    "20,500 XAF pour les frais d'immatriculation au registre de commerce",
+    "1,000 XAF pour le timbre fiscal apposé sur le certificat d'immatriculation au registre de commerce",
+    "20,000 XAF de droits fixes d'enregistrement"
+   ],
+   "duree_totale": "2 j à 7 j",
+   "base_legale": [
+    "Acte Uniforme OHADA portant sur le droit commercial général du 15 décembre 2010",
+    "Articles 44, 45",
+    "Circulaire Interministérielle N° 001 MINJUSTICE-MINFI-MINPMEESA du 30 mai 2012",
+    "relative à la procédure devant les CFCE",
+    "Articles II - a), II - b)",
+    "Code Général des Impôts 2018",
+    "Article L 1",
+    "Instruction N° 004/CAB/PM du 25 mai 2012",
+    "relative aux formalités administratives de création d'entreprises au Cameroun",
+    "Article 1.1 - a)",
+    "Instruction No. 001/CAB/PM du 13 juin 2016",
+    "relative aux formalités administratives de création d'entreprises en ligne au Cameroun."
+   ]
+  },
+  {
+   "procedure_id": "commercant_individuel",
+   "fiche": "181_136",
+   "libelle": "S'enregistrer comme commerçant individuel — dossier en ligne",
+   "source_url": "https://yaounde.eregulations.org/procedure/181/136?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Déposer le dossier de création d'entreprise en ligne",
+    "Payer les frais au CFCE",
+    "Retirer les pièces attestant la création d'entreprise"
+   ],
+   "ou_aller": [
+    "MyBusiness.cm - Guichet électronique pour la création d'entreprise",
+    "Centre des Formalités de Création des Entreprises (CFCE)",
+    "*"
+   ],
+   "resultats": [
+    "Immatriculation RCCM - personne physique",
+    "Carte de contribuable - personne physique",
+    "Fiche CNPS Employeur",
+    "Certificat CNPS Salarié"
+   ],
+   "documents": [
+    "Plan de localisation du siège social",
+    "Pièce d'Identité",
+    "Acte de mariage",
+    "Reçu de paiement CFCE"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 41,500",
+    "21,500 XAF pour les frais d'immatriculation au registre du commerce",
+    "20,000 XAF pour les droits fixes d'enregistrement aux impôts"
+   ],
+   "duree_totale": "1 j à 3 j",
+   "base_legale": [
+    "Acte Uniforme OHADA portant sur le droit commercial général du 15 décembre 2010",
+    "Articles 44, 44-45, 45",
+    "Circulaire Interministérielle N° 001 MINJUSTICE-MINFI-MINPMEESA du 30 mai 2012",
+    "relative à la procédure devant les CFCE",
+    "Articles II - a), II - b), II-a; II-b",
+    "Code Général des Impôts 2018",
+    "Article L 1",
+    "Instruction N° 004/CAB/PM du 25 mai 2012",
+    "relative aux formalités administratives de création d'entreprises au Cameroun",
+    "Articles 1.1-a, 1.1 - a)",
+    "Instruction No. 001/CAB/PM du 13 juin 2016",
+    "relative aux formalités administratives de création d'entreprises en ligne au Cameroun."
+   ]
+  },
+  {
+   "procedure_id": "creation_societe",
+   "fiche": "186_141",
+   "libelle": "Créer une société — statuts notariés, dossier au CFCE",
+   "source_url": "https://yaounde.eregulations.org/procedure/186/141?l=fr",
+   "en_revision": true,
+   "etapes": [
+    "Achat de timbres fiscaux",
+    "Demande d'extrait de casier judiciaire",
+    "Retrait de l'extrait de casier judiciaire",
+    "Demande de statuts notariés et obtention de l’attestation de constitution de la société",
+    "Ouverture d'un compte pour société en création",
+    "Dépôt du capital social à la banque",
+    "Obtention de l’attestation de dépôt du capital social",
+    "Signature des statuts notariés",
+    "Retrait des statuts notariés et de la déclaration souscription et de versement",
+    "Obtenir les formulaires",
+    "Déposer le dossier au CFCE",
+    "Retirer les certificats"
+   ],
+   "ou_aller": [
+    "Centre des Formalités de Création des Entreprises (CFCE)",
+    "Tribunal de Première Instance",
+    "Notaire",
+    "Afriland First Bank"
+   ],
+   "resultats": [
+    "Immatriculation rccm - personne morale",
+    "Attestation d'immatriculation fiscale",
+    "Récépissé Annonce légale",
+    "Reçu de paiement - immatriculation RCCM",
+    "Quittance d'enregistrement aux impôts du RCCM"
+   ],
+   "documents": [
+    "Demande d'extrait de casier judiciaire",
+    "Timbre fiscal - 1,000 XAF",
+    "Pièce d'Identité",
+    "Extrait de casier judiciaire",
+    "Registre de Commerce et du Crédit Mobilier (RCCM)",
+    "Procès verbal de nomination du ou des représentants",
+    "Acte de naissance",
+    "Attestation de constitution d'une société",
+    "Fiche de versement remplie",
+    "Bordereau de versement du capital social",
+    "Attestation de dépôt du capital social",
+    "Pouvoir authentique",
+    "Statuts notariés",
+    "Déclaration de souscription et de versement du capital",
+    "Immatriculation RCCM - Personne morale",
+    "Formulaire de déclaration sur l'honneur",
+    "Plan de localisation du siège social",
+    "Formulaire de demande de carte de contribuable - personne morale",
+    "Chemise de circulation de dossier - personne morale",
+    "Fiche d'identification de la société",
+    "Récépissé de dépôt dossier CFCE"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 126,975",
+    "3,000 XAF pour la demande et 2 extraits de casier judiciaire",
+    "200 XAF pour les frais de recherche",
+    "10,000 XAF pour l'ouverture du dossier",
+    "2 % du capital social - pour les émoluments du notaire",
+    "15,000 XAF pour les débours",
+    "5,000 XAF par exemplaire",
+    "10,000 XAF de déclaration de souscription de capital",
+    "1,000 XAF par timbre fiscal",
+    "12,000 XAF pour les expéditions de statuts",
+    "2,000 XAF de timbres fiscaux pour l'enregistrement aux impôts de la minute des statuts et de la déclaration de souscription et de versement du capital",
+    "150 XAF Pour les photocopies de formulaires",
+    "21,500 XAF pour les frais d'immatriculation au registre de commerce - personne morale",
+    "20,000 XAF pour les droits fixes d'enregistrement",
+    "13,125 XAF pour la publication de l'annonce légale dans Cameroon Tribune"
+   ],
+   "duree_totale": "6 j à 14 j",
+   "base_legale": [
+    "Acte Uniforme OHADA portant sur le droit commercial général du 15 décembre 2010",
+    "Articles 35, 39, 46, 47-4, 47-2, 47-1, 47",
+    "Acte Uniforme sur le droit des sociétés commerciales et groupement d'intérêt économique",
+    "Articles 10, 13, 65, 66, 73, 97, 98, 311, 313, 314, 315, 387, 393, 393-397",
+    "Circulaire Interministérielle MINJUSTICE-MINFI-MINPMEESA",
+    "Article II-b)",
+    "Circulaire Interministérielle N° 001 MINJUSTICE-MINFI-MINPMEESA du 30 mai 2012",
+    "relative à la procédure devant les CFCE",
+    "Articles a-bis), II - a); II - b)",
+    "Code Général des Impôts 2011",
+    "Article 428-19",
+    "Décret n° 95/034 du 24 février 1995",
+    "portant statut et organisation de la profession de notaire",
+    "Article 167",
+    "Décret No 2017/0877 du 28 février 2017",
+    "fixant les modalités d'authentification des statuts sous seing privé",
+    "Article 1-5",
+    "Guide pratique des formalités administratives à l'intention des entrepreneurs au Cameroun, MINPMEESA",
+    "Instruction N° 004/CAB/PM du 25 mai 2012",
+    "relatives aux formalités administratives de création d'entreprises au Cameroun",
+    "Article 1.2. a)",
+    "Loi No. 2016/014 du 14 décembre 2016",
+    "fixant le capital minimum des SARL au Cameroun",
+    "Article 1-4"
+   ]
+  },
+  {
+   "procedure_id": "creation_societe",
+   "fiche": "184_139",
+   "libelle": "Créer une société — statuts sous seing privé, dossier au CFCE",
+   "source_url": "https://yaounde.eregulations.org/procedure/184/139?l=fr",
+   "en_revision": true,
+   "etapes": [
+    "Obtenir les formulaires",
+    "Authentifier les statuts sous seing privé",
+    "Déposer le dossier au CFCE",
+    "Retirer les certificats"
+   ],
+   "ou_aller": [
+    "Centre des Formalités de Création des Entreprises (CFCE)"
+   ],
+   "resultats": [
+    "Immatriculation RCCM - Personne morale",
+    "Attestation d'immatriculation fiscale",
+    "Statuts authentifiés et enregistrés aux impôts",
+    "Récépissé Annonce légale",
+    "Reçu de paiement - immatriculation RCCM",
+    "Quittance d'enregistrement aux impôts du RCCM"
+   ],
+   "documents": [
+    "Modèle de statuts SARL unipersonnel",
+    "Pièce d'Identité",
+    "Statuts authentifiés par le chef du CFCE",
+    "Extrait d'immatriculation RCCM",
+    "Déclaration sur l'honneur - antécédents judiciaires",
+    "Plan de localisation du siège social",
+    "Formulaire de demande de carte de contribuable - personne morale",
+    "Chemise de circulation du dossier",
+    "Fiche d'identification du promoteur",
+    "Récépissé de dépôt dossier CFCE"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 69,775",
+    "150 XAF Pour les photocopies de formulaires",
+    "20,500 XAF pour les frais d'immatriculation au registre de commerce",
+    "1,000 XAF pour le timbre fiscal apposé sur le RCCM",
+    "20,000 XAF de droits fixes d'enregistrement",
+    "13,125 XAF pour la publication de l'annonce légale dans Cameroon Tribune",
+    "15,000 XAF pour les timbres fiscaux apposés sur les statuts"
+   ],
+   "duree_totale": "2 j à 7 j",
+   "base_legale": [
+    "Acte Uniforme OHADA portant sur le droit commercial général du 15 décembre 2010",
+    "Articles 44, 45",
+    "Acte Uniforme OHADA révisé du 30 janvier 2014",
+    "Article 13",
+    "Circulaire Interministérielle N° 001 MINJUSTICE-MINFI-MINPMEESA du 30 mai 2012",
+    "relative à la procédure devant les CFCE",
+    "Articles II - a), II - b)",
+    "Code Général des Impôts 2018",
+    "Article 9",
+    "Décret No 2017/0877 du 28 février 2017",
+    "Instruction N° 004/CAB/PM du 25 mai 2012",
+    "relative aux formalités administratives de création d'entreprises au Cameroun",
+    "Article 1.1 - a)",
+    "Instruction No. 001/CAB/PM du 13 juin 2016",
+    "relative aux formalités administratives de création d'entreprises en ligne au Cameroun.",
+    "Loi No. 2016/014 du 14 décembre 2016"
+   ]
+  },
+  {
+   "procedure_id": "creation_societe",
+   "fiche": "185_140",
+   "libelle": "Créer une société — statuts sous seing privé, dossier en ligne",
+   "source_url": "https://yaounde.eregulations.org/procedure/185/140?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Authentifier les statuts sous seing privé",
+    "Faire enregistrer les statuts par le service des impôts",
+    "Déposer le dossier en ligne",
+    "Payer les frais au CFCE",
+    "Retirer les pièces attestant la création d'entreprise"
+   ],
+   "ou_aller": [
+    "Centre des Formalités de Création des Entreprises (CFCE)",
+    "*",
+    "MyBusiness.cm - Guichet électronique pour la création d'entreprise"
+   ],
+   "resultats": [
+    "Immatriculation RCCM - Personne morale",
+    "Carte de contribuable - personne physique",
+    "Fiche CNPS Employeur",
+    "Certificat CNPS Salarié",
+    "Récépissé Annonce légale"
+   ],
+   "documents": [
+    "Modèle de statuts SARL unipersonnel",
+    "Pièce d'Identité",
+    "Statuts authentifiés par le chef du CFCE",
+    "Statuts seing privé - enregistrés",
+    "Extrait d'immatriculation RCCM",
+    "Formulaire de déclaration sur l'honneur",
+    "Plan de localisation du siège social",
+    "Acte de mariage",
+    "Reçu de paiement CFCE"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 69,625",
+    "1,000 XAF par timbre fiscal",
+    "15,000 XAF apposé sur chaque feuille des 5 exemplaires de statuts 3 feuilles en moyenne",
+    "21,500 XAF pour les frais d'immatriculation au registre de commerce",
+    "20,000 XAF de droits fixes d'enregistrement",
+    "13,125 XAF pour la publication de l'annonce légale dans Cameroon Tribune"
+   ],
+   "duree_totale": "1 j à 3 j",
+   "base_legale": [
+    "Acte Uniforme OHADA portant sur le droit commercial général du 15 décembre 2010",
+    "Articles 44, 45",
+    "Acte Uniforme OHADA révisé du 30 janvier 2014",
+    "Article 13",
+    "Circulaire Interministérielle N° 001 MINJUSTICE-MINFI-MINPMEESA du 30 mai 2012",
+    "relative à la procédure devant les CFCE",
+    "Articles II - a), II - b)",
+    "Décret No 2017/0877 du 28 février 2017",
+    "Instruction N° 004/CAB/PM du 25 mai 2012",
+    "relative aux formalités administratives de création d'entreprises au Cameroun",
+    "Article 1.1 - a)",
+    "Instruction No. 001/CAB/PM du 13 juin 2016",
+    "relative aux formalités administratives de création d'entreprises en ligne au Cameroun.",
+    "Loi No. 2016/014 du 14 décembre 2016"
+   ]
+  },
+  {
+   "procedure_id": "creation_succursale",
+   "fiche": "158_127",
+   "libelle": "Créer une succursale",
+   "source_url": "https://yaounde.eregulations.org/procedure/158/127?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de timbres fiscaux",
+    "Demande d'extrait de casier judiciaire",
+    "Retrait de l'extrait de casier judiciaire",
+    "Dépôt du dossier de création de succursale chez le notaire",
+    "Retrait de la déclaration d'existence de la succursale",
+    "Dépôt du dossier au CFCE et paiement des frais de création d'entreprise",
+    "Retrait des pièces attestant la création de l'entreprise"
+   ],
+   "ou_aller": [
+    "Centre des Formalités de Création des Entreprises (CFCE)",
+    "*",
+    "Tribunal de Première Instance",
+    "*",
+    "*",
+    "Notaire"
+   ],
+   "resultats": [
+    "Immatriculation rccm - personne morale",
+    "Attestation de création d'entreprise",
+    "Reçu de paiement - immatriculation RCCM",
+    "Quittance d'enregistrement aux impôts du RCCM"
+   ],
+   "documents": [
+    "Personnes physiques",
+    "Personnes morales",
+    "Demande d'extrait de casier judiciaire",
+    "*",
+    "Pièce d'Identité",
+    "*",
+    "*",
+    "Copie certifiée conforme de la pièce d'identité",
+    "*",
+    "Statuts de la société mère",
+    "Certificat d'immatriculation au registre de commerce de la société mère",
+    "Procès verbal autorisant la création de succursale",
+    "Procès verbal de nomination du ou des représentants",
+    "Pouvoir authentique",
+    "Formulaire de demande de carte de contribuable - personne morale",
+    "Chemise cartonnée",
+    "Certificat d'immatriculation au registre de commerce de la société mère",
+    "Déclaration d'existence de la succursale",
+    "Pièce d'Identité",
+    "Déclaration sur l'honneur - antécédents judiciaires",
+    "Plan de localisation du siège social",
+    "Déclaration de création d'entreprise - liasse CFCE",
+    "Déclaration d'existence de la succursale",
+    "Pièce d'Identité",
+    "Déclaration sur l'honneur - antécédents judiciaires",
+    "Plan de localisation du siège social",
+    "Récépissé - dépôt de dossier"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 100,500",
+    "5,000 XAF pour l'ouverture du dossier",
+    "2 % du capital social - pour les émoluments du notaire",
+    "15,000 XAF pour les débours photocopies, chemises et divers",
+    "5,000 XAF pour la déclaration d'existence de la succursale",
+    "1,000 XAF par timbre fiscal",
+    "3,000 XAF pour les expéditions de la déclaration d'existence de la succursale",
+    "1,000 XAF de timbre fiscal pour l'enregistrement aux impôts de la minute de la déclaration d'existence de la succursale.",
+    "21,500 XAF pour les frais d'immatriculation au registre de commerce - personne morale",
+    "20,000 XAF pour les droits fixes d'enregistrement",
+    "10,000 XAF pour la publication de l'annonce légale"
+   ],
+   "duree_totale": "2 j à 3 j",
+   "base_legale": [
+    "Acte Uniforme OHADA portant sur le droit commercial général du 15 décembre 2010",
+    "Articles 35, 46, 47, 48",
+    "Acte Uniforme sur le droit des sociétés commerciales et groupement d'intérêt économique",
+    "Articles 73, 97, 98, 119",
+    "Circulaire Interministérielle MINJUSTICE-MINFI-MINPMEESA",
+    "Article II-b)",
+    "Circulaire Interministérielle N° 001 MINJUSTICE-MINFI-MINPMEESA du 30 mai 2012",
+    "Article a-bis)",
+    "Code Général des Impôts 2011",
+    "Article 428-19",
+    "Guide pratique des formalités administratives à l'intention des entrepreneurs au Cameroun, MINPMEESA",
+    "Instruction N° 001/CAB/PM du 18 mars 2010"
+   ]
+  },
+  {
+   "procedure_id": "cnps_immatriculation",
+   "fiche": "93_53",
+   "libelle": "Immatriculation de l'entreprise et des salariés à la CNPS",
+   "source_url": "https://yaounde.eregulations.org/procedure/93/53?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Demande de l'attestation de localisation au bureau des impôts",
+    "Retrait de l'attestation de localisation",
+    "Achat de formulaires de copies d'actes d'état civil",
+    "Obtention des copies certifiées d'actes d'état civil du salarié",
+    "Obtention des formulaires de demande d'immatriculation à la CNPS",
+    "Dépôt des demandes d'immatriculation de l'entreprise et du salarié à la CNPS",
+    "Retrait des attestations d'immatriculation à la CNPS"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I",
+    "Comptoir d'un vendeur ambulant d'imprimés",
+    "Mairie de Yaoundé 1",
+    "Centre de Prévoyance Sociale Mvog Mbi"
+   ],
+   "resultats": [
+    "Fiche signaletique d'un employeur",
+    "Etat de contrôle d'affiliation d'un salarié"
+   ],
+   "documents": [
+    "Plan de localisation",
+    "Formulaire - copie d'acte de naissance",
+    "Formulaire de copie d'acte de mariage",
+    "Acte de naissance",
+    "Acte de mariage",
+    "Demande d'immatriculation CNPS de l'entreprise",
+    "Demande d'immatriculation CNPS de l'assuré social",
+    "Plan de localisation du siège social",
+    "Attestation de localisation",
+    "Carte de contribuable",
+    "Titre de Patente",
+    "Registre de commerce",
+    "Pièce d'Identité",
+    "Liste du personnel",
+    "Avis d'embauche d'un salarié",
+    "Récépissé de dépôt dossier d'immatriculation de l'entreprise (employeur)",
+    "Récépissé de dépôt dossier d'immatriculation du salarié"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 200",
+    "100 XAF pour le formulaire de copie d'acte de naissance",
+    "100 XAF pour le formulaire de copie d'acte de mariage"
+   ],
+   "duree_totale": "2 j à 7 j",
+   "base_legale": [
+    "Arrêté conjoint METPS/MINEFI n° 035 du 12 juillet 2002",
+    "Article 6 - page 39",
+    "Décret 74-733 du 19 août 1974",
+    "Articles 2, 5, 7, 9",
+    "ordonnance n° 73-17 du 22 mai 1973",
+    "Article 4"
+   ]
+  },
+  {
+   "procedure_id": "cnps_cotisations",
+   "fiche": "94_7",
+   "libelle": "Paiement des cotisations sociales à la CNPS",
+   "source_url": "https://yaounde.eregulations.org/procedure/94/7?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention de la fiche de télédéclaration",
+    "Paiement par virement bancaire",
+    "ou : Paiement par versement en espèces",
+    "ou : Demande de chèque certifié",
+    "Retrait du chèque certifié",
+    "Obtention du bulletin d'émission",
+    "Obtention de la quittance de paiement de la CNPS"
+   ],
+   "ou_aller": [
+    "Afriland First Bank",
+    "o",
+    "o",
+    "*",
+    "Centre Divisionnaire des Impôts - Yaoundé I"
+   ],
+   "resultats": [
+    "Quittance de paiement des cotisations sociales",
+    "Télédéclaration signée"
+   ],
+   "documents": [
+    "Ordre de paiement à l'ordre de la Caisse Nationale de Prévoyance Sociale",
+    "Fiche de télédéclaration",
+    "Fiche de versement en espèces des cotisations sociales",
+    "Chèque au nom de la Caisse Nationale de Prévoyance Sociale",
+    "Demande de chèque certifié",
+    "Pièce d'Identité",
+    "*",
+    "Pouvoir authentique",
+    "*",
+    "Bordereau de virement CNPS",
+    "Bulletin d'émission des créances sociales - cotisations CNPS",
+    "Télédéclaration"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "1 j à 1 j",
+   "base_legale": [
+    "Arrêté conjoint METPS/MINEFI n° 035 du 12 juillet 2002",
+    "Articles 3, 4, 8, 9",
+    "Instruction conjointe n° 01/02 DG-CNPS/DI du 11 septembre 2002",
+    "Articles II, III"
+   ]
+  },
+  {
+   "procedure_id": "cnps_allocations_familiales",
+   "fiche": "95_49",
+   "libelle": "Allocations familiales",
+   "source_url": "https://yaounde.eregulations.org/procedure/95/49?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de formulaires de copies d'actes d'état civil et du certificat de vie",
+    "Obtention des copies certifiées d'actes d'état civil et du certificat de vie",
+    "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+    "Obtention du certificat de scolarité des enfants scolarisés",
+    "Obtention du formulaire de demande de prestations familiales (allocations familiales)",
+    "Dépôt de la demande d'allocations familiales",
+    "Identification du bénéficiaire de l'allocation",
+    "Obtention du chèque de paiement des allocations familiales",
+    "ou : Obtention du paiement en espèces des allocations familiales"
+   ],
+   "ou_aller": [
+    "Comptoir d'un vendeur ambulant d'imprimés",
+    "Mairie de Yaoundé 1",
+    "Commissariat de police du 1er arrondissement",
+    "Etablissement scolaire",
+    "Centre de Prévoyance Sociale Mvog Mbi",
+    "o"
+   ],
+   "resultats": [
+    "Chèque",
+    "Livret d'allocataire"
+   ],
+   "documents": [
+    "Formulaire - copie d'acte de naissance",
+    "Formulaire du certificat de vie individuel",
+    "Formulaire de copie d'acte de mariage",
+    "Acte de naissance",
+    "Acte de mariage",
+    "Demande de copie certifiée de carte nationale d'identité",
+    "Pièce d'Identité",
+    "Demande des indemnités journalières de congé de maternité",
+    "Etat de contrôle d'affiliation d'un assuré",
+    "Télédéclaration",
+    "Quittance de paiement des cotisations sociales",
+    "Bulletin de présence",
+    "Copie certifiée conforme de la pièce d'identité",
+    "Copie certifiée conforme d'acte de mariage",
+    "Copie certifiée conforme d'acte de naissance",
+    "Certificat de vie individuel",
+    "Certificat de scolarité"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 300",
+    "100 XAF pour le formulaire de copie d'acte de naissance",
+    "100 XAF pour le formulaire de copie d'acte de mariage",
+    "100 XAF pour le formulaire du certificat de vie"
+   ],
+   "duree_totale": "13 j à 22 j",
+   "base_legale": [
+    "Arrêté 007-MTPS-DPS du 14 avril 1970",
+    "Articles 1, 2, 4, 16",
+    "Décret 74-733 du 19 août 1974",
+    "Article 47-2"
+   ]
+  },
+  {
+   "procedure_id": "cnps_allocations_familiales",
+   "fiche": "96_50",
+   "libelle": "Allocations prénatales",
+   "source_url": "https://yaounde.eregulations.org/procedure/96/50?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention du relevé d'identité bancaire",
+    "Obtention du formulaire de demande de prestations familiales (allocations prénatales)",
+    "Dépôt de la demande d'allocations prénatales",
+    "Identification du bénéficiaire des allocations prénatales",
+    "Obtention du chèque de paiement des allocations prénatales",
+    "ou : Obtention du paiement en espèces"
+   ],
+   "ou_aller": [
+    "Afriland First Bank",
+    "*",
+    "Centre de Prévoyance Sociale Mvog Mbi",
+    "o"
+   ],
+   "resultats": [
+    "Chèque"
+   ],
+   "documents": [
+    "Pièce d'Identité",
+    "*",
+    "Demande des indemnités journalières de congé de maternité",
+    "Certificat de grossesse du 1er examen prénatal",
+    "Certificat de grossesse du 2nd examen prénatal",
+    "Bulletin de présence"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "13 j à 22 j",
+   "base_legale": [
+    "Arrêté 007-MTPS-DPS du 14 avril 1970",
+    "Articles 1, 8, 9, 10",
+    "Loi n° 67-LF du 12 juin 1967",
+    "Instituant un code de prestations familiales",
+    "Articles 13, 14"
+   ]
+  },
+  {
+   "procedure_id": "cnps_maternite",
+   "fiche": "97_51",
+   "libelle": "Indemnités journalières de congé de maternité",
+   "source_url": "https://yaounde.eregulations.org/procedure/97/51?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention du relevé d'identité bancaire",
+    "Obtention du formulaire de demande de prestations familiales (indemnités de congé de maternité)",
+    "Dépôt de la demande des indemnités journalières de congé de maternité",
+    "Identification du bénéficiaire des indemnités de congé de maternité",
+    "Obtention du chèque",
+    "ou : Obtention du paiement en espèces"
+   ],
+   "ou_aller": [
+    "Afriland First Bank",
+    "*",
+    "Centre de Prévoyance Sociale Mvog Mbi",
+    "o"
+   ],
+   "resultats": [
+    "Chèque"
+   ],
+   "documents": [
+    "Pièce d'Identité",
+    "*",
+    "Demande des indemnités journalières de congé de maternité",
+    "Bulletin de présence",
+    "Décision de mise en congé de maternité",
+    "Certificat de non reprise de service",
+    "Certificat de cessation de paiement du salaire",
+    "Bulletins de paie",
+    "Certificat de grossesse du 1er examen prénatal",
+    "Certificat de grossesse du 2nd examen prénatal",
+    "Certificat d'accouchement sous contrôle médical",
+    "Télédéclaration"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "10 j à 20 j",
+   "base_legale": [
+    "Arrêté 007-MTPS-DPS du 14 avril 1970",
+    "Articles 1, 26",
+    "Loi n° 67-LF du 12 juin 1967",
+    "Instituant un code de prestations familiales",
+    "Articles 25, 26"
+   ]
+  },
+  {
+   "procedure_id": "cnps_maternite",
+   "fiche": "98_52",
+   "libelle": "Allocations de maternité",
+   "source_url": "https://yaounde.eregulations.org/procedure/98/52?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de formulaires de copies d'acte de naissance",
+    "Obtention des copies certifiées d'acte de naissance de la mère salariée et du nouveau-né",
+    "Obtention du formulaire de demande de prestations familiales (allocation de maternité)",
+    "Dépôt du dossier d'obtention d'une allocation de maternité",
+    "Identification du bénéficiaire de l'allocation",
+    "Obtention du chèque de paiement de l'allocation de maternité",
+    "ou : Obtention du paiement en espèces de l'allocation de maternité"
+   ],
+   "ou_aller": [
+    "Comptoir d'un vendeur ambulant d'imprimés",
+    "Mairie de Yaoundé 1",
+    "Centre de Prévoyance Sociale Mvog Mbi",
+    "o"
+   ],
+   "resultats": [
+    "Chèque"
+   ],
+   "documents": [
+    "Formulaire - copie d'acte de naissance",
+    "Acte de naissance",
+    "Demande d'une allocation de maternité",
+    "Bulletin de présence",
+    "Certificat d'accouchement sous contrôle médical",
+    "Copie certifiée conforme d'acte de naissance",
+    "Pièce d'Identité"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "13 j à 27 j",
+   "base_legale": [
+    "Arrêté 007-MTPS-DPS du 14 avril 1970",
+    "Articles 1, 13",
+    "Loi n° 67-LF du 12 juin 1967",
+    "Instituant un code de prestations familiales",
+    "Articles 17, 19"
+   ]
+  },
+  {
+   "procedure_id": "cnps_risques_professionnels",
+   "fiche": "102_11",
+   "libelle": "Couverture des risques et maladies professionnels",
+   "source_url": "https://yaounde.eregulations.org/procedure/102/11?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention du relevé d'identité bancaire",
+    "Obtention du formulaire de déclaration d'accident de travail ou de maladie professionnelle",
+    "Dépôt du dossier d'obtention d'allocation d'incapacité ou de rente",
+    "Obtention de la convocation pour une contre visite médicale",
+    "Visite chez le médecin conseil de la CNPS",
+    "Identification du bénéficiaire",
+    "Obtention de la décision portant attribution d'allocation d'incapacité ou de rente aux assurés",
+    "Obtention du chèque d'allocation d'incapacité ou de rente aux assurés",
+    "ou : Obtention du paiement en espèces de l'allocation d'incapacité ou de la rente au assurés"
+   ],
+   "ou_aller": [
+    "Afriland First Bank",
+    "*",
+    "Centre de Prévoyance Sociale Mvog Mbi",
+    "o",
+    "Centre de Prévoyance Sociale du Centre"
+   ],
+   "resultats": [
+    "Décision portant attribution d'allocation d'incapacité ou de rente"
+   ],
+   "documents": [
+    "Pièce d'Identité",
+    "*",
+    "Déclaration d'accident de travail ou de maladie professionnelle",
+    "Bulletins de paie",
+    "Ordonnance médicale",
+    "Bulletin d'examen",
+    "Facture médicale",
+    "Certificat médical",
+    "Décision portant attribution d'allocation d'incapacité ou de rente"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "38 j à 54 j",
+   "base_legale": [
+    "Décret n° 78-480 du 8 novembre 1978",
+    "Articles 1, 2, 3, 4",
+    "Décret n° 78-546 du 28 décembre 1978",
+    "Article 2"
+   ]
+  },
+  {
+   "procedure_id": "cnps_pension_vieillesse",
+   "fiche": "100_54",
+   "libelle": "Pension vieillesse et invalidité",
+   "source_url": "https://yaounde.eregulations.org/procedure/100/54?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention du relevé d'identité bancaire",
+    "Achat de formulaires du certificat de vie et de non fonction",
+    "Obtention des certificats de vie et de non fonction",
+    "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+    "Obtention du formulaire de demande de pension vieillesse",
+    "Dépôt de la demande de pension au Centre de Prévoyance Sociale",
+    "Identification du bénéficiaire",
+    "Obtention de la décision d'attribution de la pension de vieillesse et d'invalidité",
+    "Obtention du chèque de paiement",
+    "ou : Obtention du paiement en espèces de la pension vieillesse"
+   ],
+   "ou_aller": [
+    "Afriland First Bank",
+    "*",
+    "Comptoir d'un vendeur ambulant d'imprimés",
+    "Mairie de Yaoundé 1",
+    "Commissariat de police du 1er arrondissement",
+    "Centre de Prévoyance Sociale Mvog Mbi",
+    "o"
+   ],
+   "resultats": [
+    "Décision portant attribution de pension de vieillesse et d'invalidité"
+   ],
+   "documents": [
+    "Pièce d'Identité",
+    "*",
+    "Formulaire du certificat de vie individuel",
+    "Formulaire du certificat de non fonction",
+    "Acte de naissance",
+    "Demande de copie certifiée de carte nationale d'identité",
+    "Demande de pension vieillesse",
+    "Etat de contrôle d'affiliation d'un assuré",
+    "Bulletins de paie",
+    "Certificat de travail",
+    "Certificat de non fonction",
+    "Certificat de vie individuel",
+    "Télédéclaration",
+    "Quittance de paiement des cotisations sociales",
+    "Copie certifiée conforme de la pièce d'identité",
+    "Décision portant attribution de pension de vieillesse et d'invalidité"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 200",
+    "100 XAF pour le formulaire du certificat de vie",
+    "100 XAF pour le formulaire du certificat de non fonction"
+   ],
+   "duree_totale": "23 j à 37 j",
+   "base_legale": [
+    "Décret 74-733 du 19 août 1974",
+    "Article 22"
+   ]
+  },
+  {
+   "procedure_id": "cnps_pension_survivant",
+   "fiche": "101_55",
+   "libelle": "Pension de survivant",
+   "source_url": "https://yaounde.eregulations.org/procedure/101/55?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention du relevé d'identité bancaire",
+    "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+    "Achat de formulaires",
+    "Obtention des certificats de vie, de non fonction et copies d'actes d'état civil",
+    "Obtention du certificat de scolarité des enfants scolarisés",
+    "Obtention du formulaire de demande de pension",
+    "Dépôt du dossier d'obtention de pension de survivant",
+    "Identification du bénéficiaire",
+    "Obtention de la décision d'attribution de pension de survivant",
+    "Retrait du chèque de paiement de la pension",
+    "ou : Obtention du paiement en espèces de la pension"
+   ],
+   "ou_aller": [
+    "Afriland First Bank",
+    "*",
+    "Commissariat de police du 1er arrondissement",
+    "Comptoir d'un vendeur ambulant d'imprimés",
+    "Mairie de Yaoundé 1",
+    "Etablissement scolaire",
+    "Centre de Prévoyance Sociale Mvog Mbi",
+    "o"
+   ],
+   "resultats": [
+    "Décision portant attribution de pension de survivant"
+   ],
+   "documents": [
+    "Pièce d'Identité",
+    "*",
+    "Demande de copie certifiée de carte nationale d'identité",
+    "Formulaire copie d'acte de décès",
+    "Acte de décès",
+    "Formulaire du certificat de vie individuel",
+    "Formulaire de copie d'acte de mariage",
+    "Formulaire du certificat de non remariage",
+    "Formulaire du certificat de non fonction",
+    "Acte de naissance",
+    "Formulaire - copie d'acte de naissance",
+    "Demande de pension de survivant",
+    "Copie d'acte de décès",
+    "Etat de contrôle d'affiliation d'un assuré",
+    "Copie certifiée conforme d'acte de mariage",
+    "Certificat de non remariage",
+    "Certificat de non fonction",
+    "Certificat de vie individuel",
+    "Copie certifiée conforme de la pièce d'identité",
+    "Copie certifiée conforme d'acte de naissance",
+    "Certificat de scolarité",
+    "Décision portant attribution de pension de survivant",
+    "Décision portant attribution de pension de survivant"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 600",
+    "100 XAF par formulaire",
+    "600 XAF pour les copies des actes d'état civil"
+   ],
+   "duree_totale": "23 j à 37 j",
+   "base_legale": [
+    "Arrêté 007-MTPS-DPS du 14 avril 1970",
+    "Article 16",
+    "Décret 74-733 du 19 août 1974",
+    "Articles 21, 22, 42, 47, 47-2",
+    "ordonnance n° 73-17 du 22 mai 1973",
+    "Articles 40, 41"
+   ]
+  },
+  {
+   "procedure_id": "impot_liberatoire",
+   "fiche": "20_13",
+   "libelle": "Impôt libératoire",
+   "source_url": "https://yaounde.eregulations.org/procedure/20/13?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat du timbre fiscal",
+    "Obtention des formulaires",
+    "Dépôt du dossier d'obtention de l'impôt libératoire",
+    "Obtention du visa du gestionnaire d'impôt",
+    "Obtention du bulletin d'émission de l'avis d'imposition",
+    "Paiement de l'impôt libératoire",
+    "Retrait de la fiche de suivi de l'impôt libératoire et de la quittance"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I"
+   ],
+   "resultats": [
+    "Quittance sécurisée - Impôt libératoire",
+    "Fiche de suivi de l'impôt libératoire"
+   ],
+   "documents": [
+    "Demande d'obtention de l'impôt libératoire",
+    "Carte de contribuable",
+    "Contrat de bail",
+    "Pièce d'Identité",
+    "Timbre fiscal",
+    "Déclaration de l'impôt libératoire",
+    "Déclaration signée par le gestionnaire du portefeuille",
+    "Bulletin d'émission de l'avis d'imposition",
+    "Quittance provisoire informatisée"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 1,000",
+    "1,000 XAF pour le timbre fiscal à apposer sur la demande d'établissement de l'impôt libératoire"
+   ],
+   "duree_totale": "1 j à 2 j",
+   "base_legale": [
+    "Circulaire N°01 /MINFI/DGI/LC/L du 30 janvier 2012",
+    "précisant les modalités d’application des dispositions fiscales de la loi n°2011/020 du 14 décembre 2011 portant loi de finances de la République du Cameroun pour l’exercice 2012",
+    "Articles C45, C46 (page 26)",
+    "Code Général des Impôts 2012",
+    "Articles 93 quater -1, C125, C46"
+   ]
+  },
+  {
+   "procedure_id": "impot_tva",
+   "fiche": "33_114",
+   "libelle": "Taxe sur la valeur ajoutée (TVA)",
+   "source_url": "https://yaounde.eregulations.org/procedure/33/114?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention des formulaires de déclaration",
+    "Obtention du visa du gestionnaire d'impôt",
+    "Obtention du bulletin d'émission de l'avis d'imposition",
+    "Paiement de la Taxe sur la Valeur Ajoutée (TVA)",
+    "Retrait de la quittance"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I",
+    "Centre Régional des Impôts du Centre I"
+   ],
+   "resultats": [
+    "Quittance sécurisée"
+   ],
+   "documents": [
+    "Titre de patente",
+    "Déclaration de la Taxe sur la Valeur Ajoutée (TVA)",
+    "Déclaration de la Taxe sur la Valeur Ajoutée (TVA)",
+    "Bulletin d'émission de l'avis d'imposition",
+    "Déclaration de la Taxe sur la Valeur Ajoutée (TVA)",
+    "Quittance informatisée"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "2 j à 7 j",
+   "base_legale": [
+    "Code Général des Impôts 2012",
+    "Articles 132, 142, 152, C53"
+   ]
+  },
+  {
+   "procedure_id": "impot_irpp",
+   "fiche": "31_116",
+   "libelle": "Impôt sur le revenu des personnes physiques (IRPP)",
+   "source_url": "https://yaounde.eregulations.org/procedure/31/116?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention des formulaires de déclaration",
+    "Obtention du visa du gestionnaire d'impôt",
+    "Obtention du bulletin d'émission de l'avis d'imposition",
+    "Paiement de l'IRPP",
+    "Retrait de la quittance"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I"
+   ],
+   "resultats": [
+    "Quittance sécurisée"
+   ],
+   "documents": [
+    "Titre de patente",
+    "Déclaration de l'IRPP",
+    "Déclaration de l'IRPP",
+    "Bulletin d'émission de l'avis d'imposition",
+    "Quittance provisoire informatisée"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "2 j à 7 j",
+   "base_legale": [
+    "Code Général des Impôts 2012",
+    "Articles 24, 69, 81, 87, 88, 91"
+   ]
+  },
+  {
+   "procedure_id": "impot_societes",
+   "fiche": "32_117",
+   "libelle": "Impôt sur les sociétés (IS)",
+   "source_url": "https://yaounde.eregulations.org/procedure/32/117?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention des formulaires de déclaration",
+    "Obtention du visa du gestionnaire d'impôt",
+    "Obtention du bulletin d'émission de l'avis d'imposition",
+    "Paiement de l'Impôt sur les Sociétés (IS)",
+    "Retrait de la quittance"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I"
+   ],
+   "resultats": [
+    "Quittance sécurisée"
+   ],
+   "documents": [
+    "Titre de Patente",
+    "Carte de contribuable - personne morale",
+    "Déclaration de l'Impôt sur les sociétés (IS)",
+    "Déclaration de l'Impôt sur les Sociétés (IS)",
+    "Bulletin d'émission de l'avis d'imposition",
+    "Déclaration de l'Impôt sur les Sociétés (IS)",
+    "Quittance provisoire informatisée"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "2 j à 7 j",
+   "base_legale": [
+    "Code Général des Impôts 2012",
+    "Articles 2, 17, 21 (Livre 1)"
+   ]
+  },
+  {
+   "procedure_id": "patente",
+   "fiche": "36_120",
+   "libelle": "La patente",
+   "source_url": "https://yaounde.eregulations.org/procedure/36/120?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention des formulaires de déclaration",
+    "Obtention du visa du gestionnaire d'impôt",
+    "Obtention du bulletin d'émission de l'avis d'imposition",
+    "Paiement des contributions des patentes",
+    "Retrait de la quittance et du titre de patente"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I"
+   ],
+   "resultats": [
+    "Quittance sécurisée - patente",
+    "Titre de patente"
+   ],
+   "documents": [
+    "Carte de contribuable",
+    "Déclaration des contributions des patentes et licences",
+    "Déclaration des contributions des patentes et licences",
+    "Déclaration des contributions des patentes et licences",
+    "Bulletin d'émission de l'avis d'imposition",
+    "Quittance provisoire informatisée"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "2 j à 7 j",
+   "base_legale": [
+    "Code Général des Impôts 2012",
+    "Articles C10, C12, C125 (2), C13, C18, C23, C24, C25, C8",
+    "Loi 2009/019 du 15 décembre 2009 portant fiscalité locale",
+    "Articles 7, 8, 23, 24"
+   ]
+  },
+  {
+   "procedure_id": "taxe_fonciere",
+   "fiche": "37_121",
+   "libelle": "Taxe sur la propriété foncière (TPF)",
+   "source_url": "https://yaounde.eregulations.org/procedure/37/121?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention des formulaires de déclaration",
+    "Déclaration de la taxe sur la propriété foncière",
+    "Obtention du bulletin d'émission de l'avis d'imposition",
+    "Paiement de la taxe sur la propriété foncière",
+    "Retrait de la quittance"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I"
+   ],
+   "resultats": [
+    "Quittance de la TPF"
+   ],
+   "documents": [
+    "Déclaration annuelle de la Taxe sur la Propriété Foncière",
+    "Titre de propriété",
+    "Déclaration annuelle de la Taxe sur la Propriété Foncière",
+    "Bulletin d'émission de la Taxe sur la Propriété Foncière",
+    "Quittance informatisée"
+   ],
+   "cout": [
+    "Procédure gratuite"
+   ],
+   "duree_totale": "1 j à 2 j",
+   "base_legale": [
+    "Code Général des Impôts 2012",
+    "Articles 579, 581, 582"
+   ]
+  },
+  {
+   "procedure_id": "permis_construire",
+   "fiche": "169_129",
+   "libelle": "Obtention du plan de masse et de situation",
+   "source_url": "https://yaounde.eregulations.org/procedure/169/129?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de timbres fiscaux et de timbres communaux",
+    "Achat de formulaires de demande de plans",
+    "Dépôt de la demande de plans de masse et de situation",
+    "Obtention de l'état de cession du cadastre",
+    "Paiement des frais cadastraux",
+    "Retrait des plans"
+   ],
+   "ou_aller": [
+    "Communauté Urbaine de Yaoundé",
+    "Comptoir d'un vendeur ambulant d'imprimés",
+    "Délégation départementale des domaines et des affaires foncières"
+   ],
+   "resultats": [
+    "Plan de masse et de situation"
+   ],
+   "documents": [
+    "Demande de plans de masse et de situation",
+    "Titre de propriété",
+    "Chemise du dossier technique",
+    "Etat de cession"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 41,900",
+    "1,000 XAF par timbre fiscal",
+    "2,000 XAF pour les demandes du certificat de propriété et du permis de construire.",
+    "1,000 XAF par timbre fiscal",
+    "11,000 XAF pour la demande et les 10 plans",
+    "200 XAF par timbre communal",
+    "400 XAF pour la demande du permis de construire",
+    "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+    "27,500 XAF pour l'obtention des plans"
+   ],
+   "duree_totale": "4 j à 9 j",
+   "base_legale": [
+    "Décret 2008-0739 du 23 avril 2008",
+    "Articles 5(1), 25",
+    "Décret n° 79-17 du 13 janvier 1979",
+    "Article 4",
+    "Loi des finances 91/003 du 30/06/1991",
+    "Article 14 nouveau - V b)"
+   ]
+  },
+  {
+   "procedure_id": "permis_construire",
+   "fiche": "170_130",
+   "libelle": "Obtention du certificat d'urbanisme et d'accessibilité",
+   "source_url": "https://yaounde.eregulations.org/procedure/170/130?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Demande des certificats d'urbanisme et d'accessibilité",
+    "Retrait des certificats d'urbanisme et d'accessibilité"
+   ],
+   "ou_aller": [
+    "Délégation départementale de l'habitat et du développement urbain du Mfoundi"
+   ],
+   "resultats": [
+    "Certificat d'urbanisme",
+    "Certificat d'accessibilité"
+   ],
+   "documents": [
+    "demande des certficats d'urbanisme et d'accessibilité",
+    "Titre de propriété",
+    "Plan de la parcelle",
+    "Certificat de propriété",
+    "Plan de lotissement ou de découpage"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 2,000"
+   ],
+   "duree_totale": "15 j à 15 j",
+   "base_legale": [
+    "Loi 2004-003 du 21 avril 2004",
+    "Article 101"
+   ]
+  },
+  {
+   "procedure_id": "permis_construire",
+   "fiche": "171_131",
+   "libelle": "Obtention du certificat de propriété",
+   "source_url": "https://yaounde.eregulations.org/procedure/171/131?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Demande du certificat de propriété",
+    "Retrait du certificat de propriété"
+   ],
+   "ou_aller": [
+    "Délégation départementale des domaines et des affaires foncières"
+   ],
+   "resultats": [
+    "Certificat de propriété"
+   ],
+   "documents": [
+    "Demande de certificat de propriété",
+    "Titre de propriété",
+    "Pièce d'Identité"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 3,000",
+    "3,000 XAF pour la redevance foncière"
+   ],
+   "duree_totale": "3 j à 5 j",
+   "base_legale": [
+    "Décret 2008-0739 du 23 avril 2008",
+    "Article 25-1",
+    "Loi des finances 91/003 du 30/06/1991",
+    "Chapter V"
+   ]
+  },
+  {
+   "procedure_id": "permis_construire",
+   "fiche": "172_132",
+   "libelle": "Dépôt du dossier et paiement des frais de permis de construire",
+   "source_url": "https://yaounde.eregulations.org/procedure/172/132?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Obtention du formulaire de demande du permis de construire",
+    "Obtention du titre d'émission des frais de salubrité",
+    "Obtention de la fiche de recette - frais de salubrité",
+    "Paiement des frais de salubrité",
+    "Obtention de la quittance des frais de salubrité",
+    "Dépôt du dossier d'obtention du permis de construire",
+    "Obtention du titre d'émission des frais de permis de construire",
+    "Obtention de la fiche de recette de la taxe du permis de construire",
+    "Paiement de la taxe du permis de construire",
+    "Obtention de la quittance de la taxe du permis de construire",
+    "Dépôt de la quittance de paiement de la taxe du permis de construire",
+    "Retrait du permis de construire"
+   ],
+   "ou_aller": [
+    "Communauté Urbaine de Yaoundé"
+   ],
+   "resultats": [
+    "Permis de construire"
+   ],
+   "documents": [
+    "Demande du permis de construire",
+    "Titre d'émission des frais de salubrité",
+    "Titre d'émission",
+    "Fiche de recette des frais de salubrité",
+    "Demande de permis de construire",
+    "Certificat d'urbanisme",
+    "Certificat d'accessibilité",
+    "Certificat de propriété",
+    "Plan de masse et de situation",
+    "Plan de construction",
+    "Devis descriptif",
+    "Devis estimatif",
+    "Quittance CUY",
+    "Timbre comunal",
+    "Décharge",
+    "Titre d'émission - permis de construire",
+    "Fiche de recette - permis de construire"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 1,000",
+    "1,000 XAF pour les frais de salubrité",
+    "1 % du coût estimatif de la construction"
+   ],
+   "duree_totale": "10 j à 22 j",
+   "base_legale": [
+    "Décret 2008-0739 du 23 avril 2008",
+    "Article 25",
+    "Loi 2004-003 du 21 avril 2004",
+    "régissant l'urbanisme au Cameroun",
+    "Articles 99, 101, 107, 108"
+   ]
+  },
+  {
+   "procedure_id": "permis_implanter",
+   "fiche": "108_79",
+   "libelle": "Permis d'implanter",
+   "source_url": "https://yaounde.eregulations.org/procedure/108/79?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de formulaires",
+    "Achat de timbres fiscaux et de timbres communaux",
+    "Signature du formulaire du certificat d'abandon de droits coutumiers par le chef de village",
+    "Obtention du certificat d'abandon de droits coutumiers à la Sous-Préfecture",
+    "Achat de formulaires de demande de plans",
+    "Dépôt de la demande de plans de masse et de situation",
+    "Obtention de l'état de cession du cadastre",
+    "Paiement des frais cadastraux",
+    "Retrait des plans",
+    "Obtention du formulaire de demande du permis d'implanter",
+    "Obtention du titre d'émission des frais de salubrité",
+    "Obtention de la fiche de recette des frais de salubrité",
+    "Paiement des frais de salubrité",
+    "Obtention de la quittance des frais de salubrité",
+    "Dépôt du dossier de permis d'implanter",
+    "Retrait du permis d'implanter"
+   ],
+   "ou_aller": [
+    "Comptoir d'un vendeur ambulant d'imprimés",
+    "Communauté Urbaine de Yaoundé",
+    "Chefferie de 3e degré",
+    "Sous-Préfecture de Yaoundé I",
+    "Délégation départementale des domaines et des affaires foncières"
+   ],
+   "resultats": [
+    "Permis d'implanter"
+   ],
+   "documents": [
+    "Formulaire du certificat d'abandon de droits coutumiers",
+    "Pièce d'Identité",
+    "Plan de la parcelle",
+    "Contrat de vente de la parcelle",
+    "Formulaire du certificat d'abandon de droits coutumiers signé par le chef de village",
+    "Demande de plans de masse et de situation",
+    "Certificat d'abandon de droits coutumiers",
+    "Chemise du dossier technique",
+    "Etat de cession",
+    "Demande du permis d'implanter",
+    "Titre d'émission des frais de salubrité",
+    "Fiche de recette des frais de salubrité",
+    "Certificat d'abandon de droits coutumiers",
+    "Certificat de vente",
+    "Plan de masse et de situation",
+    "Plan de construction",
+    "Devis descriptif",
+    "Devis estimatif",
+    "Quittance CUY",
+    "Timbre comunal",
+    "Décharge"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 16,500",
+    "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+    "100 XAF pour le formulaire du certificat d'abandon de droits coutumiers",
+    "1,000 XAF par timbre fiscal",
+    "11,000 XAF pour la demande et les 10 plans",
+    "1,000 XAF par timbre fiscal",
+    "2,000 XAF pour le certificat d'abandon de droits coutumiers et la demande du permis d'implanter.",
+    "200 XAF par timbre communal",
+    "400 XAF pour la demande du permis d'implanter",
+    "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+    "27,500 XAF par",
+    "0 XAF morcellement",
+    "1,000 XAF pour les frais de salubrité"
+   ],
+   "duree_totale": "11 j à 29 j",
+   "base_legale": [
+    "Décret 2008-0739 du 23 avril 2008",
+    "fixant les règles d'utilisation du sol et de la construction",
+    "Articles 14, 15, 16",
+    "Loi des finances 91/003 du 30/06/1991",
+    "Article 14"
+   ]
+  },
+  {
+   "procedure_id": "titre_foncier",
+   "fiche": "40_22",
+   "libelle": "Obtention de la propriété par voie de concession (domaine national)",
+   "source_url": "https://yaounde.eregulations.org/procedure/40/22?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de timbres fiscaux",
+    "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+    "Obtention de l'ordre de versement des frais d'ouverture de dossier",
+    "Paiement des frais d'ouverture du dossier",
+    "Dépôt de la demande de concession",
+    "Obtention de l'arrêté préfectoral de descente sur le terrain",
+    "Obtention de l'arrêté ministériel d'attribution de concession provisoire",
+    "Paiement de la redevance foncière",
+    "Dépôt de la demande de constat de mise en valeur du terrain",
+    "Obtention de la convocation du préfet pour le constat de mise en valeur de la parcelle",
+    "Obtention de l'arrêté ministériel d'attribution de concession définitive",
+    "Obtention de l'ordre de versement des redevances foncières",
+    "Paiement de la redevance foncière",
+    "Dépôt du dossier d'obtention du titre foncier",
+    "Retrait du titre foncier"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I",
+    "Commissariat de police du 1er arrondissement",
+    "Délégation départementale des domaines et des affaires foncières"
+   ],
+   "resultats": [
+    "Arrêté ministériel attribuant la concession provisoire",
+    "Titre foncier"
+   ],
+   "documents": [
+    "Demande de copie certifiée de carte nationale d'identité",
+    "Pièce d'Identité",
+    "Timbre fiscal",
+    "Demande d'attribution de terrain par voie de concession",
+    "Ordre de versement des frais d'ouverture de dossier",
+    "Croquis du terrain",
+    "Projet de mise en valeur de la parcelle",
+    "Copie certifiée conforme de la carte nationale d'identité",
+    "Arrêté ministériel attribuant la concession provisoire",
+    "Demande de constat de mise en valeur",
+    "Arrêté ministériel attribuant la concession définitive",
+    "Ordre de versement des redevances foncières",
+    "Plan de la parcelle",
+    "Quittance de paiement des redevances foncières"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 5,006",
+    "1,000 XAF par timbre fiscal",
+    "2,000 XAF pour la demande de concession et pour la demande d'obtention de la copie certifiée de la carte nationale d'identité.",
+    "3,000 XAF pour l'ouverture du dossier - personne physique",
+    "1 XAF par m2 - pour les parcelles situées en zone rurale.",
+    "5 XAF par m2 - pour les parcelles situées en zone urbaine.",
+    "1 % de la valeur vénale de l’immeuble calculé sur la base du prix des"
+   ],
+   "duree_totale": "29 j à 53 j",
+   "base_legale": [
+    "Décret 76-165 du 27 avril 1976",
+    "Articles 1, 3",
+    "Décret 76-166 du 27 avril 1976",
+    "Articles 4, 5, 6, 7, 8, 9, 10, 14, 15",
+    "Loi des finances 91/003 du 30/06/1991",
+    "tarif des opérations foncières",
+    "Chapter V , Articles 14 nouveau (III), 14 nouveau (VI), VI(2)"
+   ]
+  },
+  {
+   "procedure_id": "titre_foncier",
+   "fiche": "44_23",
+   "libelle": "Obtention de la propriété par vente de gré à gré (domaine privé de l'État)",
+   "source_url": "https://yaounde.eregulations.org/procedure/44/23?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat des timbres fiscaux",
+    "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+    "Obtention de l'ordre de versement des frais d'ouverture de dossier",
+    "Paiement des frais d'ouverture du dossier",
+    "Dépôt de la demande de vente de gré à gré",
+    "Obtention de l'arrêté préfectoral de descente sur le terrain",
+    "Obtention de la décision ministérielle autorisant la vente d'un terrain domanial",
+    "Obtention de l'ordre de versement des redevances foncières",
+    "Paiement des redevances foncières",
+    "Dépôt du dossier d'obtention du titre foncier",
+    "Retrait du titre foncier"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I",
+    "Commissariat de police du 1er arrondissement",
+    "Délégation départementale des domaines et des affaires foncières"
+   ],
+   "resultats": [
+    "Titre foncier"
+   ],
+   "documents": [
+    "Demande de copie certifiée de carte nationale d'identité",
+    "Pièce d'Identité",
+    "Timbre fiscal",
+    "Demande d'attribution d'un terrain domanial par vente de gré à gré",
+    "Ordre de versement des frais d'ouverture de dossier",
+    "Plan de la parcelle",
+    "Quittance de versement des frais d'ouverture du dossier",
+    "Copie certifiée conforme de la pièce d'identité",
+    "Statuts de la société",
+    "Procuration du mandataire",
+    "Décharge",
+    "Autorisation de mise en vente d'un terrain domanial",
+    "Ordre de versement des redevances foncières",
+    "Quittance de paiement des redevances foncières"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 6,000",
+    "1,000 XAF par timbre fiscal",
+    "2,000 XAF pour la demande de vente de la parcelle et pour la demande d'obtention de la copie certifiée de la carte nationale d'identité",
+    "3,000 XAF pour l'ouverture du dossier - personne physique",
+    "1,000 XAF par timbre fiscal",
+    "1,000 XAF 1",
+    "2 % du prix d'achat de la parcelle - pour l'inscription dans le livre foncier"
+   ],
+   "duree_totale": "10 j à 23 j",
+   "base_legale": [
+    "Décret 76-165 du 27 avril 1976",
+    "Article 3",
+    "Décret n°76-167 du 27 avril 1976",
+    "Articles 1, 8, 10, 31, 32",
+    "Loi des finances 91/003 du 30/06/1991",
+    "Articles 14 nouveau (III), 14 nouveau"
+   ]
+  },
+  {
+   "procedure_id": "titre_foncier",
+   "fiche": "46_26",
+   "libelle": "Obtention du titre foncier suite à une mutation",
+   "source_url": "https://yaounde.eregulations.org/procedure/46/26?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de timbres fiscaux",
+    "Achat de formulaires du dossier technique",
+    "Dépôt de la demande d'obtention du dossier technique de mutation",
+    "Obtention de l'état de cession du cadastre",
+    "Paiement des frais cadastraux",
+    "Retrait du dossier technique",
+    "Demande d'obtention du certificat d'urbanisme",
+    "Retrait du certificat d'urbanisme",
+    "Signature de l'acte de vente chez le notaire",
+    "Obtention du récipissé de dépôt de la demande de mutation du titre foncier",
+    "Retrait du titre foncier mère portant mention de mutation"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I",
+    "Comptoir d'un vendeur ambulant d'imprimés",
+    "Délégation départementale des domaines et des affaires foncières",
+    "Délégation départementale de l'habitat et du développement urbain du Mfoundi",
+    "Notaire"
+   ],
+   "resultats": [
+    "Certificat d'urbanisme",
+    "Titre foncier mère portant la mention de mutation"
+   ],
+   "documents": [
+    "Demande de mutation",
+    "Titre de propriété",
+    "Certificat de propriété",
+    "Chemise du dossier technique",
+    "Pièce d'Identité",
+    "Etat de cession",
+    "demande du certificat d'urbanisme",
+    "Plan de la parcelle",
+    "Plan de lotissement ou de découpage",
+    "Timbre fiscal",
+    "Tire foncier",
+    "Taxe sur la propriété foncière",
+    "Carte de contribuable",
+    "Plan de la parcelle visé et signé",
+    "Certificat d'urbanisme",
+    "Décharge de dépôt du dossier"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 38,500",
+    "9,000 XAF pour les timbres fiscaux qui seront apposés sur les demandes de plans, de certificats d'urbanisme et sur les documents signés.",
+    "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+    "27,500 XAF pour l'obtention des plans",
+    "1,000 XAF pour le timbre fiscal",
+    "4 % pour les émoluments du notaire - si la parcelle coûte entre 1 et 3 millions de francs CFA",
+    "5 % de la valeur de l'immeuble - pour les droits d'enregistrement aux impôts"
+   ],
+   "duree_totale": "26 j à 44 j",
+   "base_legale": [
+    "Décret N° 95/038 du 24 Février 1995",
+    "fixant le tarif des actes notariés",
+    "Article 188",
+    "Code Général des Impôts 2011",
+    "Articles 302, 305",
+    "Décret 2008-0739 du 23 avril 2008",
+    "Articles 4, 5",
+    "Décret 76-165 du 27 avril 1976",
+    "Articles 22, 23, 24, 26, 35-5, 38-2",
+    "Décret n° 79-17 du 13 janvier 1979",
+    "Articles 3, 4, 5, 8",
+    "Loi 2004-003 du 21 avril 2004",
+    "Article 101",
+    "Loi des finances 91/003 du 30/06/1991",
+    "Article 14 nouveau - V",
+    "Loi des finances 91/003 du 30/06/1991",
+    "tarif des opérations foncières au Cameroun",
+    "Article 14",
+    "Ordonnance 74-1 du 06 juillet 1974",
+    "fixant le régime foncier au Cameroun",
+    "Article 8"
+   ]
+  },
+  {
+   "procedure_id": "titre_foncier",
+   "fiche": "47_25",
+   "libelle": "Obtention du titre foncier suite à un morcellement",
+   "source_url": "https://yaounde.eregulations.org/procedure/47/25?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de timbres fiscaux",
+    "Achat de formulaires",
+    "Dépôt de la demande du dossier technique",
+    "Obtention de l'état de cession du cadastre",
+    "Paiement des frais cadastraux",
+    "Retrait du dossier technique",
+    "Demande des certificats d'urbanisme et d'accessibilité",
+    "Retrait des certificats d'urbanisme et d'accessibilité",
+    "Demande du certificat de propriété",
+    "Retrait du certificat de propriété",
+    "Signature de l'acte de vente chez le notaire",
+    "Obtention du récipissé de dépôt de la demande du titre foncier",
+    "Retrait du titre foncier"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I",
+    "Vendeur ambulant d'imprimés",
+    "Délégation départementale des domaines et des affaires foncières",
+    "Délégation départementale de l'habitat et du développement urbain du Mfoundi",
+    "Notaire"
+   ],
+   "resultats": [
+    "Titre foncier"
+   ],
+   "documents": [
+    "Demande de morcellement",
+    "Titre de propriété",
+    "Certificat de propriété",
+    "Plan de lotissement ou de découpage",
+    "Formulaire de procès verbal de bornage",
+    "Chemise du dossier technique",
+    "Pièce d'Identité",
+    "Etat de cession",
+    "Quittance de frais cadastraux",
+    "demande des certficats d'urbanisme et d'accessibilité",
+    "Plan de la parcelle",
+    "Demande de certificat de propriété",
+    "Titre foncier",
+    "Taxe sur la propriété foncière",
+    "Certificat de propriété",
+    "Carte de contribuable",
+    "Plan de la parcelle visé et signé",
+    "Procès verbal de bornage",
+    "Certificat d'urbanisme",
+    "Certificat d'accessibilité",
+    "Décharge de dépôt du dossier"
+   ],
+   "cout": [
+    "Le coût total de la procédure est estimé à CFA 47,500",
+    "14,000 XAF pour les timbres fiscaux qui seront apposés sur les demandes, les certificats d'urbanisme, d'accessibilité et les plans visés",
+    "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+    "27,500 XAF pour les frais de morcellement",
+    "3,000 XAF pour la redevance foncière - personne physique",
+    "2,000 XAF pour les timbres fiscaux qui seront apposés sur la demande et sur le certificat de propriété",
+    "2 % du prix d'achat de la parcelle - pour le titre foncier",
+    "5 % du prix de la parcelle - pour les droits d'enregistrement",
+    "4 % pour les émoluments du notaire - si la parcelle coûte entre 1 et 3 millions de francs CFA"
+   ],
+   "duree_totale": "30 j à 49 j",
+   "base_legale": [
+    "Décret N° 95/038 du 24 Février 1995",
+    "fixant le tarif des actes notariés",
+    "Article 188",
+    "Code Général des Impôts 2011",
+    "Articles 302, 305",
+    "Décret 76-165 du 27 avril 1976",
+    "Articles 23, 27, 35-5, 38-2",
+    "Décret n° 79-17 du 13 janvier 1979",
+    "Articles 4, 5, 8",
+    "Loi 2004-003 du 21 avril 2004",
+    "Article 101",
+    "Loi des finances 91/003 du 30/06/1991",
+    "Chapters III, V",
+    "Loi des finances 91/003 du 30/06/1991",
+    "tarif des opérations foncières au Cameroun",
+    "Chapters I, V",
+    "Ordonnance 74-1 du 06 juillet 1974",
+    "fixant le régime foncier au Cameroun",
+    "Article 8"
+   ]
+  },
+  {
+   "procedure_id": "fichier_importateurs",
+   "fiche": "135_89",
+   "libelle": "Inscription au fichier des importateurs",
+   "source_url": "https://yaounde.eregulations.org/procedure/135/89?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de timbres fiscaux",
+    "Obtention des copies certifiées de la patente et de la carte de contribuable",
+    "Demande d'une copie certifiée conforme du registre de commerce",
+    "Retrait de la copie certifiée conforme du registre de commerce",
+    "Obtention du formulaire d'inscription",
+    "Paiement des frais d'inscription et de la cotisation annuelle",
+    "Dépôt du dossier d'inscription",
+    "Retrait de l'attestation d'inscription au fichier des importateurs"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I",
+    "Centre des Formalités de Création des Entreprises (CFCE)",
+    "Ministère du Commerce"
+   ],
+   "resultats": [
+    "Attestation d'inscription au fichier des importateurs"
+   ],
+   "documents": [
+    "Titre de patente",
+    "Carte de contribuable - personne morale",
+    "Photocopie du registre de commerce",
+    "Fiche d'inscription au fichier des importateurs",
+    "Demande d'inscription au fichier des importateurs",
+    "Copie certifiée conforme du titre de patente",
+    "Copie certifiée conforme de la carte de contribuable",
+    "Copie certifiée conforme du registre de commerce",
+    "Quittance des frais d'inscription",
+    "Quittance de la cotisation annuelle",
+    "Décharge de la demande d'inscription"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 31,000",
+    "4,000 XAF de timbres fiscaux pour la demande d'inscription au fichier des importateurs et l'obtention des copies certifiées de la patente, de la carte de contribuable et du registre de commerce.",
+    "2,000 XAF pour les frais de greffe",
+    "15,000 XAF pour les frais d'inscription au fichier des importateurs",
+    "10,000 XAF pour la cotisation annuelle à l'importation"
+   ],
+   "duree_totale": "2 j à 3 j",
+   "base_legale": [
+    "Communiqué radio-presse 0000006 Ministère du Commerce"
+   ]
+  },
+  {
+   "procedure_id": "fichier_exportateurs",
+   "fiche": "130_91",
+   "libelle": "Inscription au fichier des exportateurs",
+   "source_url": "https://yaounde.eregulations.org/procedure/130/91?l=fr",
+   "en_revision": false,
+   "etapes": [
+    "Achat de timbres fiscaux",
+    "Obtention des copies certifiées de la patente et de la carte de contribuable",
+    "Demande d'une copie certifiée conforme du registre de commerce",
+    "Retrait de la copie certifiée conforme du registre de commerce",
+    "Obtention du formulaire d'inscription",
+    "Paiement des frais d'inscription et de la cotisation annuelle",
+    "Dépôt du dossier d'inscription",
+    "Retrait de l'attestation d'inscription"
+   ],
+   "ou_aller": [
+    "Centre Divisionnaire des Impôts - Yaoundé I",
+    "Centre des Formalités de Création des Entreprises (CFCE)",
+    "Ministère du Commerce"
+   ],
+   "resultats": [
+    "Attestation d'inscription au fichier des exportateurs"
+   ],
+   "documents": [
+    "Titre de patente",
+    "Carte de contribuable - personne morale",
+    "Registre de Commerce et du Crédit Mobilier (RCCM)",
+    "Fiche d'inscription au fichier des exportateurs",
+    "Demande d'inscription au fichier des exportateurs",
+    "Fiche d’inscription au fichier des exportateurs",
+    "Copie certifiée conforme du titre de patente",
+    "Copie certifiée conforme de la carte de contribuable",
+    "Copie certifiée conforme du registre de commerce",
+    "Quittance des frais d'inscription",
+    "Quittance de la cotisation annuelle",
+    "Déclaration sur l'honneur - exportations",
+    "Certificat de conformité des équipements",
+    "Décharge de la demande d'inscription"
+   ],
+   "cout": [
+    "Coût de la procédure CFA 31,000",
+    "4,000 XAF de timbres fiscaux pour la demande d'inscription au fichier des exportateurs et l'obtention des copies certifiées de la patente, de la carte de contribuable et du registre de commerce.",
+    "2,000 XAF pour les frais de greffe",
+    "15,000 XAF pour les frais d'inscription",
+    "10,000 XAF pour la cotisation annuelle"
+   ],
+   "duree_totale": "2 j à 3 j",
+   "base_legale": [
+    "Communiqué radio-presse 0000006 Ministère du Commerce"
+   ]
+  }
+ ]
+}

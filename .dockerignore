@@ -1,0 +1,13 @@
+.git
+.claude
+private
+demo
+docs
+scripts
+frontend
+chroma_db
+logs
+workspace-*.zip
+**/__pycache__
+**/tests
+**/.pytest_cache

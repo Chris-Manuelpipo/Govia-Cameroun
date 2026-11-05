@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 1700" font-family="'Source Serif 4', 'Georgia', serif">
+  <defs>
+    <linearGradient id="bgC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f8fafc"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14598c"/><stop offset="1" stop-color="#0b3d66"/></linearGradient>
+    <linearGradient id="accent2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient>
+    <linearGradient id="logoBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14598c"/><stop offset="1" stop-color="#0b3d66"/></linearGradient>
+    <filter id="shC" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.1"/></filter>
+    <filter id="shL" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity="0.18"/></filter>
+  </defs>
+
+  <rect width="1240" height="1700" fill="url(#bgC)"/>
+
+  <!-- EN-TÊTE -->
+  <rect x="0" y="0" width="1240" height="80" fill="#0b3d66"/>
+  <text x="620" y="48" text-anchor="middle" font-size="22" font-weight="bold" fill="#ffffff">GOVIA Cameroun — Charte Graphique</text>
+  <text x="620" y="68" text-anchor="middle" font-size="12" fill="#93c5fd" font-family="Inter, sans-serif">Design System · Gouvernement moderne · Neutral + accent · Serif confiance</text>
+
+  <!-- ===== LOGO ===== -->
+  <text x="60" y="130" font-size="16" font-weight="bold" fill="#0b3d66">01 · Logo</text>
+  <line x1="60" y1="142" x2="1180" y2="142" stroke="#e2e8f0"/>
+
+  <!-- Logo principal -->
+  <g filter="url(#shL)">
+    <rect x="100" y="160" width="90" height="90" rx="20" fill="url(#logoBg)"/>
+    <!-- symbole : shield + spark -->
+    <path d="M130 185 L130 225 L145 238 L160 225 L160 185 Z" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <path d="M140 195 L140 218 L150 226" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="155" cy="195" r="3" fill="#fbbf24"/>
+  </g>
+  <text x="210" y="218" font-size="38" font-weight="bold" fill="#0b3d66" letter-spacing="-1">GOVIA</text>
+  <text x="210" y="244" font-size="13" fill="#64748b" font-family="Inter, sans-serif" letter-spacing="3">CAMEROUN</text>
+
+  <text x="420" y="200" font-size="11" fill="#94a3b8" font-family="Inter, sans-serif">Variante fond clair</text>
+
+  <!-- Logo fond clair -->
+  <g filter="url(#shC)">
+    <rect x="420" y="160" width="90" height="90" rx="20" fill="url(#logoBg)"/>
+    <path d="M450 185 L450 225 L465 238 L480 225 L480 185 Z" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <path d="M460 195 L460 218 L470 226" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="475" cy="195" r="3" fill="#fbbf24"/>
+  </g>
+  <text x="530" y="218" font-size="38" font-weight="bold" fill="#0b3d66" letter-spacing="-1">GOVIA</text>
+
+  <!-- Logo fond foncé -->
+  <g filter="url(#shC)">
+    <rect x="740" y="160" width="90" height="90" rx="20" fill="#1e293b"/>
+    <path d="M770 185 L770 225 L785 238 L800 225 L800 185 Z" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <path d="M780 195 L780 218 L790 226" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="795" cy="195" r="3" fill="#fbbf24"/>
+  </g>
+  <text x="850" y="218" font-size="38" font-weight="bold" fill="#ffffff" letter-spacing="-1">GOVIA</text>
+  <text x="850" y="244" font-size="13" fill="#94a3b8" font-family="Inter, sans-serif" letter-spacing="3">CAMEROUN</text>
+
+  <!-- Logo icône seule (avatar) -->
+  <text x="420" y="290" font-size="11" fill="#94a3b8" font-family="Inter, sans-serif">Variante icône (favicon/avatar)</text>
+  <rect x="420" y="300" width="56" height="56" rx="12" fill="url(#logoBg)"/>
+  <path d="M436 316 L436 344 L445 352 L454 344 L454 316 Z" fill="none" stroke="#ffffff" stroke-width="2.5"/>
+  <path d="M441 324 L441 339 L448 345" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- signification -->
+  <text x="60" y="338" font-size="10" fill="#64748b" font-family="Inter, sans-serif">Le bouclier = sécurité &amp; conformité · La coche = validation citoyenne · L'étincelle (ambre) = intelligence / IA</text>
+
+  <!-- ===== PALETTE ===== -->
+  <text x="60" y="390" font-size="16" font-weight="bold" fill="#0b3d66">02 · Palette de couleurs</text>
+  <line x1="60" y1="402" x2="1180" y2="402" stroke="#e2e8f0"/>
+  <text x="60" y="428" font-size="11" fill="#94a3b8" font-family="Inter, sans-serif">Neutral (base) + Accent (bleu profond) + États fonctionnels</text>
+
+  <!-- Neutrals -->
+  <text x="60" y="458" font-size="10" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">NEUTRAL</text>
+  <rect x="60" y="468" width="120" height="70" rx="6" fill="#0f172a"/><text x="120" y="522" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#0F172A</text>
+  <rect x="190" y="468" width="120" height="70" rx="6" fill="#334155"/><text x="250" y="522" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#334155</text>
+  <rect x="320" y="468" width="120" height="70" rx="6" fill="#64748b"/><text x="380" y="522" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#64748B</text>
+  <rect x="450" y="468" width="120" height="70" rx="6" fill="#94a3b8"/><text x="510" y="522" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#94A3B8</text>
+  <rect x="580" y="468" width="120" height="70" rx="6" fill="#cbd5e1"/><text x="640" y="522" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter, sans-serif">#CBD5E1</text>
+  <rect x="710" y="468" width="120" height="70" rx="6" fill="#e2e8f0"/><text x="770" y="522" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter, sans-serif">#E2E8F0</text>
+  <rect x="840" y="468" width="120" height="70" rx="6" fill="#f1f5f9"/><text x="900" y="522" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter, sans-serif">#F1F5F9</text>
+  <rect x="970" y="468" width="120" height="70" rx="6" fill="#f8fafc"/><text x="1030" y="522" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter, sans-serif">#F8FAFC</text>
+  <rect x="1100" y="468" width="80" height="70" rx="6" fill="#ffffff" stroke="#e2e8f0"/><text x="1140" y="522" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter, sans-serif">#FFFFFF</text>
+
+  <!-- Accent -->
+  <text x="60" y="578" font-size="10" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">ACCENT (bleu — confiance, institution)</text>
+  <rect x="60" y="588" width="120" height="60" rx="6" fill="#0b3d66"/><text x="120" y="618" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#0B3D66</text>
+  <text x="60" y="638" font-size="8" fill="#94a3b8" font-family="Inter, sans-serif">principal</text>
+  <rect x="220" y="588" width="120" height="60" rx="6" fill="#14598c"/><text x="280" y="618" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#14598C</text>
+  <text x="220" y="638" font-size="8" fill="#94a3b8" font-family="Inter, sans-serif">secondaire</text>
+  <rect x="380" y="588" width="120" height="60" rx="6" fill="#3b82f6"/><text x="440" y="618" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#3B82F6</text>
+  <text x="380" y="638" font-size="8" fill="#94a3b8" font-family="Inter, sans-serif">interactif</text>
+  <rect x="540" y="588" width="120" height="60" rx="6" fill="#dbeafe"/><text x="600" y="618" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter, sans-serif">#DBEAFE</text>
+  <text x="540" y="638" font-size="8" fill="#94a3b8" font-family="Inter, sans-serif">fond accent</text>
+
+  <!-- États fonctionnels -->
+  <text x="60" y="678" font-size="10" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">ÉTATS FONCTIONNELS</text>
+  <rect x="60" y="688" width="120" height="56" rx="6" fill="#16a34a"/><text x="120" y="716" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#16A34A</text>
+  <text x="60" y="734" font-size="8" fill="#94a3b8" font-family="Inter, sans-serif">succès/conforme</text>
+  <rect x="220" y="688" width="120" height="56" rx="6" fill="#d97706"/><text x="280" y="716" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#D97706</text>
+  <text x="220" y="734" font-size="8" fill="#94a3b8" font-family="Inter, sans-serif">avertissement/partiel</text>
+  <rect x="380" y="688" width="120" height="56" rx="6" fill="#dc2626"/><text x="440" y="716" text-anchor="middle" font-size="9" fill="#ffffff" font-family="Inter, sans-serif">#DC2626</text>
+  <text x="380" y="734" font-size="8" fill="#94a3b8" font-family="Inter, sans-serif">danger/non conforme</text>
+  <rect x="540" y="688" width="120" height="56" rx="6" fill="#fbbf24"/><text x="600" y="716" text-anchor="middle" font-size="9" fill="#64748b" font-family="Inter, sans-serif">#FBBF24</text>
+  <text x="540" y="734" font-size="8" fill="#94a3b8" font-family="Inter, sans-serif">citation/référence</text>
+
+  <!-- ===== TYPOGRAPHIE ===== -->
+  <text x="60" y="788" font-size="16" font-weight="bold" fill="#0b3d66">03 · Typographie</text>
+  <line x1="60" y1="800" x2="1180" y2="800" stroke="#e2e8f0"/>
+  <text x="60" y="828" font-size="11" fill="#94a3b8" font-family="Inter, sans-serif">Serif pour la confiance (titres) · Sans-serif pour la lisibilité (corps)</text>
+
+  <text x="60" y="868" font-size="10" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">SERIF — Source Serif 4 / Fraunces (titres, headings)</text>
+  <text x="60" y="905" font-size="36" font-weight="bold" fill="#0b3d66">GOVIA Cameroun</text>
+  <text x="60" y="940" font-size="22" fill="#1e293b">Assistance administrative intelligente</text>
+  <text x="60" y="968" font-size="14" fill="#64748b">Source Serif 4 · SemiBold · 36/22/14</text>
+
+  <text x="620" y="868" font-size="10" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">SANS-SERIF — Inter (corps, UI, data)</text>
+  <text x="620" y="905" font-size="30" font-weight="bold" fill="#0b3d66" font-family="Inter, sans-serif">Inter SemiBold · Titre H1</text>
+  <text x="620" y="935" font-size="18" fill="#1e293b" font-family="Inter, sans-serif">Inter Regular · Sous-titre H2</text>
+  <text x="620" y="960" font-size="14" fill="#64748b" font-family="Inter, sans-serif">Inter Regular · Corps de texte</text>
+  <text x="620" y="984" font-size="12" fill="#94a3b8" font-family="Inter, sans-serif">Inter Medium · Bouton / label</text>
+  <text x="620" y="1006" font-size="11" fill="#cbd5e1" font-family="Inter, sans-serif">Inter Regular · Petit texte / métadonnées</text>
+
+  <!-- ===== COMPOSANTS ===== -->
+  <text x="60" y="1058" font-size="16" font-weight="bold" fill="#0b3d66">04 · Composants</text>
+  <line x1="60" y1="1070" x2="1180" y2="1070" stroke="#e2e8f0"/>
+
+  <!-- Boutons -->
+  <text x="60" y="1105" font-size="11" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">BOUTONS</text>
+  <rect x="60" y="1118" width="110" height="38" rx="8" fill="url(#accent)"/>
+  <text x="115" y="1143" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff" font-family="Inter, sans-serif">Principal</text>
+  <rect x="190" y="1118" width="110" height="38" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="245" y="1143" text-anchor="middle" font-size="13" font-weight="bold" fill="#0b3d66" font-family="Inter, sans-serif">Secondaire</text>
+  <rect x="320" y="1118" width="110" height="38" rx="8" fill="#f1f5f9"/>
+  <text x="375" y="1143" text-anchor="middle" font-size="13" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">Tertiaire</text>
+  <rect x="450" y="1118" width="110" height="38" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="505" y="1143" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d" font-family="Inter, sans-serif">Conforme</text>
+  <rect x="580" y="1118" width="110" height="38" rx="8" fill="#fef3c7" stroke="#d97706"/>
+  <text x="635" y="1143" text-anchor="middle" font-size="13" font-weight="bold" fill="#b45309" font-family="Inter, sans-serif">Partiel</text>
+  <rect x="710" y="1118" width="110" height="38" rx="8" fill="#fee2e2" stroke="#dc2626"/>
+  <text x="765" y="1143" text-anchor="middle" font-size="13" font-weight="bold" fill="#b91c1c" font-family="Inter, sans-serif">Non conforme</text>
+
+  <!-- Champs -->
+  <text x="60" y="1195" font-size="11" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">CHAMPS DE FORMULAIRE</text>
+  <rect x="60" y="1208" width="320" height="40" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="76" y="1233" font-size="13" fill="#94a3b8" font-family="Inter, sans-serif">Nom complet</text>
+  <rect x="400" y="1208" width="320" height="40" rx="8" fill="#ffffff" stroke="#3b82f6"/>
+  <text x="416" y="1233" font-size="13" fill="#3b82f6" font-family="Inter, sans-serif">Rechercher une démarche...</text>
+
+  <!-- Badges -->
+  <text x="60" y="1285" font-size="11" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">BADGES &amp; AUDIT</text>
+  <rect x="60" y="1298" width="90" height="26" rx="13" fill="#dcfce7"/><text x="105" y="1316" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d" font-family="Inter, sans-serif">Conforme</text>
+  <rect x="170" y="1298" width="90" height="26" rx="13" fill="#fef3c7"/><text x="215" y="1316" text-anchor="middle" font-size="11" font-weight="bold" fill="#b45309" font-family="Inter, sans-serif">Partiel</text>
+  <rect x="280" y="1298" width="90" height="26" rx="13" fill="#fee2e2"/><text x="325" y="1316" text-anchor="middle" font-size="11" font-weight="bold" fill="#b91c1c" font-family="Inter, sans-serif">Non conforme</text>
+  <rect x="390" y="1298" width="110" height="26" rx="13" fill="#dbeafe"/><text x="445" y="1316" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af" font-family="Inter, sans-serif">CNI · Passeport</text>
+  <rect x="520" y="1298" width="90" height="26" rx="13" fill="#f1f5f9"/><text x="565" y="1316" text-anchor="middle" font-size="11" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">FR / EN</text>
+
+  <!-- Citation -->
+  <text x="60" y="1375" font-size="11" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">CITANTION (texte officiel)</text>
+  <rect x="60" y="1388" width="520" height="56" rx="6" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+  <rect x="60" y="1388" width="4" height="56" fill="#fbbf24"/>
+  <text x="76" y="1412" font-size="12" font-weight="bold" fill="#b45309" font-family="Inter, sans-serif">Article 11 — Décret n° 2016/375 (CNI)</text>
+  <text x="76" y="1432" font-size="11" fill="#92400e" font-family="Inter, sans-serif">Pièces exigibles pour le renouvellement...</text>
+  <text x="76" y="1448" font-size="10" fill="#b45309" font-family="Inter, sans-serif">Source : prc.cm · ✅</text>
+
+  <!-- Cards -->
+  <text x="60" y="1500" font-size="11" font-weight="bold" fill="#64748b" font-family="Inter, sans-serif">CARTE (procédure)</text>
+  <rect x="60" y="1513" width="250" height="70" rx="8" fill="#ffffff" stroke="#e2e8f0" filter="url(#shC)"/>
+  <rect x="76" y="1529" width="32" height="32" rx="8" fill="#dbeafe"/>
+  <text x="92" y="1551" text-anchor="middle" font-size="16" fill="#1e40af">📋</text>
+  <text x="118" y="1539" font-size="13" font-weight="bold" fill="#1e293b" font-family="Inter, sans-serif">CNI</text>
+  <text x="118" y="1558" font-size="11" fill="#64748b" font-family="Inter, sans-serif">4 étapes · 10 000 FCFA</text>
+  <text x="118" y="1574" font-size="10" fill="#16a34a" font-family="Inter, sans-serif">Décret 2016/375 · IDCAM</text>
+
+  <!-- ===== GRILLE / SPACING ===== -->
+  <text x="60" y="1625" font-size="16" font-weight="bold" fill="#0b3d66">05 · Grille &amp; Espacement</text>
+  <line x1="60" y1="1637" x2="1180" y2="1637" stroke="#e2e8f0"/>
+  <text x="60" y="1665" font-size="11" fill="#94a3b8" font-family="Inter, sans-serif">Grille 8 colonnes · Gouttière 24px · Marge 64px · Radius 8-12px · Espacement 4-8-12-16-24-32-48-64</text>
+
+  <rect x="60" y="1680" width="1120" height="20" rx="4" fill="#dbeafe"/>
+  <rect x="60" y="1700" width="680" height="20" rx="4" fill="#bfdbfe"/>
+  <rect x="60" y="1720" width="420" height="20" rx="4" fill="#93c5fd"/>
+  <rect x="60" y="1740" width="200" height="20" rx="4" fill="#60a5fa"/>
+  <text x="60" y="1782" font-size="10" fill="#94a3b8" font-family="Inter, sans-serif">Taille : 8 · 12 · 16 · 24 · 32 · 48 · 64 · 96</text>
+
+  <text x="1180" y="1782" text-anchor="end" font-size="10" fill="#94a3b8" font-family="Inter, sans-serif">GOVIA Cameroun · Charte v1.0 · 26 oct. 2026</text>
+</svg>

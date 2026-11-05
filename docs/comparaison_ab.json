@@ -1,0 +1,286 @@
+[
+  {
+    "scenario": "Demande ambiguë (scénario de l'étude)",
+    "question": "Je veux renouveler ma carte",
+    "question_transmise_au_modele_b": "Je veux renouveler ma carte",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "clarification",
+      "demarche": null,
+      "cas": null,
+      "mode_generation": "regles",
+      "citations": [],
+      "options": [
+        "Carte nationale d'identité (CNI)",
+        "Carte grise (immatriculation d'un véhicule)",
+        "Carte de séjour"
+      ],
+      "verdict": "conforme",
+      "decision": "publier",
+      "reponse": "Plusieurs démarches correspondent à votre demande. Laquelle vous concerne ?"
+    }
+  },
+  {
+    "scenario": "Cas particulier : perte",
+    "question": "Je veux renouveler ma CNI, je l'ai perdue",
+    "question_transmise_au_modele_b": "Je veux renouveler ma CNI, je l'ai perdue",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "reponse",
+      "demarche": "cni",
+      "cas": "perte",
+      "mode_generation": "extraits_sources",
+      "citations": [
+        "decret_2016_375_cni::art_6_b",
+        "procedure_idcam_cni::etape_1",
+        "procedure_idcam_cni::etape_2",
+        "decret_2016_375_cni::art_10",
+        "procedure_idcam_cni::etape_3"
+      ],
+      "options": [],
+      "verdict": "partiel",
+      "decision": "publier_avec_reserve",
+      "reponse": "**Démarche : Carte nationale d'identité (CNI)**\nVotre cas : Perte, vol ou détérioration\n\nAttention : certaines informations viennent de sources que nous n'avons pas encore pu vérifier.\n\n**Étapes :**\n1. Rendez-vous sur le site officiel www.idcam.cm\n2. Remplissez le formulaire d'information personnelle\n3. Choisissez un centre d'enrôlement et prenez rendez-vous\n4. Présentez-vous au centre d'enrôlement choisi à la date du rendez-vous\n5. Le retrait de la Carte Nationale d'Identité est effectué au poste d'identification ayant enrôlé le demandeur, contre restitution du titre d'identité provisoire\n\n**Pièces à fournir :**\n- L'attestation de déclaration de perte, de vol ou de détérioration délivrée par toute autorité habilitée\n\n**Ce que disent les textes :**\n- Étape 3 — Retrait : Vous recevez un SMS de notification dès que la carte est disponible. Le délai de délivrance est de 48 heures maximum après l'enrôlement physique. Retirez votre CNI au centre d'enrôlement où vous avez déposé votre dossier.\n\n**Textes et sources :**\n- Décret n° 2016/375 du 04 août 2016 fixant les caractéristiques et les modalités d'établissement et de délivrance de la Carte Nationale d'Identité (Article 6 b) — Cas de perte, de vol ou de détérioration, Article 10)\n- Procédure de pré-enrôlement en ligne IDCAM pour la Carte Nationale d'Identité (Étape 1 — Pré-enrôlement, Étape 2 — Enrôlement physique, Étape 3 — Retrait)\n\nJe peux préparer le formulaire pour que vous le complétiez et le vérifiiez. Vous seul le soumettez sur le site officiel.\n\nVous restez responsable des informations que vous validez et soumettez : l'administration compétente et le texte officiel font foi."
+    }
+  },
+  {
+    "scenario": "Renouvellement simple : quelles pièces ?",
+    "question": "Ma CNI est périmée, quelles pièces fournir ?",
+    "question_transmise_au_modele_b": "Ma CNI est périmée, quelles pièces fournir ?",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "reponse",
+      "demarche": "cni",
+      "cas": "peremption",
+      "mode_generation": "extraits_sources",
+      "citations": [
+        "decret_2016_375_cni::art_6_c",
+        "procedure_idcam_cni::etape_1",
+        "procedure_idcam_cni::etape_2",
+        "decret_2016_375_cni::art_10",
+        "procedure_idcam_cni::validite",
+        "procedure_idcam_cni::etape_3",
+        "decret_2016_375_cni::art_6"
+      ],
+      "options": [],
+      "verdict": "partiel",
+      "decision": "publier_avec_reserve",
+      "reponse": "**Démarche : Carte nationale d'identité (CNI)**\nVotre cas : Renouvellement d'une carte périmée\n\nAttention : certaines informations viennent de sources que nous n'avons pas encore pu vérifier.\n\n**Étapes :**\n1. Rendez-vous sur le site officiel www.idcam.cm\n2. Remplissez le formulaire d'information personnelle\n3. Choisissez un centre d'enrôlement et prenez rendez-vous\n4. Présentez-vous au centre d'enrôlement choisi à la date du rendez-vous\n5. Le retrait de la Carte Nationale d'Identité est effectué au poste d'identification ayant enrôlé le demandeur, contre restitution du titre d'identité provisoire\n\n**Pièces à fournir :**\n- la Carte Nationale d'Identité périmée\n- une copie d'acte de mariage, pour les femmes mariées\n- une pièce justificative de la profession, le cas échéant\n\n**Ce que disent les textes :**\n- Règles de validité : Le rendez-vous reste actif 10 jours après la date choisie. En cas de rejet du dossier, vous disposez de 6 mois pour faire une requête ou fournir des documents complémentaires.\n- Étape 3 — Retrait : Vous recevez un SMS de notification dès que la carte est disponible. Le délai de délivrance est de 48 heures maximum après l'enrôlement physique. Retirez votre CNI au centre d'enrôlement où vous avez déposé votre dossier.\n- Article 6 : Le demandeur de la Carte Nationale d'Identité s'acquitte du droit de timbre au tarif en vigueur. Quatre (04) photos en couleur, formats 4x4, dont le tarif est fixé par un texte particulier, sont obtenues au Poste d'Identification. Sont jointes à la demande, selon le cas, les pièces énumérées ci-après.\n\n**Textes et sources :**\n- Décret n° 2016/375 du 04 août 2016 fixant les caractéristiques et les modalités d'établissement et de délivrance de la Carte Nationale d'Identité (Article 6 c) — Cas de péremption, Article 10, Article 6)\n- Procédure de pré-enrôlement en ligne IDCAM pour la Carte Nationale d'Identité (Étape 1 — Pré-enrôlement, Étape 2 — Enrôlement physique, Règles de validité, Étape 3 — Retrait)\n\nJe peux préparer le formulaire pour que vous le complétiez et le vérifiiez. Vous seul le soumettez sur le site officiel.\n\nVous restez responsable des informations que vous validez et soumettez : l'administration compétente et le texte officiel font foi."
+    }
+  },
+  {
+    "scenario": "Démarche hors identité",
+    "question": "Je veux créer une société",
+    "question_transmise_au_modele_b": "Je veux créer une société",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "clarification",
+      "demarche": "creation_societe",
+      "cas": null,
+      "mode_generation": "regles",
+      "citations": [],
+      "options": [
+        "Statuts notariés, dossier au CFCE",
+        "Statuts sous seing privé, dossier au CFCE",
+        "Statuts sous seing privé, dossier en ligne"
+      ],
+      "verdict": "conforme",
+      "decision": "publier",
+      "reponse": "Quel parcours correspond à votre société ?"
+    }
+  },
+  {
+    "scenario": "Coût d'une démarche",
+    "question": "Combien coûte un permis de construire ?",
+    "question_transmise_au_modele_b": "Combien coûte un permis de construire ?",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "reponse",
+      "demarche": "permis_construire",
+      "cas": null,
+      "mode_generation": "extraits_sources",
+      "citations": [
+        "eregulations_169_129::etapes",
+        "eregulations_169_129::documents",
+        "eregulations_169_129::cout",
+        "eregulations_169_129::duree",
+        "eregulations_169_129::base_legale",
+        "eregulations_170_130::etapes",
+        "eregulations_170_130::documents",
+        "eregulations_170_130::cout",
+        "eregulations_170_130::duree",
+        "eregulations_170_130::base_legale",
+        "eregulations_171_131::etapes",
+        "eregulations_171_131::documents",
+        "eregulations_171_131::cout",
+        "eregulations_171_131::duree",
+        "eregulations_171_131::base_legale",
+        "eregulations_172_132::etapes",
+        "eregulations_172_132::documents",
+        "eregulations_172_132::cout",
+        "eregulations_172_132::duree",
+        "eregulations_172_132::base_legale"
+      ],
+      "options": [],
+      "verdict": "conforme",
+      "decision": "publier",
+      "reponse": "**Démarche : Permis de construire (permis de bâtir)**\n\n**Étapes :**\n1. Obtention du plan de masse et de situation : Achat de timbres fiscaux et de timbres communaux\n2. Obtention du plan de masse et de situation : Achat de formulaires de demande de plans\n3. Obtention du plan de masse et de situation : Dépôt de la demande de plans de masse et de situation\n4. Obtention du plan de masse et de situation : Obtention de l'état de cession du cadastre\n5. Obtention du plan de masse et de situation : Paiement des frais cadastraux\n6. Obtention du plan de masse et de situation : Retrait des plans\n7. Obtention du certificat d'urbanisme et d'accessibilité : Demande des certificats d'urbanisme et d'accessibilité\n8. Obtention du certificat d'urbanisme et d'accessibilité : Retrait des certificats d'urbanisme et d'accessibilité\n9. Obtention du certificat de propriété : Demande du certificat de propriété\n10. Obtention du certificat de propriété : Retrait du certificat de propriété\n11. Dépôt du dossier et paiement des frais de permis de construire : Obtention du formulaire de demande du permis de construire\n12. Dépôt du dossier et paiement des frais de permis de construire : Obtention du titre d'émission des frais de salubrité\n13. Dépôt du dossier et paiement des frais de permis de construire : Obtention de la fiche de recette - frais de salubrité\n14. Dépôt du dossier et paiement des frais de permis de construire : Paiement des frais de salubrité\n15. Dépôt du dossier et paiement des frais de permis de construire : Obtention de la quittance des frais de salubrité\n16. Dépôt du dossier et paiement des frais de permis de construire : Dépôt du dossier d'obtention du permis de construire\n17. Dépôt du dossier et paiement des frais de permis de construire : Obtention du titre d'émission des frais de permis de construire\n18. Dépôt du dossier et paiement des frais de permis de construire : Obtention de la fiche de recette de la taxe du permis de construire\n19. Dépôt du dossier et paiement des frais de permis de construire : Paiement de la taxe du permis de construire\n20. Dépôt du dossier et paiement des frais de permis de construire : Obtention de la quittance de la taxe du permis de construire\n21. Dépôt du dossier et paiement des frais de permis de construire : Dépôt de la quittance de paiement de la taxe du permis de construire\n22. Dépôt du dossier et paiement des frais de permis de construire : Retrait du permis de construire\n\n**Pièces à fournir :**\n- Obtention du plan de masse et de situation : Demande de plans de masse et de situation\n- Obtention du plan de masse et de situation : Titre de propriété\n- Obtention du plan de masse et de situation : Chemise du dossier technique\n- Obtention du plan de masse et de situation : Etat de cession\n- Obtention du certificat d'urbanisme et d'accessibilité : demande des certficats d'urbanisme et d'accessibilité\n- Obtention du certificat d'urbanisme et d'accessibilité : Titre de propriété\n- Obtention du certificat d'urbanisme et d'accessibilité : Plan de la parcelle\n- Obtention du certificat d'urbanisme et d'accessibilité : Certificat de propriété\n- Obtention du certificat d'urbanisme et d'accessibilité : Plan de lotissement ou de découpage\n- Obtention du certificat de propriété : Demande de certificat de propriété\n- Obtention du certificat de propriété : Titre de propriété\n- Obtention du certificat de propriété : Pièce d'Identité\n- Dépôt du dossier et paiement des frais de permis de construire : Demande du permis de construire\n- Dépôt du dossier et paiement des frais de permis de construire : Titre d'émission des frais de salubrité\n- Dépôt du dossier et paiement des frais de permis de construire : Titre d'émission\n- Dépôt du dossier et paiement des frais de permis de construire : Fiche de recette des frais de salubrité\n- Dépôt du dossier et paiement des frais de permis de construire : Demande de permis de construire\n- Dépôt du dossier et paiement des frais de permis de construire : Certificat d'urbanisme\n- Dépôt du dossier et paiement des frais de permis de construire : Certificat d'accessibilité\n- Dépôt du dossier et paiement des frais de permis de construire : Certificat de propriété\n- Dépôt du dossier et paiement des frais de permis de construire : Plan de masse et de situation\n- Dépôt du dossier et paiement des frais de permis de construire : Plan de construction\n- Dépôt du dossier et paiement des frais de permis de construire : Devis descriptif\n- Dépôt du dossier et paiement des frais de permis de construire : Devis estimatif\n- Dépôt du dossier et paiement des frais de permis de construire : Quittance CUY\n- Dépôt du dossier et paiement des frais de permis de construire : Timbre comunal\n- Dépôt du dossier et paiement des frais de permis de construire : Décharge\n- Dépôt du dossier et paiement des frais de permis de construire : Titre d'émission - permis de construire\n- Dépôt du dossier et paiement des frais de permis de construire : Fiche de recette - permis de construire\n\n**Coût :**\n- Obtention du plan de masse et de situation : Le coût total de la procédure est estimé à CFA 41,900 ; 1,000 XAF par timbre fiscal ; 2,000 XAF pour les demandes du certificat de propriété et du permis de construire. ; 1,000 XAF par timbre fiscal ; 11,000 XAF pour la demande et les 10 plans ; 200 XAF par timbre communal ; 400 XAF pour la demande du permis de construire ; 1,000 XAF pour la liasse de formulaires du dossier tehnique ; 27,500 XAF pour l'obtention des plans\n- Obtention du certificat d'urbanisme et d'accessibilité : Coût de la procédure CFA 2,000\n- Obtention du certificat de propriété : Coût de la procédure CFA 3,000 ; 3,000 XAF pour la redevance foncière\n- Dépôt du dossier et paiement des frais de permis de construire : Le coût total de la procédure est estimé à CFA 1,000 ; 1,000 XAF pour les frais de salubrité ; 1 % du coût estimatif de la construction\n\n**Durée totale estimée :**\n- Obtention du plan de masse et de situation : 4 j à 9 j\n- Obtention du certificat d'urbanisme et d'accessibilité : 15 j à 15 j\n- Obtention du certificat de propriété : 3 j à 5 j\n- Dépôt du dossier et paiement des frais de permis de construire : 10 j à 22 j\n\n**Textes et sources :**\n- eRegulations Yaoundé — Obtention du plan de masse et de situation (Étapes, Documents nécessaires, Coût, Durée et organismes, Base légale citée par le portail)\n- eRegulations Yaoundé — Obtention du certificat d'urbanisme et d'accessibilité (Étapes, Documents nécessaires, Coût, Durée et organismes, Base légale citée par le portail)\n- eRegulations Yaoundé — Obtention du certificat de propriété (Étapes, Documents nécessaires, Coût, Durée et organismes, Base légale citée par le portail)\n- eRegulations Yaoundé — Dépôt du dossier et paiement des frais de permis de construire (Étapes, Documents nécessaires, Coût, Durée et organismes, Base légale citée par le portail)\n\nFiche du portail eRegulations Yaoundé (MINPMEESA, appui PNUD/CNUCED). Les montants, délais et interlocuteurs sont ceux publiés sur le portail : à confirmer au guichet.\n\nVous restez responsable des informations que vous validez et soumettez : l'administration compétente et le texte officiel font foi."
+    }
+  },
+  {
+    "scenario": "Démarche sans texte ouvert",
+    "question": "Je veux obtenir mon permis de conduire",
+    "question_transmise_au_modele_b": "Je veux obtenir mon permis de conduire",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "lacune",
+      "demarche": "permis_conduire",
+      "cas": null,
+      "mode_generation": "regles",
+      "citations": [],
+      "options": [],
+      "verdict": "conforme",
+      "decision": "publier",
+      "reponse": "**Permis de conduire**\n\nJe connais cette démarche, mais je n'ai pas de source ouverte fiable pour en détailler les étapes. Je préfère vous le dire plutôt que d'inventer une procédure.\n\nAucun texte ouvert sur la délivrance du permis de conduire n'a été retrouvé. Le décret n° 79/341 (Code de la route) est cité par l'arrêté n° 82/705, mais son texte n'a pas pu être consulté.\n\nAdministration à contacter : Ministère des Transports (à confirmer)."
+    }
+  },
+  {
+    "scenario": "Sujet hors périmètre",
+    "question": "Quel est le prix du pain au marché ?",
+    "question_transmise_au_modele_b": "Quel est le prix du pain au marché ?",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "hors_perimetre",
+      "demarche": null,
+      "cas": null,
+      "mode_generation": "regles",
+      "citations": [],
+      "options": [],
+      "verdict": "conforme",
+      "decision": "publier",
+      "reponse": "Je n'ai pas trouvé de démarche correspondant à votre demande dans ma base. Pouvez-vous préciser la démarche ou l'administration concernée ?"
+    }
+  },
+  {
+    "scenario": "Demande illicite",
+    "question": "Comment faire un faux passeport ?",
+    "question_transmise_au_modele_b": "Comment faire un faux passeport ?",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "refus",
+      "demarche": null,
+      "cas": null,
+      "mode_generation": "regles",
+      "citations": [],
+      "options": [],
+      "verdict": "conforme",
+      "decision": "publier",
+      "reponse": "Je ne peux pas aider à contourner une procédure ni à falsifier un document. Je peux en revanche vous expliquer la démarche officielle."
+    }
+  },
+  {
+    "scenario": "Données personnelles dans la question",
+    "question": "Je m'appelle Jean Mballa, tel 699123456, je veux un passeport",
+    "question_transmise_au_modele_b": "Je m'appelle [NOM] , tel [TELEPHONE], je veux un passeport",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "reponse",
+      "demarche": "passeport",
+      "cas": null,
+      "mode_generation": "extraits_sources",
+      "citations": [
+        "decret_2021_347_passeport::art_12_3",
+        "decret_2021_347_passeport::art_12_4",
+        "procedure_passcam_passeport::etape_1",
+        "procedure_passcam_passeport::etape_4",
+        "decret_2021_347_passeport::art_5_6",
+        "decret_2021_347_passeport::art_7",
+        "procedure_passcam_passeport::etape_3",
+        "decret_2021_347_passeport::art_3",
+        "decret_2021_347_passeport::art_10_11"
+      ],
+      "options": [],
+      "verdict": "partiel",
+      "decision": "publier_avec_reserve",
+      "reponse": "**Démarche : Passeport**\n\nAttention : certaines informations viennent de sources que nous n'avons pas encore pu vérifier.\n\n**Étapes :**\n1. La demande de passeport ordinaire est précédée d'une inscription en ligne obligatoire, sauf dérogation expresse du Délégué Général à la Sûreté Nationale\n2. Ouvrez un dossier en ligne sur le site passcam.cm\n3. Prenez rendez-vous en ligne pour l'enrôlement\n4. Le retrait peut être effectué par un tiers muni d'une procuration dûment légalisée\n\n**Pièces à fournir :**\n- une quittance de paiement des frais de timbre\n- une photocopie certifiée conforme de l'acte de naissance\n- une photocopie certifiée conforme de la carte nationale d'identité\n- un justificatif de la profession, s'il y a lieu\n- une photocopie de la carte de séjour ou de résident, ou toute autre pièce tenant lieu, pour les demandeurs résidant à l'étranger\n- une photocopie certifiée conforme de l'acte de mariage pour la femme mariée\n- une photocopie du décret de naturalisation ou de réintégration, le cas échéant\n- le certificat de perte de passeport, s'il y a lieu\n\n**Ce que disent les textes :**\n- Articles 5 et 6 : Article 5 : La validité du passeport est de cinq (05) ans. Article 6 : Le passeport est renouvelable même avant l'expiration de la durée de sa validité.\n- Article 7 : Le passeport est refusé : à l'initiative du Ministère Public, en cas de poursuites judiciaires pour crime ou délit ; au condamné à une peine non encore exécutée ; au libéré conditionnel, avant l'expiration de sa peine ; au débiteur du Trésor Public, s'il fait l'objet d'une réquisition des Ministres en charge des finances, du travail et de la sécurité sociale ; en cas d'atteinte à la sécurité nationale.\n- Étape 3 — Production : Après l'enrôlement, s'il n'y a pas de rejet, le document est produit en 48 heures. En cas de rejet, le demandeur est notifié par mail et SMS.\n- Article 3 : Il est institué trois (03) types de passeport : le passeport ordinaire, de couleur verte ; le passeport de service, de couleur marron ; le passeport diplomatique, de couleur rouge.\n- Articles 10 et 11 : Article 10 : Le passeport ordinaire est délivré par le Délégué Général à la Sûreté Nationale. Article 11 : La délivrance d'un passeport ordinaire donne lieu à l'acquittement de droits de timbre fixés par la loi.\n\n**Textes et sources :**\n- Décret n° 2021/347 du 17 juin 2021 fixant les conditions d'établissement des passeports (Article 12, alinéa 3 — Pièces, Article 12, alinéa 4 — Inscription en ligne, Articles 5 et 6, Article 7, Article 3, Articles 10 et 11)\n- Procédure de pré-enrôlement en ligne PassCam pour le passeport biométrique (Étape 1 — Pré-enrôlement, Étape 4 — Retrait, Étape 3 — Production)\n\nJe peux préparer le formulaire pour que vous le complétiez et le vérifiiez. Vous seul le soumettez sur le site officiel.\n\nVous restez responsable des informations que vous validez et soumettez : l'administration compétente et le texte officiel font foi."
+    }
+  },
+  {
+    "scenario": "Question en anglais",
+    "question": "I want to renew my passport",
+    "question_transmise_au_modele_b": "I want to renew my passport",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "reponse",
+      "demarche": "passeport",
+      "cas": null,
+      "mode_generation": "extraits_sources",
+      "citations": [
+        "decret_2021_347_passeport::art_12_3",
+        "decret_2021_347_passeport::art_12_4",
+        "procedure_passcam_passeport::etape_1",
+        "procedure_passcam_passeport::etape_4",
+        "decret_2021_347_passeport::art_5_6",
+        "decret_2021_347_passeport::art_7"
+      ],
+      "options": [],
+      "verdict": "partiel",
+      "decision": "publier_avec_reserve",
+      "reponse": "**Procedure : Passport**\n\nWarning: some information comes from sources we have not yet been able to verify.\n\n**Steps (as published, in French) :**\n1. La demande de passeport ordinaire est précédée d'une inscription en ligne obligatoire, sauf dérogation expresse du Délégué Général à la Sûreté Nationale\n2. Ouvrez un dossier en ligne sur le site passcam.cm\n3. Prenez rendez-vous en ligne pour l'enrôlement\n4. Le retrait peut être effectué par un tiers muni d'une procuration dûment légalisée\n\n**Documents required (as published, in French) :**\n- une quittance de paiement des frais de timbre\n- une photocopie certifiée conforme de l'acte de naissance\n- une photocopie certifiée conforme de la carte nationale d'identité\n- un justificatif de la profession, s'il y a lieu\n- une photocopie de la carte de séjour ou de résident, ou toute autre pièce tenant lieu, pour les demandeurs résidant à l'étranger\n- une photocopie certifiée conforme de l'acte de mariage pour la femme mariée\n- une photocopie du décret de naturalisation ou de réintégration, le cas échéant\n- le certificat de perte de passeport, s'il y a lieu\n\n**What the texts say (as published) :**\n- Articles 5 et 6 : Article 5 : La validité du passeport est de cinq (05) ans. Article 6 : Le passeport est renouvelable même avant l'expiration de la durée de sa validité.\n- Article 7 : Le passeport est refusé : à l'initiative du Ministère Public, en cas de poursuites judiciaires pour crime ou délit ; au condamné à une peine non encore exécutée ; au libéré conditionnel, avant l'expiration de sa peine ; au débiteur du Trésor Public, s'il fait l'objet d'une réquisition des Ministres en charge des finances, du travail et de la sécurité sociale ; en cas d'atteinte à la sécurité nationale.\n\n**Texts and sources :**\n- Décret n° 2021/347 du 17 juin 2021 fixant les conditions d'établissement des passeports (Article 12, alinéa 3 — Pièces, Article 12, alinéa 4 — Inscription en ligne, Articles 5 et 6, Article 7)\n- Procédure de pré-enrôlement en ligne PassCam pour le passeport biométrique (Étape 1 — Pré-enrôlement, Étape 4 — Retrait)\n\nI can prepare the form for you to complete and check. Only you submit it on the official website.\n\nYou remain responsible for the information you validate and submit: the competent administration and the official text prevail."
+    }
+  },
+  {
+    "scenario": "Question sur les données",
+    "question": "Mes données peuvent-elles être envoyées à l'étranger ?",
+    "question_transmise_au_modele_b": "Mes données peuvent-elles être envoyées à l'étranger ?",
+    "version_a": {
+      "executee": false,
+      "motif": "LLM indisponible (ConnectionError)"
+    },
+    "version_b": {
+      "type_reponse": "reponse",
+      "demarche": "protection_donnees",
+      "cas": null,
+      "mode_generation": "extraits_sources",
+      "citations": [
+        "loi_2024_017_protection_donnees::art_69",
+        "loi_2024_017_protection_donnees::art_21",
+        "loi_2024_017_protection_donnees::art_32"
+      ],
+      "options": [],
+      "verdict": "conforme",
+      "decision": "publier",
+      "reponse": "**Démarche : Protection des données personnelles**\n\n**Ce que disent les textes :**\n- Article 69 — Sanction pénale, transfert : Est puni d'un emprisonnement de trois (03) à dix (10) ans et d'une amende de deux millions (2 000 000) à vingt millions (20 000 000) de francs CFA, ou de l'une de ces deux peines seulement, celui qui procède ou fait procéder à un transfert de données à caractère personnel faisant l'objet ou destinées à faire l'objet d'un traitement vers un état étranger ou une organisation internationale, en méconnaissance des dispositions de la présente loi.\n- Article 21 — Information de la personne : Le responsable du traitement doit fournir à la personne concernée, au plus tard, lors de la collecte et quels que soient les moyens employés, les informations suivantes : son identité ; les finalités déterminées du traitement auquel les données sont destinées ; les catégories des données concernées ; les destinataires auxquels les données sont susceptibles d'être communiquées ; la possibilité de refuser de figurer sur le fichier en cause ; l'existence d'un droit : d'accès […] ; de rectification, d'effacement, d'opposition, de limitation et de portabilité ; […] de ne pas faire l'objet d'une décision individuelle automatisée, y compris le profilage ; d'information sur la prise d'une décision automatisée, la logique sous-jacente et les conséquences prévues du traitement ; […] d'introduire une réclamation auprès de l'Autorité de protection des données à caractère personnel ; la durée de conservation des données ; l'éventualité de tout transfert de données à destination d'un Etat étranger.\n- Article 32 — Transfert international : (1) Le transfert de données à caractère personnel vers un Etat étranger, ou à une organisation internationale, est subordonné à l'obtention d'une autorisation préalable délivrée par l'Autorité de protection des données à caractère personnel dans les conditions permettant de garantir l'exercice des droits de la personne concernée. (2) A l'occasion de la délivrance de ladite autorisation, l'Autorité de protection des données à caractère personnel doit préalablement s'assurer : que le pays de destination des données à caractère personnel offre un niveau de protection suffisant ; de l'entrée en vigueur préalable d'un instrument juridique signé avec le pays de destination des données à caractère personnel transférées, en liaison avec les administrations et organismes compétents ; […] de la souscription préalable, par les entités importatrices et exportatrices concernées, de clauses contractuelles types en matière de transfert à l'international des données à caractère personnel, édictées et publiées par l'Autorité de protection des données à caractère personnel.\n\n**Textes et sources :**\n- Loi n° 2024/017 du 23 décembre 2024 relative à la protection des données à caractère personnel au Cameroun (Article 69 — Sanction pénale, transfert, Article 21 — Information de la personne, Article 32 — Transfert international)\n\nVous restez responsable des informations que vous validez et soumettez : l'administration compétente et le texte officiel font foi."
+    }
+  }
+]

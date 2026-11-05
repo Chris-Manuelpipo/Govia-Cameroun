@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 820" font-family="'Source Serif 4', Georgia, serif">
+  <defs>
+    <linearGradient id="bgM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#eef4f9"/></linearGradient>
+    <linearGradient id="hdrM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b3d66"/><stop offset="1" stop-color="#0f3d70"/></linearGradient>
+    <linearGradient id="userB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b3d66"/><stop offset="1" stop-color="#14598c"/></linearGradient>
+    <linearGradient id="logoM" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14598c"/><stop offset="1" stop-color="#0b3d66"/></linearGradient>
+    <filter id="shM" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.12"/></filter>
+    <filter id="shMsg" x="-5%" y="-5%" width="110%" height="110%"><feDropShadow dx="0" dy="1" stdDeviation="3" flood-opacity="0.08"/></filter>
+  </defs>
+
+  <rect width="1240" height="820" fill="url(#bgM)"/>
+
+  <!-- ===== HEADER ===== -->
+  <rect x="0" y="0" width="1240" height="62" fill="url(#hdrM)"/>
+  <!-- logo -->
+  <rect x="24" y="12" width="38" height="38" rx="9" fill="url(#logoM)"/>
+  <path d="M33 21 L33 41 L40 46 L47 41 L47 21 Z" fill="none" stroke="#ffffff" stroke-width="2"/>
+  <path d="M37 26 L37 40 L41 44" fill="none" stroke="#7dd3fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="44" cy="26" r="2.5" fill="#fbbf24"/>
+  <text x="72" y="40" font-size="20" font-weight="bold" fill="#ffffff">GOVIA</text>
+  <text x="72" y="54" font-size="10" fill="#93c5fd" font-family="Inter, sans-serif" letter-spacing="2">CAMEROUN</text>
+
+  <!-- nav centre -->
+  <text x="620" y="38" text-anchor="middle" font-size="14" fill="#e0f2fe" font-family="Inter, sans-serif">Assistance administrative</text>
+
+  <!-- droite : langue + avatar -->
+  <rect x="1080" y="16" width="56" height="30" rx="15" fill="#1e3a5f" stroke="#3b82f6"/>
+  <text x="1108" y="36" text-anchor="middle" font-size="12" font-weight="bold" fill="#93c5fd" font-family="Inter, sans-serif">FR / EN</text>
+  <circle cx="1180" cy="31" r="14" fill="#64748b"/>
+  <text x="1180" y="36" text-anchor="middle" font-size="11" fill="#ffffff" font-family="Inter, sans-serif">Ci</text>
+
+  <!-- ===== CONSENT BANNER ===== -->
+  <rect x="24" y="76" width="1192" height="44" rx="8" fill="#fffbeb" stroke="#fbbf24" filter="url(#shM)"/>
+  <text x="40" y="98" font-size="12" font-weight="bold" fill="#b45309" font-family="Inter, sans-serif">🔒 Consentement — Loi n° 2024/017</text>
+  <text x="40" y="112" font-size="11" fill="#92400e" font-family="Inter, sans-serif">Vos données sont anonymisées et traitées localement. Vous restez responsable. Validez vos soumissions.</text>
+  <rect x="980" y="88" width="120" height="24" rx="6" fill="#0b3d66"/>
+  <text x="1040" y="104" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff" font-family="Inter, sans-serif">J'accepte</text>
+
+  <!-- ===== CHAT AREA ===== -->
+  <!-- welcome (si vide) -->
+  <rect x="420" y="140" width="400" height="40" rx="20" fill="#ffffff" stroke="#e2e8f0" filter="url(#shM)"/>
+  <text x="620" y="165" text-anchor="middle" font-size="13" fill="#64748b" font-family="Inter, sans-serif">💬 Exemple : « Je veux renouveler ma CNI, je l'ai perdue »</text>
+
+  <!-- ===== MESSAGE CITOYEN ===== -->
+  <rect x="720" y="200" width="440" height="48" rx="14" fill="url(#userB)" filter="url(#shMsg)"/>
+  <text x="1130" y="226" text-anchor="end" font-size="14" fill="#ffffff" font-family="Inter, sans-serif">Je veux renouveler ma CNI, je l'ai perdue</text>
+  <text x="1152" y="244" text-anchor="end" font-size="9" fill="#bfdbfe" font-family="Inter, sans-serif">citoyen · 14:32</text>
+
+  <!-- ===== MESSAGE AGENT ===== -->
+  <rect x="24" y="268" width="640" height="300" rx="14" fill="#ffffff" stroke="#e2e8f0" filter="url(#shMsg)"/>
+
+  <!-- procédure badge -->
+  <rect x="40" y="284" width="110" height="24" rx="12" fill="#dbeafe"/>
+  <text x="95" y="301" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af" font-family="Inter, sans-serif">CNI · Renouvellement</text>
+
+  <text x="40" y="332" font-size="14" fill="#1e293b">Bonjour. Je vous accompagne dans votre demande de renouvellement de CNI.</text>
+
+  <text x="40" y="360" font-size="12" font-weight="bold" fill="#0b3d66">Étapes de la procédure :</text>
+  <text x="56" y="378" font-size="12" fill="#334155" font-family="Inter, sans-serif">1. Pré-enrôlement en ligne sur idcam.cm</text>
+  <text x="56" y="396" font-size="12" fill="#334155" font-family="Inter, sans-serif">2. Paiement du timbre fiscal (10 000 FCFA) par Mobile Money</text>
+  <text x="56" y="414" font-size="12" fill="#334155" font-family="Inter, sans-serif">3. Enrôlement physique (capture biométrique) au centre choisi</text>
+  <text x="56" y="432" font-size="12" fill="#334155" font-family="Inter, sans-serif">4. Retrait de la carte en 48 heures</text>
+
+  <text x="40" y="460" font-size="12" font-weight="bold" fill="#0b3d66">Pièces requises :</text>
+  <text x="56" y="478" font-size="12" fill="#334155" font-family="Inter, sans-serif">• Attestation de déclaration de perte (Sûreté Nationale)</text>
+  <text x="56" y="496" font-size="12" fill="#334155" font-family="Inter, sans-serif">• Copie de l'ancienne CNI (si disponible)</text>
+  <text x="56" y="514" font-size="12" fill="#334155" font-family="Inter, sans-serif">• Copie certifiée de l'acte de naissance</text>
+
+  <!-- ===== CITATIONS ===== -->
+  <rect x="40" y="532" width="290" height="120" rx="6" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+  <rect x="40" y="532" width="4" height="120" fill="#fbbf24"/>
+  <text x="52" y="554" font-size="11" font-weight="bold" fill="#b45309" font-family="Inter, sans-serif">📖 Textes officiels</text>
+  <text x="52" y="572" font-size="10" font-weight="bold" fill="#92400e" font-family="Inter, sans-serif">Art. 11 — Décret 2016/375</text>
+  <text x="52" y="588" font-size="9" fill="#92400e" font-family="Inter, sans-serif">« Attestation de perte/vol/détérioration… »</text>
+  <text x="52" y="604" font-size="9" fill="#b45309" font-family="Inter, sans-serif">prc.cm ↗</text>
+
+  <rect x="342" y="532" width="290" height="120" rx="6" fill="#fffbeb" stroke="#fbbf24" stroke-width="1.5"/>
+  <rect x="342" y="532" width="4" height="120" fill="#fbbf24"/>
+  <text x="354" y="554" font-size="11" font-weight="bold" fill="#b45309" font-family="Inter, sans-serif">📖 Procédure IDCAM</text>
+  <text x="354" y="572" font-size="10" font-weight="bold" fill="#92400e" font-family="Inter, sans-serif">Pré-enrôlement en ligne</text>
+  <text x="354" y="588" font-size="9" fill="#92400e" font-family="Inter, sans-serif">« idcam.cm · 10 000 FCFA · 48h »</text>
+  <text x="354" y="604" font-size="9" fill="#b45309" font-family="Inter, sans-serif">idcam.cm ↗</text>
+
+  <!-- ===== AUDIT BADGE ===== -->
+  <rect x="40" y="662" width="100" height="28" rx="14" fill="#dcfce7"/>
+  <text x="90" y="681" text-anchor="middle" font-size="12" font-weight="bold" fill="#15803d" font-family="Inter, sans-serif">✅ Conforme</text>
+  <text x="150" y="681" font-size="10" fill="#059669" font-family="Inter, sans-serif">Auditeur vérifié · 2 textes mobilisés</text>
+
+  <!-- ===== PRÉ-REMPLISSAGE CTA ===== -->
+  <rect x="342" y="660" width="290" height="32" rx="8" fill="#0b3d66"/>
+  <text x="487" y="681" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff" font-family="Inter, sans-serif">📋 Pré-remplir le formulaire →</text>
+
+  <!-- ===== INPUT AREA ===== -->
+  <rect x="24" y="690" width="1192" height="100" rx="12" fill="#ffffff" stroke="#e2e8f0" filter="url(#shM)"/>
+  <rect x="44" y="712" width="1000" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="60" y="746" font-size="13" fill="#94a3b8" font-family="Inter, sans-serif">Posez votre question... « Je dois obtenir un acte de naissance »</text>
+  <rect x="1060" y="712" width="136" height="56" rx="8" fill="#0b3d66"/>
+  <text x="1128" y="746" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff" font-family="Inter, sans-serif">Envoyer</text>
+
+  <!-- footer hint -->
+  <text x="24" y="812" font-size="10" fill="#94a3b8" font-family="Inter, sans-serif">Données anonymisées · Modèle local (aucune donnée ne sort du Cameroun) · Citoyen responsable des soumissions validées</text>
+</svg>

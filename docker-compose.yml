@@ -1,0 +1,77 @@
+services:
+  ollama:
+    image: ollama/ollama:0.3.14
+    container_name: govia-ollama
+    # Sans authentification : accessible uniquement depuis cette machine.
+    ports:
+      - "127.0.0.1:11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+
+  # Télécharge le modèle une fois, puis s'arrête.
+  ollama-pull:
+    image: ollama/ollama:0.3.14
+    container_name: govia-ollama-pull
+    environment:
+      - OLLAMA_HOST=ollama:11434
+    command: ["pull", "${LLM_MODEL:-mistral:7b}"]
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: "no"
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: govia-fastapi
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      - LLM_URL=http://ollama:11434/api/generate
+      - LLM_MODEL=${LLM_MODEL:-mistral:7b}
+      - LLM_TIMEOUT=${LLM_TIMEOUT:-180}
+      - GOVIA_USE_LLM=${GOVIA_USE_LLM:-1}
+      - GOVIA_ALLOW_VERSION_A=${GOVIA_ALLOW_VERSION_A:-0}
+      - GOVIA_CORS_ORIGINS=http://localhost:3000
+      - GOVIA_CHROMA_DIR=/app/chroma_db
+      - GOVIA_AUDIT_LOG=/app/logs/audit.jsonl
+    volumes:
+      - chroma_data:/app/chroma_db
+      - audit_logs:/app/logs
+    depends_on:
+      ollama:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:8000/', timeout=5)"]
+      interval: 15s
+      timeout: 8s
+      retries: 20
+      start_period: 120s
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: govia-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - API_URL=http://fastapi:8000
+      - HOSTNAME=0.0.0.0
+    depends_on:
+      fastapi:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  ollama_data:
+  chroma_data:
+  audit_logs:

@@ -1,0 +1,3538 @@
+{
+ "ambigus": {
+  "carte": [
+   "cni",
+   "carte_grise",
+   "carte_sejour"
+  ],
+  "card": [
+   "cni",
+   "carte_grise",
+   "carte_sejour"
+  ],
+  "permis": [
+   "permis_conduire",
+   "permis_construire",
+   "permis_implanter"
+  ],
+  "permit": [
+   "permis_conduire",
+   "permis_construire",
+   "permis_implanter"
+  ],
+  "licence": [
+   "permis_conduire",
+   "commercant_individuel"
+  ],
+  "immatriculer": [
+   "commercant_individuel",
+   "creation_societe",
+   "carte_grise",
+   "cnps_immatriculation"
+  ],
+  "immatriculation": [
+   "commercant_individuel",
+   "creation_societe",
+   "carte_grise",
+   "cnps_immatriculation"
+  ],
+  "register": [
+   "commercant_individuel",
+   "creation_societe",
+   "carte_grise",
+   "cnps_immatriculation"
+  ],
+  "commerce": [
+   "commercant_individuel",
+   "creation_societe"
+  ],
+  "entreprise": [
+   "commercant_individuel",
+   "creation_societe",
+   "creation_succursale"
+  ],
+  "business": [
+   "commercant_individuel",
+   "creation_societe",
+   "creation_succursale"
+  ],
+  "company": [
+   "creation_societe",
+   "creation_succursale"
+  ],
+  "impot": [
+   "impot_liberatoire",
+   "impot_irpp",
+   "impot_societes",
+   "impot_tva",
+   "patente",
+   "taxe_fonciere",
+   "niu"
+  ],
+  "impots": [
+   "impot_liberatoire",
+   "impot_irpp",
+   "impot_societes",
+   "impot_tva",
+   "patente",
+   "taxe_fonciere",
+   "niu"
+  ],
+  "taxe": [
+   "impot_tva",
+   "patente",
+   "taxe_fonciere"
+  ],
+  "taxes": [
+   "impot_liberatoire",
+   "impot_irpp",
+   "impot_societes",
+   "impot_tva",
+   "patente",
+   "taxe_fonciere",
+   "niu"
+  ],
+  "tax": [
+   "impot_liberatoire",
+   "impot_irpp",
+   "impot_societes",
+   "impot_tva",
+   "patente",
+   "taxe_fonciere",
+   "niu"
+  ],
+  "fiscal": [
+   "impot_liberatoire",
+   "impot_irpp",
+   "impot_societes",
+   "impot_tva",
+   "patente",
+   "niu"
+  ],
+  "terrain": [
+   "titre_foncier",
+   "permis_implanter",
+   "taxe_fonciere"
+  ],
+  "parcelle": [
+   "titre_foncier",
+   "permis_implanter",
+   "taxe_fonciere"
+  ],
+  "land": [
+   "titre_foncier",
+   "permis_implanter",
+   "taxe_fonciere"
+  ],
+  "construire": [
+   "permis_construire",
+   "permis_implanter"
+  ],
+  "construction": [
+   "permis_construire",
+   "permis_implanter"
+  ],
+  "batir": [
+   "permis_construire",
+   "permis_implanter"
+  ],
+  "maison": [
+   "permis_construire",
+   "titre_foncier"
+  ],
+  "retraite": [
+   "cnps_pension_vieillesse",
+   "cnps_pension_survivant"
+  ],
+  "pension": [
+   "cnps_pension_vieillesse",
+   "cnps_pension_survivant"
+  ],
+  "cnps": [
+   "cnps_immatriculation",
+   "cnps_cotisations",
+   "cnps_allocations_familiales",
+   "cnps_maternite",
+   "cnps_risques_professionnels",
+   "cnps_pension_vieillesse",
+   "cnps_pension_survivant"
+  ],
+  "allocation": [
+   "cnps_allocations_familiales",
+   "cnps_maternite"
+  ],
+  "allocations": [
+   "cnps_allocations_familiales",
+   "cnps_maternite"
+  ],
+  "acte": [
+   "acte_naissance",
+   "acte_mariage",
+   "acte_deces"
+  ],
+  "certificate": [
+   "acte_naissance",
+   "acte_mariage",
+   "acte_deces",
+   "certificat_nationalite",
+   "certificat_residence"
+  ],
+  "certificat": [
+   "certificat_nationalite",
+   "certificat_residence",
+   "non_gage"
+  ],
+  "vehicule": [
+   "carte_grise",
+   "non_gage",
+   "permis_conduire"
+  ],
+  "voiture": [
+   "carte_grise",
+   "non_gage",
+   "permis_conduire"
+  ],
+  "moto": [
+   "carte_grise",
+   "non_gage",
+   "permis_conduire"
+  ],
+  "vehicle": [
+   "carte_grise",
+   "non_gage",
+   "permis_conduire"
+  ],
+  "car": [
+   "carte_grise",
+   "non_gage",
+   "permis_conduire"
+  ],
+  "renouveler": [
+   "cni",
+   "passeport",
+   "carte_grise",
+   "carte_sejour"
+  ],
+  "renouvellement": [
+   "cni",
+   "passeport",
+   "carte_grise",
+   "carte_sejour"
+  ],
+  "renew": [
+   "cni",
+   "passeport",
+   "carte_grise",
+   "carte_sejour"
+  ],
+  "perdu": [
+   "cni",
+   "passeport"
+  ],
+  "perdue": [
+   "cni",
+   "passeport"
+  ],
+  "vole": [
+   "cni",
+   "passeport"
+  ],
+  "volee": [
+   "cni",
+   "passeport"
+  ],
+  "lost": [
+   "cni",
+   "passeport"
+  ],
+  "stolen": [
+   "cni",
+   "passeport"
+  ],
+  "importer": [
+   "fichier_importateurs"
+  ],
+  "exporter": [
+   "fichier_exportateurs"
+  ]
+ },
+ "demarches": [
+  {
+   "id": "cni",
+   "nom": "Carte nationale d'identité (CNI)",
+   "nom_en": "National identity card (CNI)",
+   "domaine": "Identité et état civil",
+   "statut": "couvert",
+   "autorite": "Délégation Générale à la Sûreté Nationale (DGSN)",
+   "mots_cles": [
+    "cni",
+    "carte nationale d identite",
+    "carte d identite",
+    "idcam",
+    "national identity card",
+    "national id",
+    "id card",
+    "identity card"
+   ],
+   "cas_mode": "choix",
+   "question_cas": "De quel cas s'agit-il pour votre CNI ?",
+   "question_cas_en": "Which situation applies to your national identity card?",
+   "fiches": [],
+   "chunks": [
+    "decret_2016_375_cni::art_10",
+    "decret_2016_375_cni::art_11",
+    "decret_2016_375_cni::art_2",
+    "decret_2016_375_cni::art_4",
+    "decret_2016_375_cni::art_5",
+    "decret_2016_375_cni::art_6",
+    "decret_2016_375_cni::art_6_a",
+    "decret_2016_375_cni::art_6_b",
+    "decret_2016_375_cni::art_6_c",
+    "decret_2016_375_cni::art_6_d",
+    "decret_2016_375_cni::art_6_e",
+    "decret_2016_375_cni::art_6_f",
+    "decret_2016_375_cni::art_6_g",
+    "decret_2016_375_cni::art_7",
+    "decret_2016_375_cni::art_8",
+    "decret_2016_375_cni::art_9",
+    "procedure_idcam_cni::etape_1",
+    "procedure_idcam_cni::etape_2",
+    "procedure_idcam_cni::etape_3",
+    "procedure_idcam_cni::validite"
+   ],
+   "pieces": [],
+   "etapes": [
+    {
+     "texte": "Rendez-vous sur le site officiel www.idcam.cm",
+     "chunk": "procedure_idcam_cni::etape_1"
+    },
+    {
+     "texte": "Remplissez le formulaire d'information personnelle",
+     "chunk": "procedure_idcam_cni::etape_1"
+    },
+    {
+     "texte": "Choisissez un centre d'enrôlement et prenez rendez-vous",
+     "chunk": "procedure_idcam_cni::etape_1"
+    },
+    {
+     "texte": "Présentez-vous au centre d'enrôlement choisi à la date du rendez-vous",
+     "chunk": "procedure_idcam_cni::etape_2"
+    },
+    {
+     "texte": "Le retrait de la Carte Nationale d'Identité est effectué au poste d'identification ayant enrôlé le demandeur, contre restitution du titre d'identité provisoire",
+     "chunk": "decret_2016_375_cni::art_10"
+    }
+   ],
+   "cas": [
+    {
+     "id": "premiere",
+     "libelle": "Première demande",
+     "libelle_en": "First application",
+     "mots": [
+      "premiere demande",
+      "premiere cni",
+      "premiere fois",
+      "premiere carte",
+      "first application",
+      "first time",
+      "first card",
+      "premiere demande",
+      "first application"
+     ],
+     "chunk": "decret_2016_375_cni::art_6_a",
+     "pieces": [
+      {
+       "texte": "une copie certifiée conforme d'acte de naissance ou une copie certifiée conforme d'un extrait d'acte de naissance ou une copie certifiée conforme d'un jugement supplétif d'acte de naissance ou un livret familial signé des autorités compétentes",
+       "chunk": "decret_2016_375_cni::art_6_a"
+      },
+      {
+       "texte": "une copie d'acte de mariage, pour les femmes mariées",
+       "chunk": "decret_2016_375_cni::art_6_a"
+      },
+      {
+       "texte": "une pièce justificative de la profession, s'il y a lieu",
+       "chunk": "decret_2016_375_cni::art_6_a"
+      },
+      {
+       "texte": "un certificat de nationalité signé du Président du Tribunal de Première Instance",
+       "chunk": "decret_2016_375_cni::art_6_a"
+      }
+     ]
+    },
+    {
+     "id": "perte",
+     "libelle": "Perte, vol ou détérioration",
+     "libelle_en": "Lost, stolen or damaged",
+     "mots": [
+      "perdu",
+      "perdue",
+      "perte",
+      "vol",
+      "vole",
+      "volee",
+      "deteriore",
+      "deterioree",
+      "deterioration",
+      "abimee",
+      "lost",
+      "stolen",
+      "damaged",
+      "perte, vol ou deterioration",
+      "lost, stolen or damaged"
+     ],
+     "chunk": "decret_2016_375_cni::art_6_b",
+     "pieces": [
+      {
+       "texte": "L'attestation de déclaration de perte, de vol ou de détérioration délivrée par toute autorité habilitée",
+       "chunk": "decret_2016_375_cni::art_6_b"
+      }
+     ]
+    },
+    {
+     "id": "peremption",
+     "libelle": "Renouvellement d'une carte périmée",
+     "libelle_en": "Renewal of an expired card",
+     "mots": [
+      "perime",
+      "perimee",
+      "peremption",
+      "expire",
+      "expiree",
+      "renouveler",
+      "renouvellement",
+      "renew",
+      "renewal",
+      "expired",
+      "renouvellement d'une carte perimee",
+      "renewal of an expired card"
+     ],
+     "chunk": "decret_2016_375_cni::art_6_c",
+     "pieces": [
+      {
+       "texte": "la Carte Nationale d'Identité périmée",
+       "chunk": "decret_2016_375_cni::art_6_c"
+      },
+      {
+       "texte": "une copie d'acte de mariage, pour les femmes mariées",
+       "chunk": "decret_2016_375_cni::art_6_c"
+      },
+      {
+       "texte": "une pièce justificative de la profession, le cas échéant",
+       "chunk": "decret_2016_375_cni::art_6_c"
+      }
+     ]
+    },
+    {
+     "id": "rectification",
+     "libelle": "Rectification ou changement de nom",
+     "libelle_en": "Correction or change of name",
+     "mots": [
+      "rectification",
+      "rectifier",
+      "changement de nom",
+      "changer de nom",
+      "change of name",
+      "name change",
+      "rectification ou changement de nom",
+      "correction or change of name"
+     ],
+     "chunk": "decret_2016_375_cni::art_6_d",
+     "pieces": [
+      {
+       "texte": "une copie certifiée conforme du décret autorisant le changement de nom ou de sa rectification",
+       "chunk": "decret_2016_375_cni::art_6_d"
+      },
+      {
+       "texte": "une copie d'acte de mariage, pour les femmes mariées",
+       "chunk": "decret_2016_375_cni::art_6_d"
+      },
+      {
+       "texte": "une pièce justificative de la profession, le cas échéant",
+       "chunk": "decret_2016_375_cni::art_6_d"
+      }
+     ]
+    },
+    {
+     "id": "filiation",
+     "libelle": "Changement de filiation",
+     "libelle_en": "Change of filiation",
+     "mots": [
+      "filiation",
+      "changement de filiation",
+      "change of filiation"
+     ],
+     "chunk": "decret_2016_375_cni::art_6_e",
+     "pieces": [
+      {
+       "texte": "l'extrait de jugement ayant établi le changement de filiation",
+       "chunk": "decret_2016_375_cni::art_6_e"
+      },
+      {
+       "texte": "l'ancienne Carte Nationale d'Identité",
+       "chunk": "decret_2016_375_cni::art_6_e"
+      },
+      {
+       "texte": "une copie d'acte de mariage, pour les femmes mariées",
+       "chunk": "decret_2016_375_cni::art_6_e"
+      },
+      {
+       "texte": "une pièce justificative de la profession, le cas échéant",
+       "chunk": "decret_2016_375_cni::art_6_e"
+      }
+     ]
+    },
+    {
+     "id": "reintegration",
+     "libelle": "Réintégration",
+     "libelle_en": "Reinstatement of nationality",
+     "mots": [
+      "reintegration",
+      "reinstatement",
+      "reintegration",
+      "reinstatement of nationality"
+     ],
+     "chunk": "decret_2016_375_cni::art_6_f",
+     "pieces": [
+      {
+       "texte": "une copie du décret de réintégration",
+       "chunk": "decret_2016_375_cni::art_6_f"
+      },
+      {
+       "texte": "une copie d'acte de mariage, pour les femmes mariées",
+       "chunk": "decret_2016_375_cni::art_6_f"
+      },
+      {
+       "texte": "une pièce justificative de la profession, le cas échéant",
+       "chunk": "decret_2016_375_cni::art_6_f"
+      }
+     ]
+    },
+    {
+     "id": "naturalise",
+     "libelle": "Étranger naturalisé",
+     "libelle_en": "Naturalised foreigner",
+     "mots": [
+      "naturalise",
+      "naturalisee",
+      "naturalisation",
+      "naturalised",
+      "naturalized",
+      "etranger naturalise",
+      "naturalised foreigner"
+     ],
+     "chunk": "decret_2016_375_cni::art_6_g",
+     "pieces": [
+      {
+       "texte": "une copie conforme d'un acte ou d'un extrait de naissance signée des autorités compétentes",
+       "chunk": "decret_2016_375_cni::art_6_g"
+      },
+      {
+       "texte": "une copie du décret de naturalisation conformément au Code de nationalité",
+       "chunk": "decret_2016_375_cni::art_6_g"
+      },
+      {
+       "texte": "un extrait d'acte de mariage, pour les femmes mariées",
+       "chunk": "decret_2016_375_cni::art_6_g"
+      },
+      {
+       "texte": "une pièce justificative de la profession, le cas échéant",
+       "chunk": "decret_2016_375_cni::art_6_g"
+      },
+      {
+       "texte": "le bulletin n°3 du casier judiciaire spécial",
+       "chunk": "decret_2016_375_cni::art_6_g"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "passeport",
+   "nom": "Passeport",
+   "nom_en": "Passport",
+   "domaine": "Identité et état civil",
+   "statut": "couvert",
+   "autorite": "Délégation Générale à la Sûreté Nationale (DGSN)",
+   "mots_cles": [
+    "passeport",
+    "passcam",
+    "passport"
+   ],
+   "chunks_complementaires": [
+    "decret_2021_347_passeport::art_5_6",
+    "decret_2021_347_passeport::art_7"
+   ],
+   "fiches": [],
+   "chunks": [
+    "decret_2021_347_passeport::art_10_11",
+    "decret_2021_347_passeport::art_12_1_2",
+    "decret_2021_347_passeport::art_12_3",
+    "decret_2021_347_passeport::art_12_4",
+    "decret_2021_347_passeport::art_13",
+    "decret_2021_347_passeport::art_2",
+    "decret_2021_347_passeport::art_3",
+    "decret_2021_347_passeport::art_5_6",
+    "decret_2021_347_passeport::art_7",
+    "decret_2021_347_passeport::art_9",
+    "procedure_passcam_passeport::etape_1",
+    "procedure_passcam_passeport::etape_2",
+    "procedure_passcam_passeport::etape_3",
+    "procedure_passcam_passeport::etape_4"
+   ],
+   "pieces": [
+    {
+     "texte": "une quittance de paiement des frais de timbre",
+     "chunk": "decret_2021_347_passeport::art_12_3"
+    },
+    {
+     "texte": "une photocopie certifiée conforme de l'acte de naissance",
+     "chunk": "decret_2021_347_passeport::art_12_3"
+    },
+    {
+     "texte": "une photocopie certifiée conforme de la carte nationale d'identité",
+     "chunk": "decret_2021_347_passeport::art_12_3"
+    },
+    {
+     "texte": "un justificatif de la profession, s'il y a lieu",
+     "chunk": "decret_2021_347_passeport::art_12_3"
+    },
+    {
+     "texte": "une photocopie de la carte de séjour ou de résident, ou toute autre pièce tenant lieu, pour les demandeurs résidant à l'étranger",
+     "chunk": "decret_2021_347_passeport::art_12_3"
+    },
+    {
+     "texte": "une photocopie certifiée conforme de l'acte de mariage pour la femme mariée",
+     "chunk": "decret_2021_347_passeport::art_12_3"
+    },
+    {
+     "texte": "une photocopie du décret de naturalisation ou de réintégration, le cas échéant",
+     "chunk": "decret_2021_347_passeport::art_12_3"
+    },
+    {
+     "texte": "le certificat de perte de passeport, s'il y a lieu",
+     "chunk": "decret_2021_347_passeport::art_12_3"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "La demande de passeport ordinaire est précédée d'une inscription en ligne obligatoire, sauf dérogation expresse du Délégué Général à la Sûreté Nationale",
+     "chunk": "decret_2021_347_passeport::art_12_4"
+    },
+    {
+     "texte": "Ouvrez un dossier en ligne sur le site passcam.cm",
+     "chunk": "procedure_passcam_passeport::etape_1"
+    },
+    {
+     "texte": "Prenez rendez-vous en ligne pour l'enrôlement",
+     "chunk": "procedure_passcam_passeport::etape_1"
+    },
+    {
+     "texte": "Le retrait peut être effectué par un tiers muni d'une procuration dûment légalisée",
+     "chunk": "procedure_passcam_passeport::etape_4"
+    }
+   ],
+   "cas": []
+  },
+  {
+   "id": "acte_naissance",
+   "nom": "Acte de naissance",
+   "nom_en": "Birth certificate",
+   "domaine": "Identité et état civil",
+   "statut": "couvert",
+   "autorite": "Officier d'état civil",
+   "mots_cles": [
+    "acte de naissance",
+    "declarer une naissance",
+    "declaration de naissance",
+    "certificat de naissance",
+    "naissance",
+    "birth certificate",
+    "birth registration"
+   ],
+   "chunks_complementaires": [
+    "ordonnance_81_02_etat_civil::art_4"
+   ],
+   "procedures_liees": [
+    "jugement_suppletif"
+   ],
+   "fiches": [],
+   "chunks": [
+    "ordonnance_81_02_etat_civil::art_30",
+    "ordonnance_81_02_etat_civil::art_31",
+    "ordonnance_81_02_etat_civil::art_34"
+   ],
+   "pieces": [],
+   "etapes": [
+    {
+     "texte": "La naissance doit être déclarée à l'officier d'état civil du lieu de naissance dans les 30 jours suivant l'accouchement",
+     "chunk": "ordonnance_81_02_etat_civil::art_30"
+    },
+    {
+     "texte": "Lorsqu'une naissance n'a pas été déclarée dans le délai de trois mois, elle ne peut être enregistrée par l'officier d'état civil qu'en vertu d'un jugement rendu par le tribunal compétent",
+     "chunk": "ordonnance_81_02_etat_civil::art_33"
+    }
+   ],
+   "cas": []
+  },
+  {
+   "id": "jugement_suppletif",
+   "nom": "Jugement supplétif d'acte d'état civil",
+   "nom_en": "Supplementary court judgment for a civil status record",
+   "domaine": "Identité et état civil",
+   "statut": "couvert",
+   "autorite": "Juridiction compétente",
+   "mots_cles": [
+    "jugement suppletif",
+    "naissance tardive",
+    "reconstitution d acte",
+    "rectification d acte",
+    "rectifier un acte",
+    "acte perdu",
+    "supplementary judgment",
+    "late birth registration"
+   ],
+   "fiches": [],
+   "chunks": [
+    "ordonnance_81_02_etat_civil::art_23",
+    "ordonnance_81_02_etat_civil::art_24",
+    "ordonnance_81_02_etat_civil::art_33"
+   ],
+   "pieces": [],
+   "etapes": [
+    {
+     "texte": "Les demandes en rectification ou en reconstitution d'actes d'état civil sont portées devant la juridiction compétente dans le ressort de laquelle se trouve le centre d'état civil où l'acte a été ou aurait dû être dressé",
+     "chunk": "ordonnance_81_02_etat_civil::art_23"
+    },
+    {
+     "texte": "Le tribunal saisi dans les conditions ci-dessus doit, préalablement à toute décision, communiquer la requête au parquet aux fins d'enquête",
+     "chunk": "ordonnance_81_02_etat_civil::art_24"
+    }
+   ],
+   "cas": []
+  },
+  {
+   "id": "acte_mariage",
+   "nom": "Mariage et acte de mariage",
+   "nom_en": "Marriage and marriage certificate",
+   "domaine": "Identité et état civil",
+   "statut": "couvert",
+   "autorite": "Officier d'état civil",
+   "mots_cles": [
+    "acte de mariage",
+    "mariage",
+    "me marier",
+    "se marier",
+    "marriage",
+    "marriage certificate",
+    "get married"
+   ],
+   "chunks_complementaires": [
+    "ordonnance_81_02_etat_civil::art_49"
+   ],
+   "fiches": [],
+   "chunks": [
+    "ordonnance_81_02_etat_civil::art_48",
+    "ordonnance_81_02_etat_civil::art_49"
+   ],
+   "pieces": [],
+   "etapes": [
+    {
+     "texte": "Le mariage est célébré par l'officier d'état civil du lieu de naissance ou de résidence de l'un des futurs époux",
+     "chunk": "ordonnance_81_02_etat_civil::art_48"
+    }
+   ],
+   "cas": []
+  },
+  {
+   "id": "acte_deces",
+   "nom": "Déclaration et acte de décès",
+   "nom_en": "Death registration and certificate",
+   "domaine": "Identité et état civil",
+   "statut": "couvert",
+   "autorite": "Officier d'état civil",
+   "mots_cles": [
+    "acte de deces",
+    "deces",
+    "declarer un deces",
+    "death certificate",
+    "death registration",
+    "declare a death"
+   ],
+   "chunks_complementaires": [
+    "ordonnance_81_02_etat_civil::art_79"
+   ],
+   "fiches": [],
+   "chunks": [
+    "ordonnance_81_02_etat_civil::art_78",
+    "ordonnance_81_02_etat_civil::art_79"
+   ],
+   "pieces": [],
+   "etapes": [
+    {
+     "texte": "La déclaration de décès doit être faite dans le mois, par le chef de famille ou par un parent du défunt ou par toute autre personne ayant eu connaissance certaine du décès",
+     "chunk": "ordonnance_81_02_etat_civil::art_78"
+    },
+    {
+     "texte": "La déclaration des personnes visées au paraphe ci-dessus doit être certifiée par deux témoins",
+     "chunk": "ordonnance_81_02_etat_civil::art_78"
+    }
+   ],
+   "cas": []
+  },
+  {
+   "id": "certificat_nationalite",
+   "nom": "Certificat de nationalité",
+   "nom_en": "Certificate of nationality",
+   "domaine": "Identité et état civil",
+   "statut": "couvert",
+   "autorite": "Magistrats des juridictions civiles",
+   "mots_cles": [
+    "certificat de nationalite",
+    "nationalite",
+    "nationality certificate",
+    "certificate of nationality",
+    "nationality"
+   ],
+   "fiches": [],
+   "chunks": [
+    "loi_1968_lf3_nationalite::art_12",
+    "loi_1968_lf3_nationalite::art_1_2",
+    "loi_1968_lf3_nationalite::art_3",
+    "loi_1968_lf3_nationalite::art_42"
+   ],
+   "pieces": [],
+   "etapes": [
+    {
+     "texte": "Seuls les magistrats des juridictions civiles ayant leur siège aux chefs-lieux d'arrondissements on qualité pour délivrer un certificat de nationalité camerounaise à toute personne justifiant qu'elle a cette nationalité",
+     "chunk": "loi_1968_lf3_nationalite::art_42"
+    },
+    {
+     "texte": "Lorsque l'intéressé se heurte à un refus de délivrer un certificat de nationalité, il peut saisir le Ministre de la Justice",
+     "chunk": "loi_1968_lf3_nationalite::art_42"
+    }
+   ],
+   "cas": []
+  },
+  {
+   "id": "contrat_travail",
+   "nom": "Contrat de travail",
+   "nom_en": "Employment contract",
+   "domaine": "Travail",
+   "statut": "couvert",
+   "autorite": "Ministère du Travail et de la Sécurité Sociale (MINTSS)",
+   "mots_cles": [
+    "contrat de travail",
+    "cdd",
+    "cdi",
+    "embauche",
+    "embaucher",
+    "employment contract",
+    "labour contract",
+    "labor contract",
+    "fixed term contract"
+   ],
+   "chunks_complementaires": [
+    "loi_92_007_code_travail::art_25_1",
+    "loi_92_007_code_travail::art_25_2_3"
+   ],
+   "fiches": [],
+   "chunks": [
+    "loi_92_007_code_travail::art_23",
+    "loi_92_007_code_travail::art_25_1",
+    "loi_92_007_code_travail::art_25_2_3",
+    "loi_92_007_code_travail::art_27"
+   ],
+   "pieces": [],
+   "etapes": [
+    {
+     "texte": "Tout contrat de travail stipulant une durée déterminée supérieure à trois mois ou nécessitant l'installation d'un travailleur hors de sa résidence habituelle doit être constaté par écrit",
+     "chunk": "loi_92_007_code_travail::art_27"
+    },
+    {
+     "texte": "Une ampliation du contrat est adressée à l'inspecteur du travail du ressort",
+     "chunk": "loi_92_007_code_travail::art_27"
+    }
+   ],
+   "cas": []
+  },
+  {
+   "id": "commercant_individuel",
+   "nom": "S'enregistrer comme commerçant individuel",
+   "nom_en": "Registering as a sole trader",
+   "domaine": "Création d'entreprise",
+   "statut": "couvert",
+   "autorite": "Centre de Formalités de Création d'Entreprises (CFCE)",
+   "mots_cles": [
+    "commercant individuel",
+    "entreprise individuelle",
+    "etablissement individuel",
+    "rccm personne physique",
+    "sole trader",
+    "sole proprietorship",
+    "sole proprietor"
+   ],
+   "cas_mode": "choix",
+   "question_cas": "Comment souhaitez-vous déposer votre dossier ?",
+   "question_cas_en": "How do you want to submit your application?",
+   "fiches": [
+    {
+     "fiche": "180_135",
+     "libelle": "S'enregistrer comme commerçant individuel — dossier au CFCE",
+     "etapes": [
+      "Obtenir les formulaires",
+      "Déposer le dossier de création d'entreprise au CFCE",
+      "Retirer les pièces attestant la création d'entreprise"
+     ],
+     "pieces": [
+      "Plan de localisation du siège social",
+      "Déclaration sur l'honneur - antécédents judiciaires",
+      "Pièce d'Identité",
+      "Acte de mariage",
+      "Demande d'immatriculation au RCCM - personne physique",
+      "Fiche d'identification du promoteur",
+      "Chemise de circulation du dossier",
+      "Demande de carte de contribuable - personne physique",
+      "Récépissé de dépôt dossier CFCE"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 41,650",
+      "150 XAF pour les photocopies de formulaires",
+      "20,500 XAF pour les frais d'immatriculation au registre de commerce",
+      "1,000 XAF pour le timbre fiscal apposé sur le certificat d'immatriculation au registre de commerce",
+      "20,000 XAF de droits fixes d'enregistrement"
+     ],
+     "duree_totale": "2 j à 7 j",
+     "en_revision": true,
+     "chunks": [
+      "eregulations_180_135::etapes",
+      "eregulations_180_135::documents",
+      "eregulations_180_135::cout",
+      "eregulations_180_135::duree",
+      "eregulations_180_135::base_legale"
+     ]
+    },
+    {
+     "fiche": "181_136",
+     "libelle": "S'enregistrer comme commerçant individuel — dossier en ligne",
+     "etapes": [
+      "Déposer le dossier de création d'entreprise en ligne",
+      "Payer les frais au CFCE",
+      "Retirer les pièces attestant la création d'entreprise"
+     ],
+     "pieces": [
+      "Plan de localisation du siège social",
+      "Pièce d'Identité",
+      "Acte de mariage",
+      "Reçu de paiement CFCE"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 41,500",
+      "21,500 XAF pour les frais d'immatriculation au registre du commerce",
+      "20,000 XAF pour les droits fixes d'enregistrement aux impôts"
+     ],
+     "duree_totale": "1 j à 3 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_181_136::etapes",
+      "eregulations_181_136::documents",
+      "eregulations_181_136::cout",
+      "eregulations_181_136::duree",
+      "eregulations_181_136::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_180_135::base_legale",
+    "eregulations_180_135::cout",
+    "eregulations_180_135::documents",
+    "eregulations_180_135::duree",
+    "eregulations_180_135::etapes",
+    "eregulations_181_136::base_legale",
+    "eregulations_181_136::cout",
+    "eregulations_181_136::documents",
+    "eregulations_181_136::duree",
+    "eregulations_181_136::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": [
+    {
+     "id": "cfce",
+     "libelle": "Dossier déposé au CFCE",
+     "libelle_en": "At the CFCE office",
+     "mots": [
+      "au cfce",
+      "guichet",
+      "sur place",
+      "at the cfce",
+      "in person",
+      "dossier depose au cfce",
+      "at the cfce office"
+     ],
+     "fiche": "180_135",
+     "pieces": []
+    },
+    {
+     "id": "en_ligne",
+     "libelle": "Dossier déposé en ligne",
+     "libelle_en": "Online",
+     "mots": [
+      "en ligne",
+      "internet",
+      "mybusiness",
+      "online",
+      "dossier depose en ligne",
+      "online"
+     ],
+     "fiche": "181_136",
+     "pieces": []
+    }
+   ]
+  },
+  {
+   "id": "creation_societe",
+   "nom": "Créer une société (RCCM, carte de contribuable)",
+   "nom_en": "Setting up a company",
+   "domaine": "Création d'entreprise",
+   "statut": "couvert",
+   "autorite": "Centre de Formalités de Création d'Entreprises (CFCE)",
+   "mots_cles": [
+    "creer une societe",
+    "creation de societe",
+    "creer ma societe",
+    "societe",
+    "sarl",
+    "rccm",
+    "registre du commerce",
+    "statuts notaries",
+    "statuts sous seing prive",
+    "set up a company",
+    "create a company",
+    "incorporate",
+    "commercial register"
+   ],
+   "cas_mode": "choix",
+   "question_cas": "Quel parcours correspond à votre société ?",
+   "question_cas_en": "Which route applies to your company?",
+   "fiches": [
+    {
+     "fiche": "186_141",
+     "libelle": "Créer une société — statuts notariés, dossier au CFCE",
+     "etapes": [
+      "Achat de timbres fiscaux",
+      "Demande d'extrait de casier judiciaire",
+      "Retrait de l'extrait de casier judiciaire",
+      "Demande de statuts notariés et obtention de l’attestation de constitution de la société",
+      "Ouverture d'un compte pour société en création",
+      "Dépôt du capital social à la banque",
+      "Obtention de l’attestation de dépôt du capital social",
+      "Signature des statuts notariés",
+      "Retrait des statuts notariés et de la déclaration souscription et de versement",
+      "Obtenir les formulaires",
+      "Déposer le dossier au CFCE",
+      "Retirer les certificats"
+     ],
+     "pieces": [
+      "Demande d'extrait de casier judiciaire",
+      "Timbre fiscal - 1,000 XAF",
+      "Pièce d'Identité",
+      "Extrait de casier judiciaire",
+      "Registre de Commerce et du Crédit Mobilier (RCCM)",
+      "Procès verbal de nomination du ou des représentants",
+      "Acte de naissance",
+      "Attestation de constitution d'une société",
+      "Fiche de versement remplie",
+      "Bordereau de versement du capital social",
+      "Attestation de dépôt du capital social",
+      "Pouvoir authentique",
+      "Statuts notariés",
+      "Déclaration de souscription et de versement du capital",
+      "Immatriculation RCCM - Personne morale",
+      "Formulaire de déclaration sur l'honneur",
+      "Plan de localisation du siège social",
+      "Formulaire de demande de carte de contribuable - personne morale",
+      "Chemise de circulation de dossier - personne morale",
+      "Fiche d'identification de la société",
+      "Récépissé de dépôt dossier CFCE"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 126,975",
+      "3,000 XAF pour la demande et 2 extraits de casier judiciaire",
+      "200 XAF pour les frais de recherche",
+      "10,000 XAF pour l'ouverture du dossier",
+      "2 % du capital social - pour les émoluments du notaire",
+      "15,000 XAF pour les débours",
+      "5,000 XAF par exemplaire",
+      "10,000 XAF de déclaration de souscription de capital",
+      "1,000 XAF par timbre fiscal",
+      "12,000 XAF pour les expéditions de statuts",
+      "2,000 XAF de timbres fiscaux pour l'enregistrement aux impôts de la minute des statuts et de la déclaration de souscription et de versement du capital",
+      "150 XAF Pour les photocopies de formulaires",
+      "21,500 XAF pour les frais d'immatriculation au registre de commerce - personne morale",
+      "20,000 XAF pour les droits fixes d'enregistrement",
+      "13,125 XAF pour la publication de l'annonce légale dans Cameroon Tribune"
+     ],
+     "duree_totale": "6 j à 14 j",
+     "en_revision": true,
+     "chunks": [
+      "eregulations_186_141::etapes",
+      "eregulations_186_141::documents",
+      "eregulations_186_141::cout",
+      "eregulations_186_141::duree",
+      "eregulations_186_141::base_legale"
+     ]
+    },
+    {
+     "fiche": "184_139",
+     "libelle": "Créer une société — statuts sous seing privé, dossier au CFCE",
+     "etapes": [
+      "Obtenir les formulaires",
+      "Authentifier les statuts sous seing privé",
+      "Déposer le dossier au CFCE",
+      "Retirer les certificats"
+     ],
+     "pieces": [
+      "Modèle de statuts SARL unipersonnel",
+      "Pièce d'Identité",
+      "Statuts authentifiés par le chef du CFCE",
+      "Extrait d'immatriculation RCCM",
+      "Déclaration sur l'honneur - antécédents judiciaires",
+      "Plan de localisation du siège social",
+      "Formulaire de demande de carte de contribuable - personne morale",
+      "Chemise de circulation du dossier",
+      "Fiche d'identification du promoteur",
+      "Récépissé de dépôt dossier CFCE"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 69,775",
+      "150 XAF Pour les photocopies de formulaires",
+      "20,500 XAF pour les frais d'immatriculation au registre de commerce",
+      "1,000 XAF pour le timbre fiscal apposé sur le RCCM",
+      "20,000 XAF de droits fixes d'enregistrement",
+      "13,125 XAF pour la publication de l'annonce légale dans Cameroon Tribune",
+      "15,000 XAF pour les timbres fiscaux apposés sur les statuts"
+     ],
+     "duree_totale": "2 j à 7 j",
+     "en_revision": true,
+     "chunks": [
+      "eregulations_184_139::etapes",
+      "eregulations_184_139::documents",
+      "eregulations_184_139::cout",
+      "eregulations_184_139::duree",
+      "eregulations_184_139::base_legale"
+     ]
+    },
+    {
+     "fiche": "185_140",
+     "libelle": "Créer une société — statuts sous seing privé, dossier en ligne",
+     "etapes": [
+      "Authentifier les statuts sous seing privé",
+      "Faire enregistrer les statuts par le service des impôts",
+      "Déposer le dossier en ligne",
+      "Payer les frais au CFCE",
+      "Retirer les pièces attestant la création d'entreprise"
+     ],
+     "pieces": [
+      "Modèle de statuts SARL unipersonnel",
+      "Pièce d'Identité",
+      "Statuts authentifiés par le chef du CFCE",
+      "Statuts seing privé - enregistrés",
+      "Extrait d'immatriculation RCCM",
+      "Formulaire de déclaration sur l'honneur",
+      "Plan de localisation du siège social",
+      "Acte de mariage",
+      "Reçu de paiement CFCE"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 69,625",
+      "1,000 XAF par timbre fiscal",
+      "15,000 XAF apposé sur chaque feuille des 5 exemplaires de statuts 3 feuilles en moyenne",
+      "21,500 XAF pour les frais d'immatriculation au registre de commerce",
+      "20,000 XAF de droits fixes d'enregistrement",
+      "13,125 XAF pour la publication de l'annonce légale dans Cameroon Tribune"
+     ],
+     "duree_totale": "1 j à 3 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_185_140::etapes",
+      "eregulations_185_140::documents",
+      "eregulations_185_140::cout",
+      "eregulations_185_140::duree",
+      "eregulations_185_140::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_184_139::base_legale",
+    "eregulations_184_139::cout",
+    "eregulations_184_139::documents",
+    "eregulations_184_139::duree",
+    "eregulations_184_139::etapes",
+    "eregulations_185_140::base_legale",
+    "eregulations_185_140::cout",
+    "eregulations_185_140::documents",
+    "eregulations_185_140::duree",
+    "eregulations_185_140::etapes",
+    "eregulations_186_141::base_legale",
+    "eregulations_186_141::cout",
+    "eregulations_186_141::documents",
+    "eregulations_186_141::duree",
+    "eregulations_186_141::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": [
+    {
+     "id": "notaries_cfce",
+     "libelle": "Statuts notariés, dossier au CFCE",
+     "libelle_en": "Notarised articles, at the CFCE office",
+     "mots": [
+      "notaries",
+      "notaire",
+      "notarised",
+      "notary",
+      "statuts notaries, dossier au cfce",
+      "notarised articles, at the cfce office"
+     ],
+     "fiche": "186_141",
+     "pieces": []
+    },
+    {
+     "id": "seing_prive_cfce",
+     "libelle": "Statuts sous seing privé, dossier au CFCE",
+     "libelle_en": "Private-deed articles, at the CFCE office",
+     "mots": [
+      "seing prive cfce",
+      "sous seing prive au cfce",
+      "statuts sous seing prive, dossier au cfce",
+      "private-deed articles, at the cfce office"
+     ],
+     "fiche": "184_139",
+     "pieces": []
+    },
+    {
+     "id": "seing_prive_ligne",
+     "libelle": "Statuts sous seing privé, dossier en ligne",
+     "libelle_en": "Private-deed articles, online",
+     "mots": [
+      "seing prive en ligne",
+      "en ligne",
+      "online",
+      "statuts sous seing prive, dossier en ligne",
+      "private-deed articles, online"
+     ],
+     "fiche": "185_140",
+     "pieces": []
+    }
+   ]
+  },
+  {
+   "id": "creation_succursale",
+   "nom": "Créer une succursale",
+   "nom_en": "Setting up a branch",
+   "domaine": "Création d'entreprise",
+   "statut": "couvert",
+   "autorite": "Centre de Formalités de Création d'Entreprises (CFCE)",
+   "mots_cles": [
+    "succursale",
+    "creer une succursale",
+    "branch office",
+    "open a branch",
+    "set up a branch"
+   ],
+   "fiches": [
+    {
+     "fiche": "158_127",
+     "libelle": "Créer une succursale",
+     "etapes": [
+      "Achat de timbres fiscaux",
+      "Demande d'extrait de casier judiciaire",
+      "Retrait de l'extrait de casier judiciaire",
+      "Dépôt du dossier de création de succursale chez le notaire",
+      "Retrait de la déclaration d'existence de la succursale",
+      "Dépôt du dossier au CFCE et paiement des frais de création d'entreprise",
+      "Retrait des pièces attestant la création de l'entreprise"
+     ],
+     "pieces": [
+      "Personnes physiques",
+      "Personnes morales",
+      "Demande d'extrait de casier judiciaire",
+      "Pièce d'Identité",
+      "Copie certifiée conforme de la pièce d'identité",
+      "Statuts de la société mère",
+      "Certificat d'immatriculation au registre de commerce de la société mère",
+      "Procès verbal autorisant la création de succursale",
+      "Procès verbal de nomination du ou des représentants",
+      "Pouvoir authentique",
+      "Formulaire de demande de carte de contribuable - personne morale",
+      "Chemise cartonnée",
+      "Certificat d'immatriculation au registre de commerce de la société mère",
+      "Déclaration d'existence de la succursale",
+      "Pièce d'Identité",
+      "Déclaration sur l'honneur - antécédents judiciaires",
+      "Plan de localisation du siège social",
+      "Déclaration de création d'entreprise - liasse CFCE",
+      "Déclaration d'existence de la succursale",
+      "Pièce d'Identité",
+      "Déclaration sur l'honneur - antécédents judiciaires",
+      "Plan de localisation du siège social",
+      "Récépissé - dépôt de dossier"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 100,500",
+      "5,000 XAF pour l'ouverture du dossier",
+      "2 % du capital social - pour les émoluments du notaire",
+      "15,000 XAF pour les débours photocopies, chemises et divers",
+      "5,000 XAF pour la déclaration d'existence de la succursale",
+      "1,000 XAF par timbre fiscal",
+      "3,000 XAF pour les expéditions de la déclaration d'existence de la succursale",
+      "1,000 XAF de timbre fiscal pour l'enregistrement aux impôts de la minute de la déclaration d'existence de la succursale.",
+      "21,500 XAF pour les frais d'immatriculation au registre de commerce - personne morale",
+      "20,000 XAF pour les droits fixes d'enregistrement",
+      "10,000 XAF pour la publication de l'annonce légale"
+     ],
+     "duree_totale": "2 j à 3 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_158_127::etapes",
+      "eregulations_158_127::documents",
+      "eregulations_158_127::cout",
+      "eregulations_158_127::duree",
+      "eregulations_158_127::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_158_127::base_legale",
+    "eregulations_158_127::cout",
+    "eregulations_158_127::documents",
+    "eregulations_158_127::duree",
+    "eregulations_158_127::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "cnps_immatriculation",
+   "nom": "Immatriculation à la CNPS (entreprise et salariés)",
+   "nom_en": "CNPS registration (employer and employees)",
+   "domaine": "Protection sociale",
+   "statut": "couvert",
+   "autorite": "Caisse Nationale de Prévoyance Sociale (CNPS)",
+   "mots_cles": [
+    "immatriculation cnps",
+    "immatriculer a la cnps",
+    "immatriculer mon entreprise a la cnps",
+    "affiliation cnps",
+    "declarer un salarie",
+    "declarer mes salaries",
+    "cnps registration",
+    "register with cnps",
+    "register employees"
+   ],
+   "fiches": [
+    {
+     "fiche": "93_53",
+     "libelle": "Immatriculation de l'entreprise et des salariés à la CNPS",
+     "etapes": [
+      "Demande de l'attestation de localisation au bureau des impôts",
+      "Retrait de l'attestation de localisation",
+      "Achat de formulaires de copies d'actes d'état civil",
+      "Obtention des copies certifiées d'actes d'état civil du salarié",
+      "Obtention des formulaires de demande d'immatriculation à la CNPS",
+      "Dépôt des demandes d'immatriculation de l'entreprise et du salarié à la CNPS",
+      "Retrait des attestations d'immatriculation à la CNPS"
+     ],
+     "pieces": [
+      "Plan de localisation",
+      "Formulaire - copie d'acte de naissance",
+      "Formulaire de copie d'acte de mariage",
+      "Acte de naissance",
+      "Acte de mariage",
+      "Demande d'immatriculation CNPS de l'entreprise",
+      "Demande d'immatriculation CNPS de l'assuré social",
+      "Plan de localisation du siège social",
+      "Attestation de localisation",
+      "Carte de contribuable",
+      "Titre de Patente",
+      "Registre de commerce",
+      "Pièce d'Identité",
+      "Liste du personnel",
+      "Avis d'embauche d'un salarié",
+      "Récépissé de dépôt dossier d'immatriculation de l'entreprise (employeur)",
+      "Récépissé de dépôt dossier d'immatriculation du salarié"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 200",
+      "100 XAF pour le formulaire de copie d'acte de naissance",
+      "100 XAF pour le formulaire de copie d'acte de mariage"
+     ],
+     "duree_totale": "2 j à 7 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_93_53::etapes",
+      "eregulations_93_53::documents",
+      "eregulations_93_53::cout",
+      "eregulations_93_53::duree",
+      "eregulations_93_53::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_93_53::base_legale",
+    "eregulations_93_53::cout",
+    "eregulations_93_53::documents",
+    "eregulations_93_53::duree",
+    "eregulations_93_53::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "cnps_cotisations",
+   "nom": "Paiement des cotisations sociales à la CNPS",
+   "nom_en": "Paying social contributions to CNPS",
+   "domaine": "Protection sociale",
+   "statut": "couvert",
+   "autorite": "Caisse Nationale de Prévoyance Sociale (CNPS)",
+   "mots_cles": [
+    "cotisations sociales",
+    "cotisation cnps",
+    "cotisations cnps",
+    "payer la cnps",
+    "social contributions",
+    "cnps contributions"
+   ],
+   "fiches": [
+    {
+     "fiche": "94_7",
+     "libelle": "Paiement des cotisations sociales à la CNPS",
+     "etapes": [
+      "Obtention de la fiche de télédéclaration",
+      "Paiement par virement bancaire",
+      "ou : Paiement par versement en espèces",
+      "ou : Demande de chèque certifié",
+      "Retrait du chèque certifié",
+      "Obtention du bulletin d'émission",
+      "Obtention de la quittance de paiement de la CNPS"
+     ],
+     "pieces": [
+      "Ordre de paiement à l'ordre de la Caisse Nationale de Prévoyance Sociale",
+      "Fiche de télédéclaration",
+      "Fiche de versement en espèces des cotisations sociales",
+      "Chèque au nom de la Caisse Nationale de Prévoyance Sociale",
+      "Demande de chèque certifié",
+      "Pièce d'Identité",
+      "Pouvoir authentique",
+      "Bordereau de virement CNPS",
+      "Bulletin d'émission des créances sociales - cotisations CNPS",
+      "Télédéclaration"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "1 j à 1 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_94_7::etapes",
+      "eregulations_94_7::documents",
+      "eregulations_94_7::cout",
+      "eregulations_94_7::duree",
+      "eregulations_94_7::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_94_7::base_legale",
+    "eregulations_94_7::cout",
+    "eregulations_94_7::documents",
+    "eregulations_94_7::duree",
+    "eregulations_94_7::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "cnps_allocations_familiales",
+   "nom": "Allocations familiales et prénatales",
+   "nom_en": "Family and prenatal allowances",
+   "domaine": "Protection sociale",
+   "statut": "couvert",
+   "autorite": "Caisse Nationale de Prévoyance Sociale (CNPS)",
+   "mots_cles": [
+    "allocations familiales",
+    "allocation familiale",
+    "allocations prenatales",
+    "allocation prenatale",
+    "family allowance",
+    "family allowances",
+    "prenatal allowance"
+   ],
+   "fiches": [
+    {
+     "fiche": "95_49",
+     "libelle": "Allocations familiales",
+     "etapes": [
+      "Achat de formulaires de copies d'actes d'état civil et du certificat de vie",
+      "Obtention des copies certifiées d'actes d'état civil et du certificat de vie",
+      "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+      "Obtention du certificat de scolarité des enfants scolarisés",
+      "Obtention du formulaire de demande de prestations familiales (allocations familiales)",
+      "Dépôt de la demande d'allocations familiales",
+      "Identification du bénéficiaire de l'allocation",
+      "Obtention du chèque de paiement des allocations familiales",
+      "ou : Obtention du paiement en espèces des allocations familiales"
+     ],
+     "pieces": [
+      "Formulaire - copie d'acte de naissance",
+      "Formulaire du certificat de vie individuel",
+      "Formulaire de copie d'acte de mariage",
+      "Acte de naissance",
+      "Acte de mariage",
+      "Demande de copie certifiée de carte nationale d'identité",
+      "Pièce d'Identité",
+      "Demande des indemnités journalières de congé de maternité",
+      "Etat de contrôle d'affiliation d'un assuré",
+      "Télédéclaration",
+      "Quittance de paiement des cotisations sociales",
+      "Bulletin de présence",
+      "Copie certifiée conforme de la pièce d'identité",
+      "Copie certifiée conforme d'acte de mariage",
+      "Copie certifiée conforme d'acte de naissance",
+      "Certificat de vie individuel",
+      "Certificat de scolarité"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 300",
+      "100 XAF pour le formulaire de copie d'acte de naissance",
+      "100 XAF pour le formulaire de copie d'acte de mariage",
+      "100 XAF pour le formulaire du certificat de vie"
+     ],
+     "duree_totale": "13 j à 22 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_95_49::etapes",
+      "eregulations_95_49::documents",
+      "eregulations_95_49::cout",
+      "eregulations_95_49::duree",
+      "eregulations_95_49::base_legale"
+     ]
+    },
+    {
+     "fiche": "96_50",
+     "libelle": "Allocations prénatales",
+     "etapes": [
+      "Obtention du relevé d'identité bancaire",
+      "Obtention du formulaire de demande de prestations familiales (allocations prénatales)",
+      "Dépôt de la demande d'allocations prénatales",
+      "Identification du bénéficiaire des allocations prénatales",
+      "Obtention du chèque de paiement des allocations prénatales",
+      "ou : Obtention du paiement en espèces"
+     ],
+     "pieces": [
+      "Pièce d'Identité",
+      "Demande des indemnités journalières de congé de maternité",
+      "Certificat de grossesse du 1er examen prénatal",
+      "Certificat de grossesse du 2nd examen prénatal",
+      "Bulletin de présence"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "13 j à 22 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_96_50::etapes",
+      "eregulations_96_50::documents",
+      "eregulations_96_50::cout",
+      "eregulations_96_50::duree",
+      "eregulations_96_50::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_95_49::base_legale",
+    "eregulations_95_49::cout",
+    "eregulations_95_49::documents",
+    "eregulations_95_49::duree",
+    "eregulations_95_49::etapes",
+    "eregulations_96_50::base_legale",
+    "eregulations_96_50::cout",
+    "eregulations_96_50::documents",
+    "eregulations_96_50::duree",
+    "eregulations_96_50::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "cnps_maternite",
+   "nom": "Congé de maternité : indemnités et allocations",
+   "nom_en": "Maternity leave: benefits and allowances",
+   "domaine": "Protection sociale",
+   "statut": "couvert",
+   "autorite": "Caisse Nationale de Prévoyance Sociale (CNPS)",
+   "mots_cles": [
+    "maternite",
+    "conge de maternite",
+    "allocation de maternite",
+    "indemnites journalieres",
+    "maternity",
+    "maternity leave",
+    "maternity benefit"
+   ],
+   "fiches": [
+    {
+     "fiche": "97_51",
+     "libelle": "Indemnités journalières de congé de maternité",
+     "etapes": [
+      "Obtention du relevé d'identité bancaire",
+      "Obtention du formulaire de demande de prestations familiales (indemnités de congé de maternité)",
+      "Dépôt de la demande des indemnités journalières de congé de maternité",
+      "Identification du bénéficiaire des indemnités de congé de maternité",
+      "Obtention du chèque",
+      "ou : Obtention du paiement en espèces"
+     ],
+     "pieces": [
+      "Pièce d'Identité",
+      "Demande des indemnités journalières de congé de maternité",
+      "Bulletin de présence",
+      "Décision de mise en congé de maternité",
+      "Certificat de non reprise de service",
+      "Certificat de cessation de paiement du salaire",
+      "Bulletins de paie",
+      "Certificat de grossesse du 1er examen prénatal",
+      "Certificat de grossesse du 2nd examen prénatal",
+      "Certificat d'accouchement sous contrôle médical",
+      "Télédéclaration"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "10 j à 20 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_97_51::etapes",
+      "eregulations_97_51::documents",
+      "eregulations_97_51::cout",
+      "eregulations_97_51::duree",
+      "eregulations_97_51::base_legale"
+     ]
+    },
+    {
+     "fiche": "98_52",
+     "libelle": "Allocations de maternité",
+     "etapes": [
+      "Achat de formulaires de copies d'acte de naissance",
+      "Obtention des copies certifiées d'acte de naissance de la mère salariée et du nouveau-né",
+      "Obtention du formulaire de demande de prestations familiales (allocation de maternité)",
+      "Dépôt du dossier d'obtention d'une allocation de maternité",
+      "Identification du bénéficiaire de l'allocation",
+      "Obtention du chèque de paiement de l'allocation de maternité",
+      "ou : Obtention du paiement en espèces de l'allocation de maternité"
+     ],
+     "pieces": [
+      "Formulaire - copie d'acte de naissance",
+      "Acte de naissance",
+      "Demande d'une allocation de maternité",
+      "Bulletin de présence",
+      "Certificat d'accouchement sous contrôle médical",
+      "Copie certifiée conforme d'acte de naissance",
+      "Pièce d'Identité"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "13 j à 27 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_98_52::etapes",
+      "eregulations_98_52::documents",
+      "eregulations_98_52::cout",
+      "eregulations_98_52::duree",
+      "eregulations_98_52::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_97_51::base_legale",
+    "eregulations_97_51::cout",
+    "eregulations_97_51::documents",
+    "eregulations_97_51::duree",
+    "eregulations_97_51::etapes",
+    "eregulations_98_52::base_legale",
+    "eregulations_98_52::cout",
+    "eregulations_98_52::documents",
+    "eregulations_98_52::duree",
+    "eregulations_98_52::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "cnps_risques_professionnels",
+   "nom": "Accident du travail et maladie professionnelle",
+   "nom_en": "Work accident and occupational disease",
+   "domaine": "Protection sociale",
+   "statut": "couvert",
+   "autorite": "Caisse Nationale de Prévoyance Sociale (CNPS)",
+   "mots_cles": [
+    "accident du travail",
+    "maladie professionnelle",
+    "risques professionnels",
+    "work accident",
+    "occupational disease",
+    "occupational risk"
+   ],
+   "fiches": [
+    {
+     "fiche": "102_11",
+     "libelle": "Couverture des risques et maladies professionnels",
+     "etapes": [
+      "Obtention du relevé d'identité bancaire",
+      "Obtention du formulaire de déclaration d'accident de travail ou de maladie professionnelle",
+      "Dépôt du dossier d'obtention d'allocation d'incapacité ou de rente",
+      "Obtention de la convocation pour une contre visite médicale",
+      "Visite chez le médecin conseil de la CNPS",
+      "Identification du bénéficiaire",
+      "Obtention de la décision portant attribution d'allocation d'incapacité ou de rente aux assurés",
+      "Obtention du chèque d'allocation d'incapacité ou de rente aux assurés",
+      "ou : Obtention du paiement en espèces de l'allocation d'incapacité ou de la rente au assurés"
+     ],
+     "pieces": [
+      "Pièce d'Identité",
+      "Déclaration d'accident de travail ou de maladie professionnelle",
+      "Bulletins de paie",
+      "Ordonnance médicale",
+      "Bulletin d'examen",
+      "Facture médicale",
+      "Certificat médical",
+      "Décision portant attribution d'allocation d'incapacité ou de rente"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "38 j à 54 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_102_11::etapes",
+      "eregulations_102_11::documents",
+      "eregulations_102_11::cout",
+      "eregulations_102_11::duree",
+      "eregulations_102_11::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_102_11::base_legale",
+    "eregulations_102_11::cout",
+    "eregulations_102_11::documents",
+    "eregulations_102_11::duree",
+    "eregulations_102_11::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "cnps_pension_vieillesse",
+   "nom": "Pension de vieillesse et d'invalidité",
+   "nom_en": "Old-age and disability pension",
+   "domaine": "Protection sociale",
+   "statut": "couvert",
+   "autorite": "Caisse Nationale de Prévoyance Sociale (CNPS)",
+   "mots_cles": [
+    "pension de vieillesse",
+    "pension vieillesse",
+    "pension d invalidite",
+    "pension invalidite",
+    "partir a la retraite",
+    "ma retraite",
+    "old age pension",
+    "disability pension",
+    "retirement pension"
+   ],
+   "fiches": [
+    {
+     "fiche": "100_54",
+     "libelle": "Pension vieillesse et invalidité",
+     "etapes": [
+      "Obtention du relevé d'identité bancaire",
+      "Achat de formulaires du certificat de vie et de non fonction",
+      "Obtention des certificats de vie et de non fonction",
+      "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+      "Obtention du formulaire de demande de pension vieillesse",
+      "Dépôt de la demande de pension au Centre de Prévoyance Sociale",
+      "Identification du bénéficiaire",
+      "Obtention de la décision d'attribution de la pension de vieillesse et d'invalidité",
+      "Obtention du chèque de paiement",
+      "ou : Obtention du paiement en espèces de la pension vieillesse"
+     ],
+     "pieces": [
+      "Pièce d'Identité",
+      "Formulaire du certificat de vie individuel",
+      "Formulaire du certificat de non fonction",
+      "Acte de naissance",
+      "Demande de copie certifiée de carte nationale d'identité",
+      "Demande de pension vieillesse",
+      "Etat de contrôle d'affiliation d'un assuré",
+      "Bulletins de paie",
+      "Certificat de travail",
+      "Certificat de non fonction",
+      "Certificat de vie individuel",
+      "Télédéclaration",
+      "Quittance de paiement des cotisations sociales",
+      "Copie certifiée conforme de la pièce d'identité",
+      "Décision portant attribution de pension de vieillesse et d'invalidité"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 200",
+      "100 XAF pour le formulaire du certificat de vie",
+      "100 XAF pour le formulaire du certificat de non fonction"
+     ],
+     "duree_totale": "23 j à 37 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_100_54::etapes",
+      "eregulations_100_54::documents",
+      "eregulations_100_54::cout",
+      "eregulations_100_54::duree",
+      "eregulations_100_54::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_100_54::base_legale",
+    "eregulations_100_54::cout",
+    "eregulations_100_54::documents",
+    "eregulations_100_54::duree",
+    "eregulations_100_54::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "cnps_pension_survivant",
+   "nom": "Pension de survivant",
+   "nom_en": "Survivor's pension",
+   "domaine": "Protection sociale",
+   "statut": "couvert",
+   "autorite": "Caisse Nationale de Prévoyance Sociale (CNPS)",
+   "mots_cles": [
+    "pension de survivant",
+    "pension de reversion",
+    "veuve",
+    "veuf",
+    "survivor pension",
+    "survivors pension",
+    "widow pension"
+   ],
+   "fiches": [
+    {
+     "fiche": "101_55",
+     "libelle": "Pension de survivant",
+     "etapes": [
+      "Obtention du relevé d'identité bancaire",
+      "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+      "Achat de formulaires",
+      "Obtention des certificats de vie, de non fonction et copies d'actes d'état civil",
+      "Obtention du certificat de scolarité des enfants scolarisés",
+      "Obtention du formulaire de demande de pension",
+      "Dépôt du dossier d'obtention de pension de survivant",
+      "Identification du bénéficiaire",
+      "Obtention de la décision d'attribution de pension de survivant",
+      "Retrait du chèque de paiement de la pension",
+      "ou : Obtention du paiement en espèces de la pension"
+     ],
+     "pieces": [
+      "Pièce d'Identité",
+      "Demande de copie certifiée de carte nationale d'identité",
+      "Formulaire copie d'acte de décès",
+      "Acte de décès",
+      "Formulaire du certificat de vie individuel",
+      "Formulaire de copie d'acte de mariage",
+      "Formulaire du certificat de non remariage",
+      "Formulaire du certificat de non fonction",
+      "Acte de naissance",
+      "Formulaire - copie d'acte de naissance",
+      "Demande de pension de survivant",
+      "Copie d'acte de décès",
+      "Etat de contrôle d'affiliation d'un assuré",
+      "Copie certifiée conforme d'acte de mariage",
+      "Certificat de non remariage",
+      "Certificat de non fonction",
+      "Certificat de vie individuel",
+      "Copie certifiée conforme de la pièce d'identité",
+      "Copie certifiée conforme d'acte de naissance",
+      "Certificat de scolarité",
+      "Décision portant attribution de pension de survivant",
+      "Décision portant attribution de pension de survivant"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 600",
+      "100 XAF par formulaire",
+      "600 XAF pour les copies des actes d'état civil"
+     ],
+     "duree_totale": "23 j à 37 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_101_55::etapes",
+      "eregulations_101_55::documents",
+      "eregulations_101_55::cout",
+      "eregulations_101_55::duree",
+      "eregulations_101_55::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_101_55::base_legale",
+    "eregulations_101_55::cout",
+    "eregulations_101_55::documents",
+    "eregulations_101_55::duree",
+    "eregulations_101_55::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "impot_liberatoire",
+   "nom": "Impôt libératoire",
+   "nom_en": "Discharge tax (impôt libératoire)",
+   "domaine": "Impôts et taxes",
+   "statut": "couvert",
+   "autorite": "Direction Générale des Impôts (DGI)",
+   "mots_cles": [
+    "impot liberatoire",
+    "liberatoire",
+    "petit commerce",
+    "discharge tax"
+   ],
+   "fiches": [
+    {
+     "fiche": "20_13",
+     "libelle": "Impôt libératoire",
+     "etapes": [
+      "Achat du timbre fiscal",
+      "Obtention des formulaires",
+      "Dépôt du dossier d'obtention de l'impôt libératoire",
+      "Obtention du visa du gestionnaire d'impôt",
+      "Obtention du bulletin d'émission de l'avis d'imposition",
+      "Paiement de l'impôt libératoire",
+      "Retrait de la fiche de suivi de l'impôt libératoire et de la quittance"
+     ],
+     "pieces": [
+      "Demande d'obtention de l'impôt libératoire",
+      "Carte de contribuable",
+      "Contrat de bail",
+      "Pièce d'Identité",
+      "Timbre fiscal",
+      "Déclaration de l'impôt libératoire",
+      "Déclaration signée par le gestionnaire du portefeuille",
+      "Bulletin d'émission de l'avis d'imposition",
+      "Quittance provisoire informatisée"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 1,000",
+      "1,000 XAF pour le timbre fiscal à apposer sur la demande d'établissement de l'impôt libératoire"
+     ],
+     "duree_totale": "1 j à 2 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_20_13::etapes",
+      "eregulations_20_13::documents",
+      "eregulations_20_13::cout",
+      "eregulations_20_13::duree",
+      "eregulations_20_13::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_20_13::base_legale",
+    "eregulations_20_13::cout",
+    "eregulations_20_13::documents",
+    "eregulations_20_13::duree",
+    "eregulations_20_13::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "impot_tva",
+   "nom": "Taxe sur la valeur ajoutée (TVA)",
+   "nom_en": "Value added tax (VAT)",
+   "domaine": "Impôts et taxes",
+   "statut": "couvert",
+   "autorite": "Direction Générale des Impôts (DGI)",
+   "mots_cles": [
+    "tva",
+    "taxe sur la valeur ajoutee",
+    "vat",
+    "value added tax"
+   ],
+   "fiches": [
+    {
+     "fiche": "33_114",
+     "libelle": "Taxe sur la valeur ajoutée (TVA)",
+     "etapes": [
+      "Obtention des formulaires de déclaration",
+      "Obtention du visa du gestionnaire d'impôt",
+      "Obtention du bulletin d'émission de l'avis d'imposition",
+      "Paiement de la Taxe sur la Valeur Ajoutée (TVA)",
+      "Retrait de la quittance"
+     ],
+     "pieces": [
+      "Titre de patente",
+      "Déclaration de la Taxe sur la Valeur Ajoutée (TVA)",
+      "Déclaration de la Taxe sur la Valeur Ajoutée (TVA)",
+      "Bulletin d'émission de l'avis d'imposition",
+      "Déclaration de la Taxe sur la Valeur Ajoutée (TVA)",
+      "Quittance informatisée"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "2 j à 7 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_33_114::etapes",
+      "eregulations_33_114::documents",
+      "eregulations_33_114::cout",
+      "eregulations_33_114::duree",
+      "eregulations_33_114::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_33_114::base_legale",
+    "eregulations_33_114::cout",
+    "eregulations_33_114::documents",
+    "eregulations_33_114::duree",
+    "eregulations_33_114::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "impot_irpp",
+   "nom": "Impôt sur le revenu des personnes physiques (IRPP)",
+   "nom_en": "Personal income tax (IRPP)",
+   "domaine": "Impôts et taxes",
+   "statut": "couvert",
+   "autorite": "Direction Générale des Impôts (DGI)",
+   "mots_cles": [
+    "irpp",
+    "impot sur le revenu",
+    "income tax",
+    "personal income tax"
+   ],
+   "fiches": [
+    {
+     "fiche": "31_116",
+     "libelle": "Impôt sur le revenu des personnes physiques (IRPP)",
+     "etapes": [
+      "Obtention des formulaires de déclaration",
+      "Obtention du visa du gestionnaire d'impôt",
+      "Obtention du bulletin d'émission de l'avis d'imposition",
+      "Paiement de l'IRPP",
+      "Retrait de la quittance"
+     ],
+     "pieces": [
+      "Titre de patente",
+      "Déclaration de l'IRPP",
+      "Déclaration de l'IRPP",
+      "Bulletin d'émission de l'avis d'imposition",
+      "Quittance provisoire informatisée"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "2 j à 7 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_31_116::etapes",
+      "eregulations_31_116::documents",
+      "eregulations_31_116::cout",
+      "eregulations_31_116::duree",
+      "eregulations_31_116::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_31_116::base_legale",
+    "eregulations_31_116::cout",
+    "eregulations_31_116::documents",
+    "eregulations_31_116::duree",
+    "eregulations_31_116::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "impot_societes",
+   "nom": "Impôt sur les sociétés (IS)",
+   "nom_en": "Corporate income tax (IS)",
+   "domaine": "Impôts et taxes",
+   "statut": "couvert",
+   "autorite": "Direction Générale des Impôts (DGI)",
+   "mots_cles": [
+    "impot sur les societes",
+    "corporate tax",
+    "corporate income tax"
+   ],
+   "fiches": [
+    {
+     "fiche": "32_117",
+     "libelle": "Impôt sur les sociétés (IS)",
+     "etapes": [
+      "Obtention des formulaires de déclaration",
+      "Obtention du visa du gestionnaire d'impôt",
+      "Obtention du bulletin d'émission de l'avis d'imposition",
+      "Paiement de l'Impôt sur les Sociétés (IS)",
+      "Retrait de la quittance"
+     ],
+     "pieces": [
+      "Titre de Patente",
+      "Carte de contribuable - personne morale",
+      "Déclaration de l'Impôt sur les sociétés (IS)",
+      "Déclaration de l'Impôt sur les Sociétés (IS)",
+      "Bulletin d'émission de l'avis d'imposition",
+      "Déclaration de l'Impôt sur les Sociétés (IS)",
+      "Quittance provisoire informatisée"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "2 j à 7 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_32_117::etapes",
+      "eregulations_32_117::documents",
+      "eregulations_32_117::cout",
+      "eregulations_32_117::duree",
+      "eregulations_32_117::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_32_117::base_legale",
+    "eregulations_32_117::cout",
+    "eregulations_32_117::documents",
+    "eregulations_32_117::duree",
+    "eregulations_32_117::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "patente",
+   "nom": "Patente",
+   "nom_en": "Business licence tax (patente)",
+   "domaine": "Impôts et taxes",
+   "statut": "couvert",
+   "autorite": "Direction Générale des Impôts (DGI)",
+   "mots_cles": [
+    "patente",
+    "business licence tax",
+    "business license tax"
+   ],
+   "fiches": [
+    {
+     "fiche": "36_120",
+     "libelle": "La patente",
+     "etapes": [
+      "Obtention des formulaires de déclaration",
+      "Obtention du visa du gestionnaire d'impôt",
+      "Obtention du bulletin d'émission de l'avis d'imposition",
+      "Paiement des contributions des patentes",
+      "Retrait de la quittance et du titre de patente"
+     ],
+     "pieces": [
+      "Carte de contribuable",
+      "Déclaration des contributions des patentes et licences",
+      "Déclaration des contributions des patentes et licences",
+      "Déclaration des contributions des patentes et licences",
+      "Bulletin d'émission de l'avis d'imposition",
+      "Quittance provisoire informatisée"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "2 j à 7 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_36_120::etapes",
+      "eregulations_36_120::documents",
+      "eregulations_36_120::cout",
+      "eregulations_36_120::duree",
+      "eregulations_36_120::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_36_120::base_legale",
+    "eregulations_36_120::cout",
+    "eregulations_36_120::documents",
+    "eregulations_36_120::duree",
+    "eregulations_36_120::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "taxe_fonciere",
+   "nom": "Taxe sur la propriété foncière (TPF)",
+   "nom_en": "Property tax (TPF)",
+   "domaine": "Impôts et taxes",
+   "statut": "couvert",
+   "autorite": "Direction Générale des Impôts (DGI)",
+   "mots_cles": [
+    "taxe fonciere",
+    "taxe sur la propriete fonciere",
+    "property tax",
+    "land tax"
+   ],
+   "fiches": [
+    {
+     "fiche": "37_121",
+     "libelle": "Taxe sur la propriété foncière (TPF)",
+     "etapes": [
+      "Obtention des formulaires de déclaration",
+      "Déclaration de la taxe sur la propriété foncière",
+      "Obtention du bulletin d'émission de l'avis d'imposition",
+      "Paiement de la taxe sur la propriété foncière",
+      "Retrait de la quittance"
+     ],
+     "pieces": [
+      "Déclaration annuelle de la Taxe sur la Propriété Foncière",
+      "Titre de propriété",
+      "Déclaration annuelle de la Taxe sur la Propriété Foncière",
+      "Bulletin d'émission de la Taxe sur la Propriété Foncière",
+      "Quittance informatisée"
+     ],
+     "cout": [
+      "Procédure gratuite"
+     ],
+     "duree_totale": "1 j à 2 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_37_121::etapes",
+      "eregulations_37_121::documents",
+      "eregulations_37_121::cout",
+      "eregulations_37_121::duree",
+      "eregulations_37_121::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_37_121::base_legale",
+    "eregulations_37_121::cout",
+    "eregulations_37_121::documents",
+    "eregulations_37_121::duree",
+    "eregulations_37_121::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "permis_construire",
+   "nom": "Permis de construire (permis de bâtir)",
+   "nom_en": "Building permit",
+   "domaine": "Urbanisme et foncier",
+   "statut": "couvert",
+   "autorite": "Communauté Urbaine / Commune",
+   "mots_cles": [
+    "permis de construire",
+    "permis de batir",
+    "building permit",
+    "construction permit"
+   ],
+   "cas_mode": "sequence",
+   "fiches": [
+    {
+     "fiche": "169_129",
+     "libelle": "Obtention du plan de masse et de situation",
+     "etapes": [
+      "Achat de timbres fiscaux et de timbres communaux",
+      "Achat de formulaires de demande de plans",
+      "Dépôt de la demande de plans de masse et de situation",
+      "Obtention de l'état de cession du cadastre",
+      "Paiement des frais cadastraux",
+      "Retrait des plans"
+     ],
+     "pieces": [
+      "Demande de plans de masse et de situation",
+      "Titre de propriété",
+      "Chemise du dossier technique",
+      "Etat de cession"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 41,900",
+      "1,000 XAF par timbre fiscal",
+      "2,000 XAF pour les demandes du certificat de propriété et du permis de construire.",
+      "1,000 XAF par timbre fiscal",
+      "11,000 XAF pour la demande et les 10 plans",
+      "200 XAF par timbre communal",
+      "400 XAF pour la demande du permis de construire",
+      "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+      "27,500 XAF pour l'obtention des plans"
+     ],
+     "duree_totale": "4 j à 9 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_169_129::etapes",
+      "eregulations_169_129::documents",
+      "eregulations_169_129::cout",
+      "eregulations_169_129::duree",
+      "eregulations_169_129::base_legale"
+     ]
+    },
+    {
+     "fiche": "170_130",
+     "libelle": "Obtention du certificat d'urbanisme et d'accessibilité",
+     "etapes": [
+      "Demande des certificats d'urbanisme et d'accessibilité",
+      "Retrait des certificats d'urbanisme et d'accessibilité"
+     ],
+     "pieces": [
+      "demande des certficats d'urbanisme et d'accessibilité",
+      "Titre de propriété",
+      "Plan de la parcelle",
+      "Certificat de propriété",
+      "Plan de lotissement ou de découpage"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 2,000"
+     ],
+     "duree_totale": "15 j à 15 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_170_130::etapes",
+      "eregulations_170_130::documents",
+      "eregulations_170_130::cout",
+      "eregulations_170_130::duree",
+      "eregulations_170_130::base_legale"
+     ]
+    },
+    {
+     "fiche": "171_131",
+     "libelle": "Obtention du certificat de propriété",
+     "etapes": [
+      "Demande du certificat de propriété",
+      "Retrait du certificat de propriété"
+     ],
+     "pieces": [
+      "Demande de certificat de propriété",
+      "Titre de propriété",
+      "Pièce d'Identité"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 3,000",
+      "3,000 XAF pour la redevance foncière"
+     ],
+     "duree_totale": "3 j à 5 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_171_131::etapes",
+      "eregulations_171_131::documents",
+      "eregulations_171_131::cout",
+      "eregulations_171_131::duree",
+      "eregulations_171_131::base_legale"
+     ]
+    },
+    {
+     "fiche": "172_132",
+     "libelle": "Dépôt du dossier et paiement des frais de permis de construire",
+     "etapes": [
+      "Obtention du formulaire de demande du permis de construire",
+      "Obtention du titre d'émission des frais de salubrité",
+      "Obtention de la fiche de recette - frais de salubrité",
+      "Paiement des frais de salubrité",
+      "Obtention de la quittance des frais de salubrité",
+      "Dépôt du dossier d'obtention du permis de construire",
+      "Obtention du titre d'émission des frais de permis de construire",
+      "Obtention de la fiche de recette de la taxe du permis de construire",
+      "Paiement de la taxe du permis de construire",
+      "Obtention de la quittance de la taxe du permis de construire",
+      "Dépôt de la quittance de paiement de la taxe du permis de construire",
+      "Retrait du permis de construire"
+     ],
+     "pieces": [
+      "Demande du permis de construire",
+      "Titre d'émission des frais de salubrité",
+      "Titre d'émission",
+      "Fiche de recette des frais de salubrité",
+      "Demande de permis de construire",
+      "Certificat d'urbanisme",
+      "Certificat d'accessibilité",
+      "Certificat de propriété",
+      "Plan de masse et de situation",
+      "Plan de construction",
+      "Devis descriptif",
+      "Devis estimatif",
+      "Quittance CUY",
+      "Timbre comunal",
+      "Décharge",
+      "Titre d'émission - permis de construire",
+      "Fiche de recette - permis de construire"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 1,000",
+      "1,000 XAF pour les frais de salubrité",
+      "1 % du coût estimatif de la construction"
+     ],
+     "duree_totale": "10 j à 22 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_172_132::etapes",
+      "eregulations_172_132::documents",
+      "eregulations_172_132::cout",
+      "eregulations_172_132::duree",
+      "eregulations_172_132::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_169_129::base_legale",
+    "eregulations_169_129::cout",
+    "eregulations_169_129::documents",
+    "eregulations_169_129::duree",
+    "eregulations_169_129::etapes",
+    "eregulations_170_130::base_legale",
+    "eregulations_170_130::cout",
+    "eregulations_170_130::documents",
+    "eregulations_170_130::duree",
+    "eregulations_170_130::etapes",
+    "eregulations_171_131::base_legale",
+    "eregulations_171_131::cout",
+    "eregulations_171_131::documents",
+    "eregulations_171_131::duree",
+    "eregulations_171_131::etapes",
+    "eregulations_172_132::base_legale",
+    "eregulations_172_132::cout",
+    "eregulations_172_132::documents",
+    "eregulations_172_132::duree",
+    "eregulations_172_132::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "permis_implanter",
+   "nom": "Permis d'implanter",
+   "nom_en": "Site-establishment permit (permis d'implanter)",
+   "domaine": "Urbanisme et foncier",
+   "statut": "couvert",
+   "autorite": "Communauté Urbaine / Commune",
+   "mots_cles": [
+    "permis d implanter",
+    "implanter",
+    "certificat d abandon de droits coutumiers",
+    "site permit"
+   ],
+   "fiches": [
+    {
+     "fiche": "108_79",
+     "libelle": "Permis d'implanter",
+     "etapes": [
+      "Achat de formulaires",
+      "Achat de timbres fiscaux et de timbres communaux",
+      "Signature du formulaire du certificat d'abandon de droits coutumiers par le chef de village",
+      "Obtention du certificat d'abandon de droits coutumiers à la Sous-Préfecture",
+      "Achat de formulaires de demande de plans",
+      "Dépôt de la demande de plans de masse et de situation",
+      "Obtention de l'état de cession du cadastre",
+      "Paiement des frais cadastraux",
+      "Retrait des plans",
+      "Obtention du formulaire de demande du permis d'implanter",
+      "Obtention du titre d'émission des frais de salubrité",
+      "Obtention de la fiche de recette des frais de salubrité",
+      "Paiement des frais de salubrité",
+      "Obtention de la quittance des frais de salubrité",
+      "Dépôt du dossier de permis d'implanter",
+      "Retrait du permis d'implanter"
+     ],
+     "pieces": [
+      "Formulaire du certificat d'abandon de droits coutumiers",
+      "Pièce d'Identité",
+      "Plan de la parcelle",
+      "Contrat de vente de la parcelle",
+      "Formulaire du certificat d'abandon de droits coutumiers signé par le chef de village",
+      "Demande de plans de masse et de situation",
+      "Certificat d'abandon de droits coutumiers",
+      "Chemise du dossier technique",
+      "Etat de cession",
+      "Demande du permis d'implanter",
+      "Titre d'émission des frais de salubrité",
+      "Fiche de recette des frais de salubrité",
+      "Certificat d'abandon de droits coutumiers",
+      "Certificat de vente",
+      "Plan de masse et de situation",
+      "Plan de construction",
+      "Devis descriptif",
+      "Devis estimatif",
+      "Quittance CUY",
+      "Timbre comunal",
+      "Décharge"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 16,500",
+      "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+      "100 XAF pour le formulaire du certificat d'abandon de droits coutumiers",
+      "1,000 XAF par timbre fiscal",
+      "11,000 XAF pour la demande et les 10 plans",
+      "1,000 XAF par timbre fiscal",
+      "2,000 XAF pour le certificat d'abandon de droits coutumiers et la demande du permis d'implanter.",
+      "200 XAF par timbre communal",
+      "400 XAF pour la demande du permis d'implanter",
+      "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+      "27,500 XAF par",
+      "0 XAF morcellement",
+      "1,000 XAF pour les frais de salubrité"
+     ],
+     "duree_totale": "11 j à 29 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_108_79::etapes",
+      "eregulations_108_79::documents",
+      "eregulations_108_79::cout",
+      "eregulations_108_79::duree",
+      "eregulations_108_79::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_108_79::base_legale",
+    "eregulations_108_79::cout",
+    "eregulations_108_79::documents",
+    "eregulations_108_79::duree",
+    "eregulations_108_79::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "titre_foncier",
+   "nom": "Titre foncier",
+   "nom_en": "Land title",
+   "domaine": "Urbanisme et foncier",
+   "statut": "couvert",
+   "autorite": "Ministère des Domaines, du Cadastre et des Affaires Foncières (services régionaux)",
+   "mots_cles": [
+    "titre foncier",
+    "titre de propriete",
+    "land title",
+    "title deed"
+   ],
+   "cas_mode": "choix",
+   "question_cas": "Comment le terrain est-il acquis ?",
+   "question_cas_en": "How is the land being acquired?",
+   "fiches": [
+    {
+     "fiche": "40_22",
+     "libelle": "Obtention de la propriété par voie de concession (domaine national)",
+     "etapes": [
+      "Achat de timbres fiscaux",
+      "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+      "Obtention de l'ordre de versement des frais d'ouverture de dossier",
+      "Paiement des frais d'ouverture du dossier",
+      "Dépôt de la demande de concession",
+      "Obtention de l'arrêté préfectoral de descente sur le terrain",
+      "Obtention de l'arrêté ministériel d'attribution de concession provisoire",
+      "Paiement de la redevance foncière",
+      "Dépôt de la demande de constat de mise en valeur du terrain",
+      "Obtention de la convocation du préfet pour le constat de mise en valeur de la parcelle",
+      "Obtention de l'arrêté ministériel d'attribution de concession définitive",
+      "Obtention de l'ordre de versement des redevances foncières",
+      "Paiement de la redevance foncière",
+      "Dépôt du dossier d'obtention du titre foncier",
+      "Retrait du titre foncier"
+     ],
+     "pieces": [
+      "Demande de copie certifiée de carte nationale d'identité",
+      "Pièce d'Identité",
+      "Timbre fiscal",
+      "Demande d'attribution de terrain par voie de concession",
+      "Ordre de versement des frais d'ouverture de dossier",
+      "Croquis du terrain",
+      "Projet de mise en valeur de la parcelle",
+      "Copie certifiée conforme de la carte nationale d'identité",
+      "Arrêté ministériel attribuant la concession provisoire",
+      "Demande de constat de mise en valeur",
+      "Arrêté ministériel attribuant la concession définitive",
+      "Ordre de versement des redevances foncières",
+      "Plan de la parcelle",
+      "Quittance de paiement des redevances foncières"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 5,006",
+      "1,000 XAF par timbre fiscal",
+      "2,000 XAF pour la demande de concession et pour la demande d'obtention de la copie certifiée de la carte nationale d'identité.",
+      "3,000 XAF pour l'ouverture du dossier - personne physique",
+      "1 XAF par m2 - pour les parcelles situées en zone rurale.",
+      "5 XAF par m2 - pour les parcelles situées en zone urbaine.",
+      "1 % de la valeur vénale de l’immeuble calculé sur la base du prix des"
+     ],
+     "duree_totale": "29 j à 53 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_40_22::etapes",
+      "eregulations_40_22::documents",
+      "eregulations_40_22::cout",
+      "eregulations_40_22::duree",
+      "eregulations_40_22::base_legale"
+     ]
+    },
+    {
+     "fiche": "44_23",
+     "libelle": "Obtention de la propriété par vente de gré à gré (domaine privé de l'État)",
+     "etapes": [
+      "Achat des timbres fiscaux",
+      "Obtention de la copie certifiée conforme de la carte nationale d'identité",
+      "Obtention de l'ordre de versement des frais d'ouverture de dossier",
+      "Paiement des frais d'ouverture du dossier",
+      "Dépôt de la demande de vente de gré à gré",
+      "Obtention de l'arrêté préfectoral de descente sur le terrain",
+      "Obtention de la décision ministérielle autorisant la vente d'un terrain domanial",
+      "Obtention de l'ordre de versement des redevances foncières",
+      "Paiement des redevances foncières",
+      "Dépôt du dossier d'obtention du titre foncier",
+      "Retrait du titre foncier"
+     ],
+     "pieces": [
+      "Demande de copie certifiée de carte nationale d'identité",
+      "Pièce d'Identité",
+      "Timbre fiscal",
+      "Demande d'attribution d'un terrain domanial par vente de gré à gré",
+      "Ordre de versement des frais d'ouverture de dossier",
+      "Plan de la parcelle",
+      "Quittance de versement des frais d'ouverture du dossier",
+      "Copie certifiée conforme de la pièce d'identité",
+      "Statuts de la société",
+      "Procuration du mandataire",
+      "Décharge",
+      "Autorisation de mise en vente d'un terrain domanial",
+      "Ordre de versement des redevances foncières",
+      "Quittance de paiement des redevances foncières"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 6,000",
+      "1,000 XAF par timbre fiscal",
+      "2,000 XAF pour la demande de vente de la parcelle et pour la demande d'obtention de la copie certifiée de la carte nationale d'identité",
+      "3,000 XAF pour l'ouverture du dossier - personne physique",
+      "1,000 XAF par timbre fiscal",
+      "1,000 XAF 1",
+      "2 % du prix d'achat de la parcelle - pour l'inscription dans le livre foncier"
+     ],
+     "duree_totale": "10 j à 23 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_44_23::etapes",
+      "eregulations_44_23::documents",
+      "eregulations_44_23::cout",
+      "eregulations_44_23::duree",
+      "eregulations_44_23::base_legale"
+     ]
+    },
+    {
+     "fiche": "46_26",
+     "libelle": "Obtention du titre foncier suite à une mutation",
+     "etapes": [
+      "Achat de timbres fiscaux",
+      "Achat de formulaires du dossier technique",
+      "Dépôt de la demande d'obtention du dossier technique de mutation",
+      "Obtention de l'état de cession du cadastre",
+      "Paiement des frais cadastraux",
+      "Retrait du dossier technique",
+      "Demande d'obtention du certificat d'urbanisme",
+      "Retrait du certificat d'urbanisme",
+      "Signature de l'acte de vente chez le notaire",
+      "Obtention du récipissé de dépôt de la demande de mutation du titre foncier",
+      "Retrait du titre foncier mère portant mention de mutation"
+     ],
+     "pieces": [
+      "Demande de mutation",
+      "Titre de propriété",
+      "Certificat de propriété",
+      "Chemise du dossier technique",
+      "Pièce d'Identité",
+      "Etat de cession",
+      "demande du certificat d'urbanisme",
+      "Plan de la parcelle",
+      "Plan de lotissement ou de découpage",
+      "Timbre fiscal",
+      "Tire foncier",
+      "Taxe sur la propriété foncière",
+      "Carte de contribuable",
+      "Plan de la parcelle visé et signé",
+      "Certificat d'urbanisme",
+      "Décharge de dépôt du dossier"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 38,500",
+      "9,000 XAF pour les timbres fiscaux qui seront apposés sur les demandes de plans, de certificats d'urbanisme et sur les documents signés.",
+      "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+      "27,500 XAF pour l'obtention des plans",
+      "1,000 XAF pour le timbre fiscal",
+      "4 % pour les émoluments du notaire - si la parcelle coûte entre 1 et 3 millions de francs CFA",
+      "5 % de la valeur de l'immeuble - pour les droits d'enregistrement aux impôts"
+     ],
+     "duree_totale": "26 j à 44 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_46_26::etapes",
+      "eregulations_46_26::documents",
+      "eregulations_46_26::cout",
+      "eregulations_46_26::duree",
+      "eregulations_46_26::base_legale"
+     ]
+    },
+    {
+     "fiche": "47_25",
+     "libelle": "Obtention du titre foncier suite à un morcellement",
+     "etapes": [
+      "Achat de timbres fiscaux",
+      "Achat de formulaires",
+      "Dépôt de la demande du dossier technique",
+      "Obtention de l'état de cession du cadastre",
+      "Paiement des frais cadastraux",
+      "Retrait du dossier technique",
+      "Demande des certificats d'urbanisme et d'accessibilité",
+      "Retrait des certificats d'urbanisme et d'accessibilité",
+      "Demande du certificat de propriété",
+      "Retrait du certificat de propriété",
+      "Signature de l'acte de vente chez le notaire",
+      "Obtention du récipissé de dépôt de la demande du titre foncier",
+      "Retrait du titre foncier"
+     ],
+     "pieces": [
+      "Demande de morcellement",
+      "Titre de propriété",
+      "Certificat de propriété",
+      "Plan de lotissement ou de découpage",
+      "Formulaire de procès verbal de bornage",
+      "Chemise du dossier technique",
+      "Pièce d'Identité",
+      "Etat de cession",
+      "Quittance de frais cadastraux",
+      "demande des certficats d'urbanisme et d'accessibilité",
+      "Plan de la parcelle",
+      "Demande de certificat de propriété",
+      "Titre foncier",
+      "Taxe sur la propriété foncière",
+      "Certificat de propriété",
+      "Carte de contribuable",
+      "Plan de la parcelle visé et signé",
+      "Procès verbal de bornage",
+      "Certificat d'urbanisme",
+      "Certificat d'accessibilité",
+      "Décharge de dépôt du dossier"
+     ],
+     "cout": [
+      "Le coût total de la procédure est estimé à CFA 47,500",
+      "14,000 XAF pour les timbres fiscaux qui seront apposés sur les demandes, les certificats d'urbanisme, d'accessibilité et les plans visés",
+      "1,000 XAF pour la liasse de formulaires du dossier tehnique",
+      "27,500 XAF pour les frais de morcellement",
+      "3,000 XAF pour la redevance foncière - personne physique",
+      "2,000 XAF pour les timbres fiscaux qui seront apposés sur la demande et sur le certificat de propriété",
+      "2 % du prix d'achat de la parcelle - pour le titre foncier",
+      "5 % du prix de la parcelle - pour les droits d'enregistrement",
+      "4 % pour les émoluments du notaire - si la parcelle coûte entre 1 et 3 millions de francs CFA"
+     ],
+     "duree_totale": "30 j à 49 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_47_25::etapes",
+      "eregulations_47_25::documents",
+      "eregulations_47_25::cout",
+      "eregulations_47_25::duree",
+      "eregulations_47_25::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_40_22::base_legale",
+    "eregulations_40_22::cout",
+    "eregulations_40_22::documents",
+    "eregulations_40_22::duree",
+    "eregulations_40_22::etapes",
+    "eregulations_44_23::base_legale",
+    "eregulations_44_23::cout",
+    "eregulations_44_23::documents",
+    "eregulations_44_23::duree",
+    "eregulations_44_23::etapes",
+    "eregulations_46_26::base_legale",
+    "eregulations_46_26::cout",
+    "eregulations_46_26::documents",
+    "eregulations_46_26::duree",
+    "eregulations_46_26::etapes",
+    "eregulations_47_25::base_legale",
+    "eregulations_47_25::cout",
+    "eregulations_47_25::documents",
+    "eregulations_47_25::duree",
+    "eregulations_47_25::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": [
+    {
+     "id": "mutation",
+     "libelle": "Achat d'un terrain entier à un particulier (mutation)",
+     "libelle_en": "Buying a whole plot from an individual (transfer)",
+     "mots": [
+      "mutation",
+      "transfer of title",
+      "achat d'un terrain entier a un particulier (mutation)",
+      "buying a whole plot from an individual (transfer)"
+     ],
+     "fiche": "46_26",
+     "pieces": []
+    },
+    {
+     "id": "morcellement",
+     "libelle": "Achat d'une partie d'un terrain à un particulier (morcellement)",
+     "libelle_en": "Buying part of a plot from an individual (subdivision)",
+     "mots": [
+      "morcellement",
+      "morceler",
+      "partie du terrain",
+      "subdivision",
+      "achat d'une partie d'un terrain a un particulier (morcellement)",
+      "buying part of a plot from an individual (subdivision)"
+     ],
+     "fiche": "47_25",
+     "pieces": []
+    },
+    {
+     "id": "concession",
+     "libelle": "Terrain du domaine national (concession)",
+     "libelle_en": "National land (concession)",
+     "mots": [
+      "concession",
+      "domaine national",
+      "national land",
+      "terrain du domaine national (concession)",
+      "national land (concession)"
+     ],
+     "fiche": "40_22",
+     "pieces": []
+    },
+    {
+     "id": "gre_a_gre",
+     "libelle": "Terrain privé de l'État (vente de gré à gré)",
+     "libelle_en": "Private State land (private sale)",
+     "mots": [
+      "gre a gre",
+      "terrain de l etat",
+      "domaine prive de l etat",
+      "state land",
+      "terrain prive de l'etat (vente de gre a gre)",
+      "private state land (private sale)"
+     ],
+     "fiche": "44_23",
+     "pieces": []
+    }
+   ]
+  },
+  {
+   "id": "fichier_importateurs",
+   "nom": "Inscription au fichier des importateurs",
+   "nom_en": "Registering as an importer",
+   "domaine": "Commerce extérieur",
+   "statut": "couvert",
+   "autorite": "Ministère du Commerce",
+   "mots_cles": [
+    "fichier des importateurs",
+    "carte d importateur",
+    "importateur",
+    "importer goods",
+    "importer registration",
+    "import licence"
+   ],
+   "fiches": [
+    {
+     "fiche": "135_89",
+     "libelle": "Inscription au fichier des importateurs",
+     "etapes": [
+      "Achat de timbres fiscaux",
+      "Obtention des copies certifiées de la patente et de la carte de contribuable",
+      "Demande d'une copie certifiée conforme du registre de commerce",
+      "Retrait de la copie certifiée conforme du registre de commerce",
+      "Obtention du formulaire d'inscription",
+      "Paiement des frais d'inscription et de la cotisation annuelle",
+      "Dépôt du dossier d'inscription",
+      "Retrait de l'attestation d'inscription au fichier des importateurs"
+     ],
+     "pieces": [
+      "Titre de patente",
+      "Carte de contribuable - personne morale",
+      "Photocopie du registre de commerce",
+      "Fiche d'inscription au fichier des importateurs",
+      "Demande d'inscription au fichier des importateurs",
+      "Copie certifiée conforme du titre de patente",
+      "Copie certifiée conforme de la carte de contribuable",
+      "Copie certifiée conforme du registre de commerce",
+      "Quittance des frais d'inscription",
+      "Quittance de la cotisation annuelle",
+      "Décharge de la demande d'inscription"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 31,000",
+      "4,000 XAF de timbres fiscaux pour la demande d'inscription au fichier des importateurs et l'obtention des copies certifiées de la patente, de la carte de contribuable et du registre de commerce.",
+      "2,000 XAF pour les frais de greffe",
+      "15,000 XAF pour les frais d'inscription au fichier des importateurs",
+      "10,000 XAF pour la cotisation annuelle à l'importation"
+     ],
+     "duree_totale": "2 j à 3 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_135_89::etapes",
+      "eregulations_135_89::documents",
+      "eregulations_135_89::cout",
+      "eregulations_135_89::duree",
+      "eregulations_135_89::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_135_89::base_legale",
+    "eregulations_135_89::cout",
+    "eregulations_135_89::documents",
+    "eregulations_135_89::duree",
+    "eregulations_135_89::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "fichier_exportateurs",
+   "nom": "Inscription au fichier des exportateurs",
+   "nom_en": "Registering as an exporter",
+   "domaine": "Commerce extérieur",
+   "statut": "couvert",
+   "autorite": "Ministère du Commerce",
+   "mots_cles": [
+    "fichier des exportateurs",
+    "carte d exportateur",
+    "exportateur",
+    "export goods",
+    "exporter registration",
+    "export licence"
+   ],
+   "fiches": [
+    {
+     "fiche": "130_91",
+     "libelle": "Inscription au fichier des exportateurs",
+     "etapes": [
+      "Achat de timbres fiscaux",
+      "Obtention des copies certifiées de la patente et de la carte de contribuable",
+      "Demande d'une copie certifiée conforme du registre de commerce",
+      "Retrait de la copie certifiée conforme du registre de commerce",
+      "Obtention du formulaire d'inscription",
+      "Paiement des frais d'inscription et de la cotisation annuelle",
+      "Dépôt du dossier d'inscription",
+      "Retrait de l'attestation d'inscription"
+     ],
+     "pieces": [
+      "Titre de patente",
+      "Carte de contribuable - personne morale",
+      "Registre de Commerce et du Crédit Mobilier (RCCM)",
+      "Fiche d'inscription au fichier des exportateurs",
+      "Demande d'inscription au fichier des exportateurs",
+      "Fiche d’inscription au fichier des exportateurs",
+      "Copie certifiée conforme du titre de patente",
+      "Copie certifiée conforme de la carte de contribuable",
+      "Copie certifiée conforme du registre de commerce",
+      "Quittance des frais d'inscription",
+      "Quittance de la cotisation annuelle",
+      "Déclaration sur l'honneur - exportations",
+      "Certificat de conformité des équipements",
+      "Décharge de la demande d'inscription"
+     ],
+     "cout": [
+      "Coût de la procédure CFA 31,000",
+      "4,000 XAF de timbres fiscaux pour la demande d'inscription au fichier des exportateurs et l'obtention des copies certifiées de la patente, de la carte de contribuable et du registre de commerce.",
+      "2,000 XAF pour les frais de greffe",
+      "15,000 XAF pour les frais d'inscription",
+      "10,000 XAF pour la cotisation annuelle"
+     ],
+     "duree_totale": "2 j à 3 j",
+     "en_revision": false,
+     "chunks": [
+      "eregulations_130_91::etapes",
+      "eregulations_130_91::documents",
+      "eregulations_130_91::cout",
+      "eregulations_130_91::duree",
+      "eregulations_130_91::base_legale"
+     ]
+    }
+   ],
+   "chunks": [
+    "eregulations_130_91::base_legale",
+    "eregulations_130_91::cout",
+    "eregulations_130_91::documents",
+    "eregulations_130_91::duree",
+    "eregulations_130_91::etapes"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "carte_grise",
+   "nom": "Carte grise (immatriculation d'un véhicule)",
+   "nom_en": "Vehicle registration",
+   "domaine": "Véhicules",
+   "statut": "partiel",
+   "autorite": "Ministère des Transports",
+   "mots_cles": [
+    "carte grise",
+    "certificat d immatriculation",
+    "immatriculer ma voiture",
+    "immatriculer un vehicule",
+    "immatriculer mon vehicule",
+    "immatriculer ma moto",
+    "vehicle registration",
+    "register my car",
+    "register a vehicle",
+    "logbook"
+   ],
+   "cas_mode": "choix",
+   "question_cas": "Quelle est la situation du véhicule ?",
+   "question_cas_en": "What is the vehicle's situation?",
+   "fiches": [],
+   "chunks": [
+    "arrete_82_705_immatriculation::art_1",
+    "arrete_82_705_immatriculation::art_2",
+    "arrete_82_705_immatriculation::art_3_importe_neuf",
+    "arrete_82_705_immatriculation::art_3_importe_usage",
+    "arrete_82_705_immatriculation::art_3_neuf",
+    "arrete_82_705_immatriculation::art_3_occasion"
+   ],
+   "pieces": [],
+   "etapes": [
+    {
+     "texte": "doivent faire l'objet d'une déclaration de mise en circulation",
+     "chunk": "arrete_82_705_immatriculation::art_2"
+    },
+    {
+     "texte": "La demande de mise en circulation d'un véhicule automobile formulée sur imprimé disponible dans les Services compétents du Ministère chargé des Transports doit être introduite par le propriétaire (ou son représentant) auprès desdits Services",
+     "chunk": "arrete_82_705_immatriculation::art_3_neuf"
+    }
+   ],
+   "cas": [
+    {
+     "id": "neuf",
+     "libelle": "Véhicule neuf acheté au Cameroun",
+     "libelle_en": "New vehicle bought in Cameroon",
+     "mots": [
+      "neuf",
+      "neuve",
+      "new vehicle",
+      "new car",
+      "vehicule neuf achete au cameroun",
+      "new vehicle bought in cameroon"
+     ],
+     "chunk": "arrete_82_705_immatriculation::art_3_neuf",
+     "pieces": [
+      {
+       "texte": "le Certificat de vente",
+       "chunk": "arrete_82_705_immatriculation::art_3_neuf"
+      },
+      {
+       "texte": "le Certificat de conformité ou le procès-verbal de réception à titre isolé",
+       "chunk": "arrete_82_705_immatriculation::art_3_neuf"
+      },
+      {
+       "texte": "la quittance des taxes et les droits de timbre",
+       "chunk": "arrete_82_705_immatriculation::art_3_neuf"
+      }
+     ]
+    },
+    {
+     "id": "occasion",
+     "libelle": "Véhicule d'occasion déjà immatriculé au Cameroun",
+     "libelle_en": "Used vehicle already registered in Cameroon",
+     "mots": [
+      "occasion",
+      "gre a gre",
+      "deja immatricule",
+      "used vehicle",
+      "used car",
+      "second hand",
+      "vehicule d'occasion deja immatricule au cameroun",
+      "used vehicle already registered in cameroon"
+     ],
+     "chunk": "arrete_82_705_immatriculation::art_3_occasion",
+     "pieces": [
+      {
+       "texte": "l'ancien Certificat d'immatriculation portant la mention prévue à l'article 6",
+       "chunk": "arrete_82_705_immatriculation::art_3_occasion"
+      },
+      {
+       "texte": "l'Attestation de vente légalisée et enregistrée",
+       "chunk": "arrete_82_705_immatriculation::art_3_occasion"
+      },
+      {
+       "texte": "le Certificat de visite technique en cours de validité",
+       "chunk": "arrete_82_705_immatriculation::art_3_occasion"
+      },
+      {
+       "texte": "la quittance des taxes et les droits de timbre",
+       "chunk": "arrete_82_705_immatriculation::art_3_occasion"
+      }
+     ]
+    },
+    {
+     "id": "importe_neuf",
+     "libelle": "Véhicule neuf importé",
+     "libelle_en": "Imported new vehicle",
+     "mots": [
+      "neuf importe",
+      "neuve importee",
+      "imported new",
+      "vehicule neuf importe",
+      "imported new vehicle"
+     ],
+     "chunk": "arrete_82_705_immatriculation::art_3_importe_neuf",
+     "pieces": [
+      {
+       "texte": "l'ancien Certificat d'immatriculation ou tout autre document en tenant lieu",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_neuf"
+      },
+      {
+       "texte": "l'attestation de vente",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_neuf"
+      },
+      {
+       "texte": "l'attestation de dédouanement",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_neuf"
+      },
+      {
+       "texte": "la quittance de l'Administration des douanes attestant le versement des droits de douane",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_neuf"
+      },
+      {
+       "texte": "la quittance des taxes et les droits de timbre",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_neuf"
+      }
+     ]
+    },
+    {
+     "id": "importe_usage",
+     "libelle": "Véhicule usagé importé",
+     "libelle_en": "Imported used vehicle",
+     "mots": [
+      "usage importe",
+      "usagee importee",
+      "importe",
+      "importee",
+      "imported",
+      "imported used",
+      "vehicule usage importe",
+      "imported used vehicle"
+     ],
+     "chunk": "arrete_82_705_immatriculation::art_3_importe_usage",
+     "pieces": [
+      {
+       "texte": "l'ancien certificat d'immatriculation ou tout autre document en tenant lieu",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_usage"
+      },
+      {
+       "texte": "l'attestation de vente",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_usage"
+      },
+      {
+       "texte": "l'attestation de dédouanement",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_usage"
+      },
+      {
+       "texte": "les certificats de conformité et de visite technique ou le procès-verbal de réception",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_usage"
+      },
+      {
+       "texte": "la quittance de l'Administration attestant le versement des droits de douanes",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_usage"
+      },
+      {
+       "texte": "la quittance des taxes et les droits de timbre",
+       "chunk": "arrete_82_705_immatriculation::art_3_importe_usage"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "association",
+   "nom": "Créer une association",
+   "nom_en": "Setting up an association",
+   "domaine": "Vie associative",
+   "statut": "partiel",
+   "autorite": "Préfecture du département du siège",
+   "mots_cles": [
+    "association",
+    "creer une association",
+    "declarer une association",
+    "recepisse de declaration",
+    "set up an association",
+    "create an association",
+    "ngo registration"
+   ],
+   "chunks_complementaires": [
+    "loi_90_053_associations::art_5"
+   ],
+   "fiches": [],
+   "chunks": [
+    "loi_90_053_associations::art_16",
+    "loi_90_053_associations::art_1_2",
+    "loi_90_053_associations::art_5",
+    "loi_90_053_associations::art_6",
+    "loi_90_053_associations::art_7"
+   ],
+   "pieces": [
+    {
+     "texte": "une déclaration accompagnée de deux exemplaires de leur statut",
+     "chunk": "loi_90_053_associations::art_6"
+    }
+   ],
+   "etapes": [
+    {
+     "texte": "La déclaration prévue à l'article précédent est faite par les fondateurs de l'association à la préfecture du département où celle-ci a son siège",
+     "chunk": "loi_90_053_associations::art_7"
+    },
+    {
+     "texte": "Un récépissé leur est délivré dès que le dossier est complet si l'association n'est pas frappée de nullité",
+     "chunk": "loi_90_053_associations::art_7"
+    },
+    {
+     "texte": "Le silence du préfet gardé pendant deux mois après le dépôt du dossier de déclaration vaut acceptation et emporte acquisition de la personnalité juridique",
+     "chunk": "loi_90_053_associations::art_7"
+    }
+   ],
+   "cas": []
+  },
+  {
+   "id": "signature_electronique",
+   "nom": "Signature électronique",
+   "nom_en": "Electronic signature",
+   "domaine": "Numérique et données",
+   "statut": "couvert",
+   "autorite": "Agence Nationale des Technologies de l'Information et de la Communication (ANTIC)",
+   "mots_cles": [
+    "signature electronique",
+    "signature numerique",
+    "certificat electronique",
+    "electronic signature",
+    "digital signature"
+   ],
+   "fiches": [],
+   "chunks": [
+    "loi_2010_012_cybersecurite::section_17",
+    "loi_2010_012_cybersecurite::section_18",
+    "loi_2010_012_cybersecurite::section_22",
+    "loi_2010_021_commerce_electronique::art_35"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "protection_donnees",
+   "nom": "Protection des données personnelles",
+   "nom_en": "Personal data protection",
+   "domaine": "Numérique et données",
+   "statut": "couvert",
+   "autorite": "Autorité de protection des données à caractère personnel",
+   "mots_cles": [
+    "donnees personnelles",
+    "protection des donnees",
+    "mes donnees",
+    "donnee sensible",
+    "donnees biometriques",
+    "consentement",
+    "personal data",
+    "data protection",
+    "my data",
+    "sensitive data"
+   ],
+   "transversal": true,
+   "fiches": [],
+   "chunks": [
+    "loi_2024_017_protection_donnees::art_11",
+    "loi_2024_017_protection_donnees::art_13",
+    "loi_2024_017_protection_donnees::art_19",
+    "loi_2024_017_protection_donnees::art_2",
+    "loi_2024_017_protection_donnees::art_21",
+    "loi_2024_017_protection_donnees::art_22",
+    "loi_2024_017_protection_donnees::art_25",
+    "loi_2024_017_protection_donnees::art_29",
+    "loi_2024_017_protection_donnees::art_32",
+    "loi_2024_017_protection_donnees::art_33",
+    "loi_2024_017_protection_donnees::art_44",
+    "loi_2024_017_protection_donnees::art_48",
+    "loi_2024_017_protection_donnees::art_50",
+    "loi_2024_017_protection_donnees::art_53",
+    "loi_2024_017_protection_donnees::art_55",
+    "loi_2024_017_protection_donnees::art_5_anonymisation",
+    "loi_2024_017_protection_donnees::art_5_consentement",
+    "loi_2024_017_protection_donnees::art_5_personnelle",
+    "loi_2024_017_protection_donnees::art_5_sensible",
+    "loi_2024_017_protection_donnees::art_60",
+    "loi_2024_017_protection_donnees::art_66",
+    "loi_2024_017_protection_donnees::art_69",
+    "loi_2024_017_protection_donnees::art_71",
+    "loi_2024_017_protection_donnees::art_72",
+    "loi_2024_017_protection_donnees::art_73",
+    "loi_2024_017_protection_donnees::art_9"
+   ],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "permis_conduire",
+   "nom": "Permis de conduire",
+   "nom_en": "Driving licence",
+   "domaine": "Véhicules",
+   "statut": "lacune",
+   "autorite": "Ministère des Transports (à confirmer)",
+   "mots_cles": [
+    "permis de conduire",
+    "conduire",
+    "auto ecole",
+    "code de la route",
+    "driving licence",
+    "driver s license",
+    "drivers license",
+    "driving license"
+   ],
+   "note_lacune": "Aucun texte ouvert sur la délivrance du permis de conduire n'a été retrouvé. Le décret n° 79/341 (Code de la route) est cité par l'arrêté n° 82/705, mais son texte n'a pas pu être consulté.",
+   "note_lacune_en": "No open text on issuing driving licences was found. Decree No. 79/341 (Highway Code) is cited by Order No. 82/705, but its text could not be consulted.",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "non_gage",
+   "nom": "Certificat de non-gage",
+   "nom_en": "Certificate of no lien on a vehicle",
+   "domaine": "Véhicules",
+   "statut": "lacune",
+   "autorite": "Ministère des Transports (à confirmer)",
+   "mots_cles": [
+    "non gage",
+    "certificat de non gage",
+    "vehicule gage",
+    "no lien certificate"
+   ],
+   "note_lacune": "Aucun texte ouvert camerounais établissant cette démarche n'a été retrouvé. La procédure de la base initiale, sans source, a été retirée.",
+   "note_lacune_en": "No open Cameroonian text establishing this procedure was found. The unsourced entry from the original knowledge base was removed.",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "carte_sejour",
+   "nom": "Carte de séjour",
+   "nom_en": "Residence permit",
+   "domaine": "Étrangers",
+   "statut": "lacune",
+   "autorite": "Délégation Générale à la Sûreté Nationale (DGSN)",
+   "mots_cles": [
+    "carte de sejour",
+    "titre de sejour",
+    "carte de resident",
+    "residence permit",
+    "resident permit",
+    "residence card"
+   ],
+   "note_lacune": "L'étude de faisabilité cite le décret n° 2016/373, mais son texte n'est pas encore intégré ni vérifié.",
+   "note_lacune_en": "The feasibility study cites Decree No. 2016/373, but its text has not yet been integrated or verified.",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "casier_judiciaire",
+   "nom": "Casier judiciaire (bulletin n° 3)",
+   "nom_en": "Criminal record extract (bulletin No. 3)",
+   "domaine": "Justice",
+   "statut": "lacune",
+   "autorite": "Tribunal de Première Instance (selon un guide non officiel)",
+   "mots_cles": [
+    "casier judiciaire",
+    "bulletin n 3",
+    "extrait de casier",
+    "criminal record",
+    "police clearance"
+   ],
+   "note_lacune": "Aucun texte officiel ouvert retrouvé sur cette démarche. Seul un guide pratique non officiel la décrit.",
+   "note_lacune_en": "No open official text on this procedure was found. Only an unofficial practical guide describes it.",
+   "orientation_url": "https://infospratiques.cm/casier-judiciaire-en-ligne-cameroun/",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "equivalence_diplome",
+   "nom": "Équivalence de diplôme",
+   "nom_en": "Diploma equivalence",
+   "domaine": "Éducation",
+   "statut": "lacune",
+   "autorite": "À identifier",
+   "mots_cles": [
+    "equivalence",
+    "equivalence de diplome",
+    "diplome etranger",
+    "diploma equivalence",
+    "degree equivalence",
+    "foreign diploma"
+   ],
+   "note_lacune": "L'étude de faisabilité signale déjà « texte à identifier ». La procédure de la base initiale, sans source, a été retirée.",
+   "note_lacune_en": "The feasibility study already flags this text as still to be identified. The unsourced entry from the original knowledge base was removed.",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "legalisation",
+   "nom": "Légalisation de documents",
+   "nom_en": "Legalisation of documents",
+   "domaine": "Justice",
+   "statut": "lacune",
+   "autorite": "À identifier",
+   "mots_cles": [
+    "legalisation",
+    "legaliser",
+    "faire legaliser",
+    "legalise",
+    "legalize",
+    "apostille"
+   ],
+   "note_lacune": "L'étude de faisabilité signale un texte peu accessible ; aucune source ouverte n'est intégrée.",
+   "note_lacune_en": "The feasibility study flags the text as hard to access; no open source has been integrated.",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "certificat_residence",
+   "nom": "Certificat de résidence",
+   "nom_en": "Certificate of residence",
+   "domaine": "Vie locale",
+   "statut": "lacune",
+   "autorite": "À identifier",
+   "mots_cles": [
+    "certificat de residence",
+    "attestation d hebergement",
+    "certificat de domicile",
+    "attestation de residence",
+    "proof of residence",
+    "certificate of residence"
+   ],
+   "note_lacune": "L'étude de faisabilité ne relève aucun texte national clair et ouvert.",
+   "note_lacune_en": "The feasibility study found no clear open national text.",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "niu",
+   "nom": "Numéro d'identifiant unique (NIU) d'un particulier",
+   "nom_en": "Taxpayer unique identification number (NIU) for an individual",
+   "domaine": "Impôts et taxes",
+   "statut": "lacune",
+   "autorite": "Direction Générale des Impôts (DGI)",
+   "mots_cles": [
+    "niu",
+    "numero d identifiant unique",
+    "numero contribuable",
+    "carte de contribuable",
+    "taxpayer number",
+    "tax id",
+    "tin"
+   ],
+   "note_lacune": "Pour une entreprise, l'attestation d'immatriculation fiscale est délivrée au CFCE (voir la création d'entreprise). Pour un particulier, aucune procédure ouverte n'est encore intégrée à la base.",
+   "note_lacune_en": "For a business, the tax registration certificate is issued at the CFCE (see business creation). For an individual, no open procedure has been integrated yet.",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "inscription_electorale",
+   "nom": "Inscription sur les listes électorales",
+   "nom_en": "Voter registration",
+   "domaine": "Vie citoyenne",
+   "statut": "lacune",
+   "autorite": "À identifier",
+   "mots_cles": [
+    "liste electorale",
+    "listes electorales",
+    "carte d electeur",
+    "inscription electorale",
+    "voter registration",
+    "voter card"
+   ],
+   "note_lacune": "Le texte applicable n'est pas encore intégré ni vérifié.",
+   "note_lacune_en": "The applicable text has not yet been integrated or verified.",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  },
+  {
+   "id": "concours_fonction_publique",
+   "nom": "Concours de la fonction publique",
+   "nom_en": "Civil service competitive exams",
+   "domaine": "Emploi public",
+   "statut": "lacune",
+   "autorite": "À identifier",
+   "mots_cles": [
+    "concours",
+    "fonction publique",
+    "enam",
+    "civil service exam",
+    "public service exam"
+   ],
+   "note_lacune": "Le texte applicable n'est pas encore intégré ni vérifié.",
+   "note_lacune_en": "The applicable text has not yet been integrated or verified.",
+   "fiches": [],
+   "chunks": [],
+   "pieces": [],
+   "etapes": [],
+   "cas": []
+  }
+ ]
+}

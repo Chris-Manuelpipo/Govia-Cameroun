@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOVIA Cameroun — Architecture</title>
+<style>
+  :root {
+    --c-primary: #0F172A;
+    --c-accent: #0369A1;
+    --c-accent-light: #0284C7;
+    --c-accent-bg: #E0F2FE;
+    --c-bg: #F8FAFC;
+    --c-card: #FFFFFF;
+    --c-fg: #020617;
+    --c-muted: #E8ECF1;
+    --c-muted-fg: #475569;
+    --c-border: #E2E8F0;
+    --c-success: #16A34A;
+    --c-success-bg: #DCFCE7;
+    --c-warning: #D97706;
+    --c-warning-bg: #FEF3C7;
+    --c-danger: #DC2626;
+    --c-danger-bg: #FEE2E2;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: Georgia, serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font-sans); background: var(--c-bg); color: var(--c-fg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .page { max-width: 1000px; margin: 0 auto; padding: 40px 32px; }
+  .page-header { margin-bottom: 32px; }
+  .page-title { font-family: var(--font-serif); font-size: 32px; font-weight: 700; color: var(--c-primary); }
+  .page-desc { font-size: 14px; color: var(--c-muted-fg); margin-top: 4px; }
+
+  /* Layer cards */
+  .layer {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-left: 4px solid var(--c-accent);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .layer-num {
+    width: 40px; height: 40px;
+    background: var(--c-primary);
+    color: #fff;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .layer-content { flex: 1; }
+  .layer-name { font-size: 16px; font-weight: 700; color: var(--c-primary); margin-bottom: 4px; }
+  .layer-desc { font-size: 13px; color: var(--c-muted-fg); margin-bottom: 8px; }
+  .layer-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 12px; }
+  .tag.blue { background: var(--c-accent-bg); color: var(--c-accent); }
+  .tag.green { background: var(--c-success-bg); color: var(--c-success); }
+  .tag.orange { background: var(--c-warning-bg); color: var(--c-warning); }
+  .tag.red { background: var(--c-danger-bg); color: var(--c-danger); }
+
+  /* Arrow */
+  .arrow { text-align: center; color: var(--c-muted-fg); margin: 4px 0; font-size: 20px; }
+  .arrow svg { width: 20px; height: 20px; color: var(--c-accent); }
+
+  /* Legend */
+  .legend { margin-top: 24px; padding: 16px 20px; background: var(--c-card); border: 1px solid var(--c-border); border-radius: var(--radius); display: flex; gap: 24px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--c-muted-fg); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-header">
+    <div class="page-title">Architecture technique — 7 couches</div>
+    <div class="page-desc">GOVIA Cameroun · Stack : Next.js + React + Tailwind + FastAPI + Ollama · Déploiement local</div>
+  </div>
+
+  <!-- Couche 7 — CI/CD -->
+  <div class="layer" style="border-left-color: #64748B;">
+    <div class="layer-num">7</div>
+    <div class="layer-content">
+      <div class="layer-name">Déploiement & CI/CD</div>
+      <div class="layer-desc">Docker Compose · GitHub Actions · Recette automatique · Health checks</div>
+      <div class="layer-tags"><span class="tag blue">Docker Compose</span><span class="tag blue">Nginx</span><span class="tag blue">Cron</span></div>
+    </div>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+  <!-- Couche 6 — Présentation -->
+  <div class="layer">
+    <div class="layer-num">6</div>
+    <div class="layer-content">
+      <div class="layer-name">Présentation (Next.js App Router)</div>
+      <div class="layer-desc">Interface bi-lingue FR/EN · Tailwind CSS · next-intl · composants accessibles · Progressive Web App</div>
+      <div class="layer-tags"><span class="tag blue">Next.js 15</span><span class="tag blue">Tailwind CSS</span><span class="tag blue">next-intl</span><span class="tag green">PWA</span></div>
+    </div>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+  <!-- Couche 5 — Agent -->
+  <div class="layer" style="border-left-color: var(--c-success);">
+    <div class="layer-num" style="background: var(--c-success);">5</div>
+    <div class="layer-content">
+      <div class="layer-name">Agent GOVIA (Assistant)</div>
+      <div class="layer-desc">RAG · Pré-remplissage des formulaires · Gestion de consentement · Conversation multi-tour · Extraction des entités</div>
+      <div class="layer-tags"><span class="tag green">LangChain</span><span class="tag green">ChromaDB</span><span class="tag green">Récupération</span><span class="tag green">Pré-remplissage</span></div>
+    </div>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+  <!-- Couche 4 — Auditeur -->
+  <div class="layer" style="border-left-color: var(--c-warning);">
+    <div class="layer-num" style="background: var(--c-warning);">4</div>
+    <div class="layer-content">
+      <div class="layer-name">Auditeur de conformité</div>
+      <div class="layer-desc">Vérification indépendante · Règles métier · Scoring · Plainte / Alerte · Piste d'audit immuable</div>
+      <div class="layer-tags"><span class="tag orange">Auditeur IA</span><span class="tag orange">Règles</span><span class="tag orange">Score</span><span class="tag orange">Alertes</span></div>
+    </div>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+  <!-- Couche 3 — Modèle IA -->
+  <div class="layer">
+    <div class="layer-num">3</div>
+    <div class="layer-content">
+      <div class="layer-name">Modèle linguistique (Ollama)</div>
+      <div class="layer-desc">Modèle local 7B-14B · French + English · Inférence locale · Pas de données en sortie du Cameroun</div>
+      <div class="layer-tags"><span class="tag blue">Ollama</span><span class="tag blue">Mistral 7B</span><span class="tag blue">Bilingue FR/EN</span><span class="tag blue">Local</span></div>
+    </div>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+  <!-- Couche 2 — Knowledge Base -->
+  <div class="layer">
+    <div class="layer-num">2</div>
+    <div class="layer-content">
+      <div class="layer-name">Base de connaissances (RAG)</div>
+      <div class="layer-desc">JSONL · 11 documents · 50 chunks · Procédures, textes légaux, formulaires · Récupération sémantique</div>
+      <div class="layer-tags"><span class="tag blue">JSONL</span><span class="tag blue">ChromaDB</span><span class="tag blue">Embeddings</span></div>
+    </div>
+  </div>
+  <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></div>
+
+  <!-- Couche 1 — Données -->
+  <div class="layer" style="border-left-color: var(--c-danger);">
+    <div class="layer-num" style="background: var(--c-danger);">1</div>
+    <div class="layer-content">
+      <div class="layer-name">Sources de données officielles</div>
+      <div class="layer-desc">Décrets, arrêtés, lois, formulaires administratifs · CNI, Passeport, Acte naissance, etc. · Sources vérifiables</div>
+      <div class="layer-tags"><span class="tag red">prc.cm</span><span class="tag red">idcam.cm</span><span class="tag red">INS</span><span class="tag red">SN</span></div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:#64748B;"></span>Infrastructure</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-accent);"></span>Présentation</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-success);"></span>Agent assistant</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-warning);"></span>Auditeur</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-danger);"></span>Sources officielles</div>
+  </div>
+</div>
+</body>
+</html>

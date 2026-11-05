@@ -1,0 +1,28 @@
+# Archive d'origine et documents privés (l'image WhatsApp contient des codes d'accès Zoom)
+workspace-*.zip
+private/
+
+# Index et caches régénérables
+chroma_db/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/tsconfig.tsbuildinfo
+
+# Secrets et journaux locaux
+.env
+.env.*
+!.env.example
+logs/
+
+# Réglages locaux de Claude Code
+.claude/
+
+# Vidéo brute de capture
+demo/*.webm

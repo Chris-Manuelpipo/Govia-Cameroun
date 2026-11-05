@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOVIA Cameroun — Charte graphique</title>
+<style>
+  :root {
+    --c-primary: #0F172A;
+    --c-primary-light: #1E293B;
+    --c-accent: #0369A1;
+    --c-accent-light: #0284C7;
+    --c-accent-bg: #E0F2FE;
+    --c-bg: #F8FAFC;
+    --c-card: #FFFFFF;
+    --c-fg: #020617;
+    --c-muted: #E8ECF1;
+    --c-muted-fg: #475569;
+    --c-border: #E2E8F0;
+    --c-success: #16A34A;
+    --c-success-bg: #DCFCE7;
+    --c-warning: #D97706;
+    --c-warning-bg: #FEF3C7;
+    --c-danger: #DC2626;
+    --c-danger-bg: #FEE2E2;
+    --c-citation: #FBBF24;
+    --c-citation-bg: #FEF9E7;
+    --c-citation-fg: #92400E;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: Georgia, serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font-sans); background: var(--c-bg); color: var(--c-fg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .page { max-width: 900px; margin: 0 auto; padding: 40px 32px; }
+  .page-header { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid var(--c-border); }
+  .page-title { font-family: var(--font-serif); font-size: 32px; font-weight: 700; color: var(--c-primary); }
+  .page-desc { font-size: 13px; color: var(--c-muted-fg); margin-top: 4px; }
+
+  /* Logo block */
+  .logo-block {
+    background: var(--c-card);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .logo-large {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, #14598C, var(--c-primary));
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-large svg { width: 48px; height: 48px; }
+  .logo-text h2 { font-size: 28px; font-weight: 700; color: var(--c-primary); }
+  .logo-text p { font-size: 13px; color: var(--c-muted-fg); }
+
+  /* Section */
+  .section { margin-bottom: 32px; }
+  .section-title { font-size: 18px; font-weight: 700; color: var(--c-primary); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--c-border); }
+
+  /* Palette */
+  .palette-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+  .swatch { border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--c-border); box-shadow: var(--shadow); }
+  .swatch-color { width: 100%; height: 56px; border-radius: var(--radius-sm); margin-bottom: 8px; border: 1px solid var(--c-border); }
+  .swatch-name { font-size: 12px; font-weight: 700; color: var(--c-primary); }
+  .swatch-hex { font-size: 10px; color: var(--c-muted-fg); font-family: monospace; }
+
+  /* Typography */
+  .type-sample { margin-bottom: 24px; padding: 20px; background: var(--c-card); border: 1px solid var(--c-border); border-radius: var(--radius); box-shadow: var(--shadow); }
+  .type-sample h1 { font-family: var(--font-serif); font-size: 32px; font-weight: 700; color: var(--c-primary); margin-bottom: 8px; }
+  .type-sample h2 { font-size: 24px; font-weight: 700; color: var(--c-primary); margin-bottom: 8px; }
+  .type-sample p { font-size: 14px; color: #334155; margin-bottom: 4px; }
+  .type-sample .label { font-size: 11px; color: var(--c-muted-fg); margin-bottom: 4px; }
+
+  /* Components */
+  .component-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+  .comp-btn { padding: 10px 20px; border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; cursor: pointer; border: none; }
+  .comp-btn-primary { background: var(--c-primary); color: #fff; }
+  .comp-btn-accent { background: var(--c-accent); color: #fff; }
+  .comp-btn-ghost { background: transparent; color: var(--c-primary); border: 1px solid var(--c-border); }
+  .comp-badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 12px; }
+  .comp-badge-blue { background: var(--c-accent-bg); color: var(--c-accent); }
+  .comp-badge-green { background: var(--c-success-bg); color: var(--c-success); }
+  .comp-badge-orange { background: var(--c-warning-bg); color: var(--c-warning); }
+  .comp-badge-red { background: var(--c-danger-bg); color: var(--c-danger); }
+  .comp-badge-yellow { background: var(--c-citation-bg); color: var(--c-citation-fg); }
+  .comp-input { flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid var(--c-border); border-radius: var(--radius-sm); font-size: 13px; background: var(--c-bg); color: var(--c-muted-fg); }
+  .comp-card { padding: 16px; border: 1px solid var(--c-border); border-radius: var(--radius); box-shadow: var(--shadow); }
+
+  /* Grid */
+  .grid-demo { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; margin-top: 12px; }
+  .grid-col { height: 40px; background: var(--c-accent-bg); border-radius: 4px; border: 1px solid var(--c-accent); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--c-accent); font-weight: 600; }
+
+  /* Radius scale */
+  .radius-row { display: flex; gap: 16px; align-items: center; }
+  .radius-box { border: 2px solid var(--c-border); background: var(--c-card); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--c-muted-fg); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-header">
+    <div class="page-title">Charte graphique — GOVIA Cameroun</div>
+    <div class="page-desc">Version 1.0 · Style « gouvernement moderne » · Accessible · WCAG AA</div>
+  </div>
+
+  <!-- Logo -->
+  <div class="section">
+    <div class="section-title">Logo</div>
+    <div class="logo-block">
+      <div class="logo-large">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+          <path d="M12 3 L20 6 V12 C20 16 16.5 19 12 21 C7.5 19 4 16 4 12 V6 Z"/>
+          <path d="M9 11 L9 16 L13 17.5" stroke="#7DD3FC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="15" cy="8" r="1.5" fill="#FBBF24" stroke="none"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <h2>GOVIA</h2>
+        <p>Assistant d'intelligence administrative<br>Protection, Conformité, Transparence, Local</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Palette -->
+  <div class="section">
+    <div class="section-title">Palette de couleurs</div>
+    <div class="palette-grid">
+      <div class="swatch"><div class="swatch-color" style="background:#0F172A;"></div><div class="swatch-name">Navy</div><div class="swatch-hex">#0F172A</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#1E293B;"></div><div class="swatch-name">Navy léger</div><div class="swatch-hex">#1E293B</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#334155;"></div><div class="swatch-name">Slate</div><div class="swatch-hex">#334155</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#475569;"></div><div class="swatch-name">Slate texte</div><div class="swatch-hex">#475569</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#64748B;"></div><div class="swatch-name">Slate médian</div><div class="swatch-hex">#64748B</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#94A3B8;"></div><div class="swatch-name">Slate doux</div><div class="swatch-hex">#94A3B8</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E2E8F0;"></div><div class="swatch-name">Bordure</div><div class="swatch-hex">#E2E8F0</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#E8ECF1;"></div><div class="swatch-name">Muet</div><div class="swatch-hex">#E8ECF1</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#F8FAFC;"></div><div class="swatch-name">Fond</div><div class="swatch-hex">#F8FAFC</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FFFFFF;"></div><div class="swatch-name">Cartes</div><div class="swatch-hex">#FFFFFF</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#0369A1;"></div><div class="swatch-name">Accent Bleu</div><div class="swatch-hex">#0369A1</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#0284C7;"></div><div class="swatch-name">Accent Clair</div><div class="swatch-hex">#0284C7</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#3B82F6;"></div><div class="swatch-name">Bleu inter</div><div class="swatch-hex">#3B82F6</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#DBEAFE;"></div><div class="swatch-name">Bleu pâle</div><div class="swatch-hex">#DBEAFE</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#0B3D66;"></div><div class="swatch-name">Bleu profond</div><div class="swatch-hex">#0B3D66</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#14598C;"></div><div class="swatch-name">Bleu marin</div><div class="swatch-hex">#14598C</div></div>
+    </div>
+    <div class="palette-grid" style="margin-top: 12px;">
+      <div class="swatch"><div class="swatch-color" style="background:#16A34A;"></div><div class="swatch-name">Succès</div><div class="swatch-hex">#16A34A</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#DCFCE7;"></div><div class="swatch-name">Succès pâle</div><div class="swatch-hex">#DCFCE7</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#D97706;"></div><div class="swatch-name">Avertissement</div><div class="swatch-hex">#D97706</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FEF3C7;"></div><div class="swatch-name">Avertissement pâle</div><div class="swatch-hex">#FEF3C7</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#DC2626;"></div><div class="swatch-name">Erreur</div><div class="swatch-hex">#DC2626</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FEE2E2;"></div><div class="swatch-name">Erreur pâle</div><div class="swatch-hex">#FEE2E2</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FBBF24;"></div><div class="swatch-name">Citation</div><div class="swatch-hex">#FBBF24</div></div>
+      <div class="swatch"><div class="swatch-color" style="background:#FEF9E7;"></div><div class="swatch-name">Citation pâle</div><div class="swatch-hex">#FEF9E7</div></div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="section">
+    <div class="section-title">Typographie</div>
+    <div class="type-sample">
+      <div class="label">Titres — Serif (Source Serif 4 / Fraunces)</div>
+      <h1>Acte de naissance rectifié</h1>
+      <h2>Procédure de déclaration</h2>
+    </div>
+    <div class="type-sample">
+      <div class="label">Corps — Sans-serif (Inter / Atkinson Hyperlegible)</div>
+      <p>Renouvellement de la CNI en cas de perte : pré-enrôlement en ligne sur le portail IDCAM, paiement du timbre fiscal de 10 000 FCFA par Mobile Money, enrôlement physique avec capture biométrique, retrait de la carte en 48 heures.</p>
+    </div>
+  </div>
+
+  <!-- Components -->
+  <div class="section">
+    <div class="section-title">Composants</div>
+    <div class="comp-card">
+      <div class="component-row" style="margin-bottom: 16px;">
+        <button class="comp-btn comp-btn-primary">Bouton primaire</button>
+        <button class="comp-btn comp-btn-accent">Accent</button>
+        <button class="comp-btn comp-btn-ghost">Ghost</button>
+        <span class="comp-badge comp-badge-blue">Badge Bleu</span>
+        <span class="comp-badge comp-badge-green">Conforme</span>
+        <span class="comp-badge comp-badge-orange">En cours</span>
+        <span class="comp-badge comp-badge-red">Rejeté</span>
+        <span class="comp-badge comp-badge-yellow">Source</span>
+      </div>
+      <div class="component-row">
+        <div class="comp-input">Champ de saisie</div>
+        <button class="comp-btn comp-btn-primary">Envoyer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="section">
+    <div class="section-title">Grille (8 colonnes)</div>
+    <div class="grid-demo">
+      <div class="grid-col">1</div><div class="grid-col">2</div><div class="grid-col">3</div><div class="grid-col">4</div><div class="grid-col">5</div><div class="grid-col">6</div><div class="grid-col">7</div><div class="grid-col">8</div>
+    </div>
+  </div>
+
+  <!-- Radius -->
+  <div class="section">
+    <div class="section-title">Rayons &amp; écarts</div>
+    <div class="radius-row" style="margin-bottom: 12px;">
+      <div class="radius-box" style="width: 40px; height: 40px; border-radius: 4px;">4px</div>
+      <div class="radius-box" style="width: 40px; height: 40px; border-radius: 8px;">8px</div>
+      <div class="radius-box" style="width: 40px; height: 40px; border-radius: 12px;">12px</div>
+      <div class="radius-box" style="width: 40px; height: 40px; border-radius: 50%;">50%</div>
+    </div>
+    <div style="font-size: 12px; color: var(--c-muted-fg);">Ecart standard : 8px · Rayon par défaut : 8px · Rayon cartes : 12px · Rayon boutons : 8px</div>
+  </div>
+</div>
+</body>
+</html>
