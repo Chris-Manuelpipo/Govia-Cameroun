@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Langue, TEXTES } from "../i18n";
+import { copierTexte } from "../lib/presse-papiers";
 import { Formulaire } from "../types";
 
 export function FormulaireCitoyen({ initial, langue, consent }: { initial: Formulaire; langue: Langue; consent: boolean }) {
@@ -39,15 +40,16 @@ export function FormulaireCitoyen({ initial, langue, consent }: { initial: Formu
 
   async function copier() {
     const texte = champs.map((c) => `${t.champs[c.nom] || c.nom} : ${c.valeur}`).join("\n");
-    await navigator.clipboard.writeText(texte);
-    setCopie(true);
-    setTimeout(() => setCopie(false), 1500);
+    if (await copierTexte(texte)) {
+      setCopie(true);
+      setTimeout(() => setCopie(false), 1500);
+    }
   }
 
   return (
     <div className="max-w-[640px]">
       <p>{t.formulaireIntro(initial.plateforme)}</p>
-      <p className="mt-3 border-l-[3px] border-[#c47f00] bg-attention-clair px-3 py-2 text-sm">{t.lectureAvertissement}</p>
+      <p className="mt-3 border-l-4 border-attention-vif bg-attention-clair px-3 py-2 text-sm">{t.lectureAvertissement}</p>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         {champs.map((c) => (
           <label key={c.nom} className="block text-sm font-semibold">
@@ -55,21 +57,21 @@ export function FormulaireCitoyen({ initial, langue, consent }: { initial: Formu
             <input
               value={c.valeur}
               onChange={(e) => modifier(c.nom, e.target.value)}
-              className="mt-1 block w-full rounded border border-ligne-forte bg-surface px-2.5 py-1.5 text-[15px] font-normal"
+              className="mt-1 block h-11 w-full border border-ligne-forte bg-surface px-2.5 text-[15px] font-normal"
             />
           </label>
         ))}
       </div>
       {erreur && (
-        <p role="alert" className="mt-3 border-l-[3px] border-erreur bg-erreur-clair px-3 py-2 text-sm text-erreur">
+        <p role="alert" className="mt-3 border-l-4 border-erreur bg-erreur-clair px-3 py-2 text-sm text-erreur">
           {erreur}
         </p>
       )}
       <div className="mt-4 flex flex-wrap gap-2">
-        <button onClick={copier} className="rounded bg-accent px-4 py-2 font-semibold text-white hover:bg-accent-fonce">
+        <button onClick={copier} className="min-h-[44px] bg-accent px-4 font-semibold text-white hover:bg-accent-fonce">
           {copie ? t.copie : t.copier}
         </button>
-        <label className="cursor-pointer rounded border border-ligne-forte px-4 py-2 font-medium hover:bg-fond focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">
+        <label className="inline-flex min-h-[44px] cursor-pointer items-center border border-ligne-forte px-4 font-medium hover:bg-fond focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">
           {lecture ? t.lecture : t.lirePiece}
           <input
             type="file"

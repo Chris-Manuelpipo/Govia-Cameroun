@@ -1,8 +1,10 @@
 export interface Citation {
   id: string;
+  doc?: string;
   article: string;
   texte: string;
   titre: string;
+  autorite?: string;
   source_url: string;
   type_source: "texte_officiel" | "reproduction" | "portail_institutionnel";
   statut_verification: string;
@@ -33,15 +35,24 @@ export interface Option {
   message: string;
 }
 
+/** Pièce ou étape renvoyée par l'agent, toujours rattachée à l'extrait dont elle vient. */
+export interface ElementTrace {
+  texte: string;
+  chunk: string;
+}
+
 export interface Message {
   role: "user" | "agent";
   content: string;
   type?: string;
+  procedureId?: string | null;
   procedure?: string | null;
   statut?: "couvert" | "partiel" | "lacune" | null;
   mode?: string;
   options?: Option[];
   citations?: Citation[];
+  etapes?: ElementTrace[];
+  pieces?: ElementTrace[];
   audit?: Audit;
   formulaire?: Formulaire | null;
   chargement?: boolean;
@@ -73,6 +84,7 @@ export interface DocumentSource {
   type_source: Citation["type_source"];
   statut_verification: string;
   chunks: number;
+  methode_verification?: string;
 }
 
 export type Notice = Record<string, string>;

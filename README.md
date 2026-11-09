@@ -113,7 +113,8 @@ python scripts/build_kb.py --check
 cd backend && GOVIA_TEST_CHROMA=1 pytest
 
 # Interface : Firefox réel, Next.js standalone et FastAPI, sans LLM ni Chroma.
-# Couvre le parcours citoyen, l'accessibilité WCAG A/AA (axe-core) et un écran de 360 px.
+# Couvre le parcours citoyen (consentement, précision requise, aucun texte ouvert, fiche), l'accessibilité WCAG A/AA (axe-core),
+# la taille des cibles (44 px), le mouvement réduit et un écran de 360 px.
 pip install selenium
 cd frontend && npm run build && cd ..
 python scripts/test_interface.py

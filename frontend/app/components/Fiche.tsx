@@ -2,9 +2,12 @@
 import { useMemo, useState } from "react";
 import { analyser, Analyse, grouper, Section, separerExtrait } from "../lib/reponse";
 import { Langue, TEXTES, Textes } from "../i18n";
+import { confiance, documentsCites } from "../lib/confiance";
 import { Audit, Citation, Message } from "../types";
+import { ConfianceComplete } from "./Confiance";
 import { FormulaireCitoyen } from "./Formulaire";
 import { Etat, Icone } from "./icones";
+import { SourcesCitees } from "./SourcesCitees";
 
 /** Affiche le gras produit par l'agent, sans jamais injecter de HTML. */
 function Riche({ texte }: { texte: string }) {
@@ -19,7 +22,7 @@ function Riche({ texte }: { texte: string }) {
 
 function Titre2({ children, droite }: { children: React.ReactNode; droite?: React.ReactNode }) {
   return (
-    <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-3 border-b-2 border-texte pb-1.5">
+    <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-3 border-b-2 border-marine pb-1.5">
       <h2 className="text-[17px] font-bold">{children}</h2>
       {droite && <span className="text-sm text-texte-2">{droite}</span>}
     </div>
@@ -55,8 +58,8 @@ function Pieces({ section, t }: { section: Section; t: Textes }) {
                 const cochee = cochees.has(position);
                 return (
                   <li key={position}>
-                    <label className="flex cursor-pointer items-start gap-2.5 py-2 hover:bg-fond">
-                      <input type="checkbox" checked={cochee} onChange={() => basculer(position)} className="mt-[3px] h-4 w-4 shrink-0 accent-[#0b5cad]" />
+                    <label className="flex min-h-[44px] cursor-pointer items-start gap-3 py-2.5 hover:bg-fond">
+                      <input type="checkbox" checked={cochee} onChange={() => basculer(position)} className="mt-0.5 h-5 w-5 shrink-0 accent-[#0b5cad]" />
                       <span className={`extrait-exact block ${cochee ? "text-texte-2 line-through" : ""}`}>{item}</span>
                     </label>
                   </li>
@@ -118,7 +121,7 @@ function Faits({ analyse, t }: { analyse: Analyse; t: Textes }) {
     <div className="overflow-x-auto">
       <table className="w-full border-collapse text-[15px]">
         <thead>
-          <tr className="border-b-2 border-texte text-sm">
+          <tr className="border-b-2 border-marine text-sm">
             {plusieurs && <th className="py-1.5 pr-4">{t.fiche}</th>}
             {couts[0] && <th className="py-1.5 pr-4">{couts[0].titre}</th>}
             {durees[0] && <th className="py-1.5">{durees[0].titre}</th>}
@@ -134,9 +137,10 @@ function Faits({ analyse, t }: { analyse: Analyse; t: Textes }) {
                     <>
                       <span className="extrait-exact block font-semibold">{ligne.cout[0]}</span>
                       {ligne.cout.length > 1 && (
-                        <details className="mt-0.5 text-sm">
-                          <summary className="text-accent">
+                        <details className="group mt-0.5 text-sm">
+                          <summary className="flex min-h-[44px] list-none items-center gap-1 text-accent [&::-webkit-details-marker]:hidden">
                             {t.detail} ({ligne.cout.length - 1})
+                            <Icone nom="chevron-bas" taille={15} className="group-open:rotate-180" />
                           </summary>
                           <ul className="mt-1 space-y-0.5 text-texte-2">
                             {ligne.cout.slice(1).map((d, k) => (
@@ -190,7 +194,7 @@ function OngletSources({ citations, t }: { citations: Citation[]; t: Textes }) {
     <div className="space-y-6">
       {documents.map(([titre, extraits]) => (
         <section key={titre}>
-          <div className="border-b-2 border-texte pb-1.5">
+          <div className="border-b-2 border-marine pb-1.5">
             <h2 className="font-bold">{titre}</h2>
             <p className="text-sm text-texte-2">{t.typesSource[extraits[0].type_source]}</p>
           </div>
@@ -204,7 +208,7 @@ function OngletSources({ citations, t }: { citations: Citation[]; t: Textes }) {
                   </span>
                 </div>
                 <p className="mt-0.5 text-texte-2">{c.texte}</p>
-                <a href={c.source_url} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex items-center gap-1 text-sm text-accent underline underline-offset-2">
+                <a href={c.source_url} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[44px] items-center gap-1 text-sm text-accent underline underline-offset-2">
                   {t.ouvrirSource}
                   <Icone nom="externe" taille={13} />
                 </a>
@@ -245,7 +249,7 @@ function OngletControle({ audit, mode, t }: { audit: Audit; mode?: string; t: Te
       <div className="mt-5 overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="border-b-2 border-texte text-sm">
+            <tr className="border-b-2 border-marine text-sm">
               <th className="py-1.5 pr-4">{t.colonnesControle.controle}</th>
               <th className="py-1.5 pr-4">{t.colonnesControle.resultat}</th>
               <th className="py-1.5">{t.colonnesControle.detail}</th>
@@ -279,28 +283,30 @@ function OngletControle({ audit, mode, t }: { audit: Audit; mode?: string; t: Te
   );
 }
 
-type Onglet = "demarche" | "sources" | "controle" | "formulaire";
+export type Onglet = "demarche" | "sources" | "controle" | "formulaire";
 
-export function Fiche({ message, langue, consent }: { message: Message; langue: Langue; consent: boolean }) {
+export function Fiche({
+  message,
+  langue,
+  consent,
+  administration,
+  ongletInitial = "demarche",
+}: {
+  message: Message;
+  langue: Langue;
+  consent: boolean;
+  /** Administration compétente, d'après le catalogue. */
+  administration?: string | null;
+  ongletInitial?: Onglet;
+}) {
   const t = TEXTES[langue];
-  const [onglet, setOnglet] = useState<Onglet>("demarche");
+  const [onglet, setOnglet] = useState<Onglet>(ongletInitial);
   const analyse = useMemo(() => analyser(message.content), [message.content]);
   const citations = message.citations || [];
   const controles = message.audit?.controles || [];
-  const titre = message.procedure || analyse.titre;
-
-  // L'état reflète ce qui est réellement cité : une seule source à vérifier suffit à le nuancer.
-  const aVerifier = citations.some((c) => c.statut_verification !== "verifie");
-  const etat: { ton: "ok" | "attention" | "erreur"; texte: string } | null =
-    message.statut === "lacune"
-      ? { ton: "erreur", texte: t.etats.lacune }
-      : message.statut === "partiel"
-        ? { ton: "attention", texte: t.etats.partiel }
-        : aVerifier
-          ? { ton: "attention", texte: t.etats.enPartie }
-          : citations.length && message.type === "reponse"
-            ? { ton: "ok", texte: t.etats.verifie }
-            : null;
+  const titre = message.procedure || analyse.titre || (message.type === "hors_perimetre" ? t.textesProches : null);
+  const niveau = confiance(message);
+  const documents = useMemo(() => documentsCites(citations), [citations]);
 
   const trouver = (genre: Section["genre"]) => analyse.sections.filter((s) => s.genre === genre);
   // Sans citation structurée, la liste des sources du texte reste le seul repère : on la garde.
@@ -314,24 +320,34 @@ export function Fiche({ message, langue, consent }: { message: Message; langue: 
   ];
 
   return (
-    <article>
+    <article className="mx-auto w-full max-w-[960px] border-ligne bg-surface lg:my-6 lg:border">
       <header className="px-4 pb-4 pt-5 lg:px-8">
-        {titre && <h1 className="text-[26px] font-bold leading-tight">{titre}</h1>}
-        <div className="mt-1.5 flex flex-wrap items-baseline gap-x-5 gap-y-1">
-          {etat && (
-            <span className="font-medium">
-              <Etat ton={etat.ton}>{etat.texte}</Etat>
-            </span>
-          )}
-          {analyse.cas && (
-            <span className="text-texte-2">
-              {t.votreCas} : <strong className="font-semibold text-texte">{analyse.cas}</strong>
-            </span>
-          )}
-        </div>
+        <p className="text-[12px] font-bold uppercase tracking-wider text-texte-2">{t.fiche}</p>
+        {titre && <h1 className="mt-0.5 text-[26px] font-bold leading-tight text-marine">{titre}</h1>}
+        {niveau && (
+          <div className="mt-3 max-w-[640px]">
+            <ConfianceComplete confiance={niveau} t={t} />
+          </div>
+        )}
+        {(analyse.cas || administration) && (
+          <dl className="mt-3 flex flex-wrap gap-x-8 gap-y-1 text-[14px]">
+            {analyse.cas && (
+              <div>
+                <dt className="inline text-texte-2">{t.votreCas} : </dt>
+                <dd className="inline font-semibold">{analyse.cas}</dd>
+              </div>
+            )}
+            {administration && (
+              <div>
+                <dt className="inline text-texte-2">{t.administration} : </dt>
+                <dd className="inline font-semibold">{administration}</dd>
+              </div>
+            )}
+          </dl>
+        )}
       </header>
 
-      <div role="tablist" aria-label={titre || t.fiche} className="sticky top-0 z-10 flex overflow-x-auto border-b border-ligne bg-surface px-4 lg:px-8">
+      <div role="tablist" aria-label={titre || t.fiche} className="sans-barre sticky top-[var(--nav-h)] z-10 flex overflow-x-auto border-y border-ligne bg-surface px-4 lg:px-8">
         {onglets.map((o) => (
           <button
             key={o.id}
@@ -340,18 +356,18 @@ export function Fiche({ message, langue, consent }: { message: Message; langue: 
             aria-selected={onglet === o.id}
             aria-controls="panneau-fiche"
             onClick={() => setOnglet(o.id)}
-            className={`-mb-px whitespace-nowrap border-b-[3px] px-3 py-2.5 first:pl-0 ${onglet === o.id ? "border-accent font-semibold" : "border-transparent text-texte-2 hover:text-texte"}`}
+            className={`-mb-px min-h-[46px] whitespace-nowrap border-b-[3px] px-3 first:pl-0 ${onglet === o.id ? "border-accent font-semibold text-marine" : "border-transparent text-texte-2 hover:text-texte"}`}
           >
             {o.libelle}
           </button>
         ))}
       </div>
 
-      <div role="tabpanel" id="panneau-fiche" aria-labelledby={`onglet-${onglet}`} className="max-w-[900px] px-4 py-5 lg:px-8">
+      <div role="tabpanel" id="panneau-fiche" aria-labelledby={`onglet-${onglet}`} className="px-4 py-5 lg:px-8">
         {onglet === "demarche" && (
           <div className="space-y-6">
             {analyse.alertes.map((alerte) => (
-              <p key={alerte} className="extrait-exact border-l-[3px] border-[#c47f00] bg-attention-clair px-3 py-2">
+              <p key={alerte} className="extrait-exact border-l-4 border-attention-vif bg-attention-clair px-3 py-2">
                 {alerte.replace(/^(Attention|Warning)\s*:\s*/, "")}
               </p>
             ))}
@@ -365,11 +381,11 @@ export function Fiche({ message, langue, consent }: { message: Message; langue: 
               </div>
             )}
             <Faits analyse={analyse} t={t} />
-            {trouver("pieces").map((s, i) => (
-              <Pieces key={i} section={s} t={t} />
-            ))}
             {trouver("etapes").map((s, i) => (
               <Etapes key={i} section={s} />
+            ))}
+            {trouver("pieces").map((s, i) => (
+              <Pieces key={i} section={s} t={t} />
             ))}
             {trouver("extraits").map((s, i) => (
               <Extraits key={i} section={s} />
@@ -393,6 +409,18 @@ export function Fiche({ message, langue, consent }: { message: Message; langue: 
                     <Riche texte={note} />
                   </p>
                 ))}
+              </div>
+            )}
+            {documents.length > 0 && (
+              <div className="border border-ligne">
+                <SourcesCitees documents={documents} t={t} className="border-t-0" />
+                <button
+                  onClick={() => setOnglet("sources")}
+                  className="flex min-h-[44px] w-full items-center justify-between border-t border-ligne bg-fond px-3 text-left text-[14px] font-medium text-accent hover:bg-surface"
+                >
+                  {t.voirExtraits} ({citations.length})
+                  <Icone nom="envoyer" taille={15} />
+                </button>
               </div>
             )}
           </div>

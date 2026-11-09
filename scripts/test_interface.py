@@ -5,6 +5,10 @@ Prérequis : `pip install selenium`, Firefox, geckodriver, et `npm run build` da
 Usage : python scripts/test_interface.py [dossier_de_travail]
 Variables facultatives : GOVIA_TEST_FIREFOX (binaire), GOVIA_TEST_GECKODRIVER (pilote).
 Les captures d'écran sont écrites dans <dossier_de_travail>/captures.
+
+Couvre l'en-tête officiel, les quatre vues, le parcours citoyen (consentement, précision requise, aucun
+texte ouvert, fiche), l'accessibilité WCAG A/AA (axe-core), la taille des cibles (44 px), le mouvement
+réduit et un écran de 360 px.
 """
 import json
 import os
@@ -21,7 +25,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import Select, WebDriverWait
 
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 B = sys.argv[1] if len(sys.argv) > 1 else tempfile.mkdtemp(prefix="govia_ui_")
@@ -83,6 +87,24 @@ def verifier(nom, condition, detail=""):
     print(f"{'OK  ' if condition else 'ECHEC'} {nom}{' — ' + str(detail)[:400] if detail and not condition else ''}")
 
 
+# Cibles interactives visibles de moins de 44 px (hors liens en ligne dans une phrase, exemptés par WCAG 2.5.8).
+CIBLES_TROP_PETITES = """
+const visible = (e) => {
+  const r = e.getBoundingClientRect(); const s = getComputedStyle(e);
+  return s.display !== 'none' && s.visibility !== 'hidden' && r.width > 1 && r.height > 1;
+};
+const petites = [];
+for (const e of document.querySelectorAll('button, a[href], input:not([type=hidden]), select, textarea, summary, [role=tab]')) {
+  let cible = e;
+  if (e.tagName === 'INPUT' && (e.type === 'checkbox' || e.type === 'radio')) cible = e.closest('label') || e;
+  if (!visible(cible)) continue;
+  const r = cible.getBoundingClientRect();
+  const enLigne = e.tagName === 'A' && getComputedStyle(e).display === 'inline' && e.parentElement && e.parentElement.childNodes.length > 1;
+  if (!enLigne && (r.width < 43.5 || r.height < 43.5)) petites.push(`${e.tagName.toLowerCase()} « ${(e.innerText || e.getAttribute('aria-label') || '').trim().slice(0, 40)} » ${Math.round(r.width)}x${Math.round(r.height)}`);
+}
+return petites;
+"""
+
 driver = None
 try:
     attendre(f"http://127.0.0.1:{API}/")
@@ -106,6 +128,7 @@ try:
     if os.getenv("GOVIA_TEST_FIREFOX"):
         options.binary_location = os.environ["GOVIA_TEST_FIREFOX"]
     options.set_preference("intl.accept_languages", "fr")
+    options.set_preference("ui.prefersReducedMotion", 1)  # l'interface doit respecter prefers-reduced-motion
     os.environ.setdefault("TMPDIR", f"{B}/ff_tmp")
     os.makedirs(os.environ["TMPDIR"], exist_ok=True)
     pilote = os.getenv("GOVIA_TEST_GECKODRIVER")
@@ -160,65 +183,142 @@ try:
         )
         verifier(f"Accessibilité WCAG A/AA (axe) : {nom}", not resultat, resultat)
 
-    def lignes():
-        return driver.find_elements(By.CSS_SELECTOR, "tbody tr")
+    def cibles(nom):
+        petites = driver.execute_script(CIBLES_TROP_PETITES)
+        verifier(f"Cibles cliquables de 44 px au moins : {nom}", not petites, petites)
 
-    print("--- annuaire, sans consentement ---")
+    def lignes():
+        return driver.find_elements(By.CSS_SELECTOR, "tbody tr[data-demarche]")
+
+    def echanges():
+        """Un élément par question posée : la question et la réponse qui la suit."""
+        return driver.find_elements(By.CSS_SELECTOR, "section[aria-label='Échanges'] ol > li")
+
+    def fiche_visible():
+        return any(a.is_displayed() for a in driver.find_elements(By.TAG_NAME, "article"))
+
+    def carte(libelle):
+        return next(b for b in driver.find_elements(By.CSS_SELECTOR, "main [role=group] button[aria-pressed]") if libelle in b.text)
+
+    def choisir_option(libelle):
+        clic(next(label for label in driver.find_elements(By.CSS_SELECTOR, "fieldset label") if label.text == libelle))
+
+    print("--- en-tête officiel et annuaire, sans consentement ---")
     driver.get(f"{ORIGINE}/")
-    attente.until(lambda d: len(d.find_elements(By.CSS_SELECTOR, "tbody tr")) == 43)
+    attente.until(lambda d: len(lignes()) == 43)
     texte = corps()
-    verifier("L'annuaire s'ouvre d'abord et liste les 43 démarches", "Démarches administratives" in texte)
-    verifier("Le résumé vient de l'API", "43 démarches répertoriées, dont 31 couvertes" in texte and "10 sans source ouverte" in texte, texte[:400])
+    verifier("L'annuaire s'ouvre d'abord et liste les 43 démarches", "Annuaire des démarches" in texte)
+    verifier(
+        "Le résumé vient de l'API",
+        "43 démarches répertoriées : 31 couvertes par un texte ouvert, 2 partielles et 10 sans texte ouvert." in texte,
+        texte[:500],
+    )
     verifier("L'administration compétente est indiquée", "Direction Générale des Impôts" in texte)
-    verifier("Le statut de prototype est affiché", "Prototype" in texte and "ne remplace ni le texte officiel" in texte)
+    verifier("Le statut de prototype est affiché", "PROTOTYPE" in texte.upper() and "ne remplace ni le texte officiel" in texte)
+    verifier(
+        "L'en-tête porte les devises dans les deux langues",
+        all(m in texte.upper() for m in ["RÉPUBLIQUE DU CAMEROUN", "PAIX – TRAVAIL – PATRIE", "REPUBLIC OF CAMEROON", "PEACE – WORK – FATHERLAND"]),
+        texte[:300],
+    )
+    couleurs = driver.execute_script("return Array.from(document.querySelectorAll('header span')).slice(0, 3).map(e => getComputedStyle(e).backgroundColor)")
+    verifier("La bande tricolore est vert, rouge, jaune", couleurs == ["rgb(0, 122, 61)", "rgb(206, 17, 38)", "rgb(252, 209, 22)"], couleurs)
+    verifier("Les trois règles d'or sont affichées", all(r in texte for r in ["Citer ses sources", "Ne jamais deviner", "Dire quand aucun texte n'existe"]), texte[:600])
+    nav = driver.find_elements(By.CSS_SELECTOR, "nav button")
+    verifier("Quatre onglets de navigation", [b.text for b in nav] == ["Annuaire", "Assistant", "Sources", "Données et consentement"], [b.text for b in nav])
+    langue = bouton("FR")
+    position = driver.execute_script("const r = arguments[0].getBoundingClientRect(); return [r.right, r.top, window.innerWidth]", langue)
+    verifier("Le sélecteur FR/EN est en haut à droite, FR actif", position[0] > position[2] * 0.8 and position[1] < 100 and langue.get_attribute("aria-pressed") == "true", position)
     photo("01_annuaire")
     audit_accessibilite("annuaire")
+    cibles("annuaire")
 
     champ_filtre = driver.find_element(By.CSS_SELECTOR, "input[type=search]")
     champ_filtre.send_keys("passe")
     time.sleep(0.3)
-    verifier("Le filtre par nom réduit la liste", len(lignes()) == 1 and "Passeport" in lignes()[0].text, len(lignes()))
+    verifier("La recherche par nom réduit la liste", len(lignes()) == 1 and "Passeport" in lignes()[0].text, len(lignes()))
     champ_filtre.clear()
     champ_filtre.send_keys("identite")
     time.sleep(0.3)
-    verifier("Le filtre ignore les accents", any("identité" in l.text for l in lignes()), len(lignes()))
+    verifier("La recherche ignore les accents", any("identité" in l.text for l in lignes()), len(lignes()))
+    champ_filtre.clear()
+    champ_filtre.send_keys("DGI")
+    time.sleep(0.3)
+    verifier("La recherche porte aussi sur l'administration", len(lignes()) >= 6 and all("DGI" in l.text for l in lignes()), len(lignes()))
     champ_filtre.clear()
     time.sleep(0.2)
-    clic(next(b for b in boutons() if b.text.startswith("Sans source ouverte")))
-    verifier("Le filtre des lacunes donne les 10 démarches sans source", len(lignes()) == 10, len(lignes()))
-    clic(next(b for b in boutons() if b.text.startswith("Tous les domaines")))
-    verifier("Tous les domaines ramène les 43 démarches", len(lignes()) == 43, len(lignes()))
+    clic(carte("Sans texte ouvert"))
+    verifier("La catégorie « sans texte ouvert » donne les 10 démarches", len(lignes()) == 10, len(lignes()))
+    verifier("Les lacunes forment une section à part, expliquée", "10 démarches sans texte ouvert" in corps() and "n'a trouvé aucun texte ouvert" in corps())
+    photo("02_annuaire_lacunes")
+    clic(carte("Toutes les démarches"))
+    verifier("Toutes les démarches ramène les 43 lignes", len(lignes()) == 43, len(lignes()))
+    Select(driver.find_element(By.CSS_SELECTOR, "main select")).select_by_visible_text("Véhicules (3)")
+    time.sleep(0.3)
+    verifier("Le filtre par domaine réduit la liste", len(lignes()) == 3, len(lignes()))
+    Select(driver.find_element(By.CSS_SELECTOR, "main select")).select_by_value("")
+    time.sleep(0.2)
 
     print("--- sources et données, sans consentement ---")
     clic(bouton("Sources"))
     attente.until(lambda d: len(d.find_elements(By.CSS_SELECTOR, "tbody tr")) == 44)
+    tuiles = [t.text.replace("\n", " ") for t in driver.find_elements(By.CSS_SELECTOR, "dl > div")]
+    verifier(
+        "Les statistiques de la base viennent de l'API",
+        all(any(mot in t and valeur in t.split() for t in tuiles) for mot, valeur in [("Documents", "44"), ("indexés", "256"), ("vérifiés", "248"), ("à vérifier", "8")]),
+        tuiles,
+    )
+    jauge = driver.find_element(By.CSS_SELECTOR, "[role=img]").get_attribute("aria-label")
+    verifier("La jauge de vérification a un nom accessible", jauge == "248 extraits vérifiés sur 256 ; 8 à vérifier", jauge)
     texte = corps()
-    verifier("La page Sources liste les 44 documents", "44 documents ouverts, découpés en 256 extraits : 248 vérifiés à la source, 8 à vérifier." in texte, texte[:400])
     liens = driver.find_elements(By.CSS_SELECTOR, "tbody a[href^='http']")
     verifier("Chaque document renvoie vers sa source", len(liens) == 44 and all(l.get_attribute("target") == "_blank" for l in liens), len(liens))
-    photo("02_sources")
+    verifier("L'adresse de chaque source est visible", "prc.cm/files" in texte and "yaounde.eregulations.org" in texte)
+    verifier("Le type de source est indiqué", "Texte officiel" in texte and "Reproduction" in texte and "Portail" in texte)
+    photo("03_sources")
     audit_accessibilite("sources")
+    cibles("sources")
+    Select(driver.find_elements(By.CSS_SELECTOR, "main select")[1]).select_by_visible_text("À vérifier")
+    time.sleep(0.3)
+    verifier(
+        "Le filtre « À vérifier » isole les 2 documents et dit pourquoi",
+        len(driver.find_elements(By.CSS_SELECTOR, "tbody tr")) == 2 and "Portail inaccessible au robot" in corps(),
+        len(driver.find_elements(By.CSS_SELECTOR, "tbody tr")),
+    )
+    Select(driver.find_elements(By.CSS_SELECTOR, "main select")[1]).select_by_visible_text("Toutes")
+
+    clic(bouton("Données et consentement"))
+    attente.until(lambda d: d.find_elements(By.CSS_SELECTOR, "dl"))
+    texte = corps()
+    verifier(
+        "La vue Données réunit la notice et les chiffres de la base",
+        all(m in texte for m in ["Vos données et votre consentement", "La base de connaissances en chiffres", "loi n° 2024/017", "Aucun accord donné"]),
+        texte[:500],
+    )
+    photo("04_donnees")
+    audit_accessibilite("données et consentement")
+    cibles("données et consentement")
 
     print("--- consentement ---")
     clic(bouton("Assistant"))
     attente.until(lambda d: d.find_elements(By.CSS_SELECTOR, "dl"))
     champ = driver.find_element(By.CSS_SELECTOR, "input[type=text]")
     verifier("Saisie bloquée avant le consentement", not champ.is_enabled())
-    verifier("Le champ explique pourquoi il est bloqué", "Acceptez" in (champ.get_attribute("placeholder") or ""))
+    verifier("Le champ explique pourquoi il est bloqué", "Acceptez" in (champ.get_attribute("placeholder") or "") and "Saisie bloquée" in corps())
     verifier("Bouton Envoyer bloqué avant le consentement", not driver.find_element(By.CSS_SELECTOR, "button[type=submit]").is_enabled())
     notice = driver.find_element(By.TAG_NAME, "dl").text
     verifier("La notice expose finalité, droits et limites", all(m in notice for m in ["Finalité", "Vos droits", "Limites", "intervention humaine", "Transfert à l'étranger"]), notice)
     verifier("Un refus est possible", any(b.text == "Refuser" for b in boutons()))
-    photo("03_notice")
+    photo("05_notice")
     audit_accessibilite("notice")
+    cibles("notice")
     clic(bouton("Refuser"))
-    verifier("Refuser ramène à l'annuaire", len(lignes()) == 43 or "Démarches administratives" in corps())
+    verifier("Refuser ramène à l'annuaire", len(lignes()) == 43 or "Annuaire des démarches" in corps())
     journal_avant = nombre_chat_journalises()
     clic(next(b for b in boutons() if b.text == "Patente"))
     time.sleep(0.5)
     verifier("Un clic sans accord met la demande en attente", "« Patente » sera traitée après votre accord" in corps(), corps()[:400])
     verifier("Aucune question n'est envoyée sans accord", nombre_chat_journalises() == journal_avant and not driver.find_elements(By.TAG_NAME, "article"))
-    photo("04_demande_en_attente")
+    photo("06_demande_en_attente")
     clic(next(b for b in boutons() if "accepte" in b.text.lower()))
     attente.until(lambda d: d.find_elements(By.TAG_NAME, "article"))
     attendre_fin()
@@ -226,43 +326,71 @@ try:
 
     print("--- fiche patente ---")
     texte = fiche()
-    verifier("Toutes sources vérifiées : état vert mérité", "Sources vérifiées" in texte, texte[:300])
-    verifier("Coût et durée sont présentés", "Procédure gratuite" in texte and "2 j à 7 j" in texte, texte[:600])
+    verifier("Toutes sources vérifiées : « Vérifié — sources ouvertes »", "Vérifié — sources ouvertes" in texte, texte[:300])
+    verifier("L'administration compétente figure dans la fiche", "Direction Générale des Impôts" in texte, texte[:400])
+    verifier("Coût et durée sont présentés", "Procédure gratuite" in texte and "2 j à 7 j" in texte, texte[:700])
     verifier("Pas de doublon dans les pièces", texte.count("Déclaration des contributions des patentes et licences") == 1)
     verifier("Pas de marqueur de mise en forme brut", "**" not in corps())
-    verifier("La liste « Textes et sources » n'est pas répétée dans la fiche", "Textes et sources" not in texte)
+    verifier("La liste « Textes et sources » du texte n'est pas répétée dans la fiche", "Textes et sources" not in texte)
     verifier("Le rappel de responsabilité reste visible", "Vous restez responsable" in texte)
-    photo("05_fiche_patente")
+    verifier("La fiche rappelle ses sources citées, avec lien et état", "SOURCES CITÉES" in texte.upper() and "Vérifié" in texte)
+    bulle = echanges()[0]
+    verifier(
+        "La bulle du fil porte l'indicateur, le titre et le pied « Sources »",
+        all(m in bulle.text.upper() for m in ["VÉRIFIÉ — SOURCES OUVERTES", "PATENTE", "SOURCES CITÉES (1)", "EREGULATIONS"]),
+        bulle.text,
+    )
+    liens = bulle.find_elements(By.CSS_SELECTOR, "a[href^='http']")
+    verifier("Le pied « Sources » renvoie vers le texte, dans un nouvel onglet", liens and all(l.get_attribute("target") == "_blank" for l in liens))
+    photo("07_fiche_patente")
     audit_accessibilite("fiche")
+    cibles("fiche")
 
-    print("--- précision puis cas ---")
+    print("--- précision requise puis cas ---")
     clic(bouton("Effacer"))
     verifier("Effacer vide le fil et affiche les exemples", "Exemples de questions" in corps() and not driver.find_elements(By.TAG_NAME, "article"))
-    photo("06_assistant_vide")
+    photo("08_assistant_vide")
+    audit_accessibilite("assistant vide")
+    cibles("assistant vide")
     poser("Je veux renouveler ma carte")
-    options_btn = [b for b in boutons() if b.text in ("Carte nationale d'identité (CNI)", "Carte de séjour")]
-    verifier("Une question vague propose un choix dans le fil", len(options_btn) == 2, corps()[-400:])
+    radios = driver.find_elements(By.CSS_SELECTOR, "input[type=radio]")
+    verifier("Une question vague ouvre l'écran « Précision requise »", "J'ai besoin d'une précision pour vous citer le bon texte." in corps() and len(radios) >= 2, (len(radios), corps()[-500:]))
+    verifier(
+        "Les options sont les démarches candidates",
+        {"Carte nationale d'identité (CNI)", "Carte de séjour"} <= {label.text for label in driver.find_elements(By.CSS_SELECTOR, "fieldset label")},
+    )
+    verifier("« Continuer » est inactif tant qu'aucune option n'est choisie", not bouton("Continuer").is_enabled())
+    verifier("L'agent explique pourquoi il demande", "Pourquoi cette question ?" in corps() and "ordonnance n° 81/02" in corps() and "Éviter l'erreur" in corps())
+    verifier("La règle « Ne jamais deviner » est rappelée sur cet écran", "Règle 2" in corps())
+    verifier("La bulle du fil annonce la précision requise", "PRÉCISION REQUISE" in echanges()[0].text.upper())
     verifier("Une question de précision n'ouvre pas de fiche", not driver.find_elements(By.TAG_NAME, "article"))
-    photo("07_precision")
-    clic(next(b for b in options_btn if "CNI" in b.text))
+    photo("09_precision")
+    audit_accessibilite("précision requise")
+    cibles("précision requise")
+    choisir_option("Carte nationale d'identité (CNI)")
+    verifier("Choisir une option active « Continuer »", bouton("Continuer").is_enabled())
+    photo("10_precision_option_choisie")
+    clic(bouton("Continuer"))
     attendre_fin()
     verifier("« Renouveler » puis CNI retient le cas du renouvellement", "Renouvellement d'une carte périmée" in fiche(), corps()[-300:])
     poser("Je veux une CNI")
     verifier("Sans indice, l'agent demande le cas", "De quel cas s'agit-il" in corps(), corps()[-300:])
-    clic(next(b for b in reversed(boutons()) if b.text == "Perte, vol ou détérioration"))
+    choisir_option("Perte, vol ou détérioration")
+    clic(bouton("Continuer"))
     attendre_fin()
     texte = fiche()
-    verifier("Le choix du cas donne la bonne pièce", "attestation de déclaration de perte" in texte.lower(), texte[:500])
-    verifier("L'état ne prétend pas que tout est vérifié", "Sources en partie à vérifier" in texte, texte[:300])
+    verifier("Le choix du cas donne la bonne pièce", "attestation de déclaration de perte" in texte.lower(), texte[:600])
+    verifier("L'état ne prétend pas que tout est vérifié", "À vérifier" in texte and "Vérifié — sources ouvertes" not in texte, texte[:400])
+    verifier("La raison est donnée", "n'a pas encore été vérifiée" in texte, texte[:400])
     verifier("L'alerte sur les sources à vérifier est visible", "pas encore pu vérifier" in texte)
     verifier("Les onglets annoncent leur contenu", all(any(b.text.startswith(n) for b in driver.find_elements(By.CSS_SELECTOR, "[role=tab]")) for n in ["Démarche", "Sources (", "Contrôle (", "Formulaire"]))
-    photo("08_fiche_cni")
+    photo("11_fiche_cni")
 
     print("--- checklist des pièces ---")
     case = driver.find_elements(By.CSS_SELECTOR, "article input[type=checkbox]")[-1]
-    verifier("Le compteur de pièces démarre à zéro", "0 sur 1 prête" in fiche(), fiche()[:500])
+    verifier("Le compteur de pièces démarre à zéro", "0 sur 1 prête" in fiche(), fiche()[:700])
     clic(case)
-    verifier("Cocher une pièce met à jour le compteur", "1 sur 1 prête" in fiche(), fiche()[:500])
+    verifier("Cocher une pièce met à jour le compteur", "1 sur 1 prête" in fiche(), fiche()[:700])
 
     print("--- onglets ---")
     onglet("Sources")
@@ -270,23 +398,25 @@ try:
     verifier("Les sources affichent le statut de vérification", "À vérifier" in texte and "Vérifié" in texte)
     liens = driver.find_elements(By.CSS_SELECTOR, "article a[href^='http']")
     verifier("Chaque source renvoie vers son texte, dans un nouvel onglet", liens and all(l.get_attribute("target") == "_blank" for l in liens))
-    photo("09_onglet_sources")
+    photo("12_onglet_sources")
     audit_accessibilite("onglet sources")
+    cibles("onglet sources")
     onglet("Contrôle")
     texte = fiche()
     verifier("Le verdict et la décision sont affichés", "Partiel" in texte and "Publiée avec réserve" in texte, texte[:500])
     verifier("Le mode de rédaction réel est affiché", "Extraits des sources" in texte, texte[:500])
     verifier("Les contrôles portent un nom lisible", "Intégrité des citations" in texte and "Fiabilité des sources" in texte and "integrite" not in texte)
     verifier("Les contrôles n'affichent ni liste brute ni identifiant interne", "['" not in texte and "procedure_idcam" not in texte and "IDCAM pour la Carte" in texte, texte[-500:])
-    photo("10_onglet_controle")
+    photo("13_onglet_controle")
     audit_accessibilite("onglet contrôle")
     onglet("Formulaire")
     texte = fiche()
     verifier("Le formulaire annonce que rien n'est soumis", "Rien n'est soumis" in texte)
     entrees = [e for e in driver.find_elements(By.CSS_SELECTOR, "article label input") if e.get_attribute("type") not in ("file", "checkbox")]
     verifier("Le formulaire commence vide : aucune valeur inventée", entrees and all(e.get_attribute("value") == "" for e in entrees))
-    photo("11_onglet_formulaire")
+    photo("14_onglet_formulaire")
     audit_accessibilite("onglet formulaire")
+    cibles("onglet formulaire")
     onglet("Démarche")
     verifier("La case cochée reste cochée après un changement d'onglet ou se remet à zéro sans erreur", "sur 1 prête" in fiche())
 
@@ -296,45 +426,80 @@ try:
     sous_titres = [h.text for h in driver.find_elements(By.CSS_SELECTOR, "article h3")]
     verifier("Étapes et pièces sont groupées par fiche", sous_titres.count("Obtention du plan de masse et de situation") == 2, sous_titres)
     verifier("Le préfixe de la fiche n'est pas répété à chaque ligne", "Obtention du plan de masse et de situation : " not in texte)
-    verifier("Le coût total est visible, son détail reste replié", "Le coût total de la procédure est estimé à CFA 41,900" in texte and "Détail (" in texte, texte[:400])
+    verifier("Le coût total est visible, son détail reste replié", "Le coût total de la procédure est estimé à CFA 41,900" in texte and "Détail (" in texte, texte[:500])
     verifier("Le détail du coût est masqué par défaut", "11,000 XAF pour la demande et les 10 plans" not in texte)
     verifier("La numérotation des étapes continue d'un groupe à l'autre", "22." in texte)
-    haut = driver.execute_script("return document.querySelector('article').getBoundingClientRect().top")
-    verifier("La nouvelle fiche s'ouvre depuis son début", haut < 200, haut)
-    photo("12_fiche_permis")
+    haut = driver.execute_script("return document.querySelector('article').getBoundingClientRect().top - document.querySelector('section[aria-label=\"Fiche\"]').getBoundingClientRect().top")
+    verifier("La nouvelle fiche s'ouvre depuis son début", haut < 40, haut)
+    photo("15_fiche_permis")
+    audit_accessibilite("longue démarche")
+    cibles("longue démarche")
 
-    print("--- autres réponses ---")
+    print("--- aucun texte ouvert ---")
     poser("Je veux obtenir mon permis de conduire")
-    texte = fiche()
-    verifier("Lacune annoncée sans inventer", "Lacune documentée" in texte and "plutôt que d'inventer" in texte, texte[:400])
-    photo("13_fiche_lacune")
+    texte = corps()
+    verifier(
+        "Lacune annoncée sans inventer : écran « Aucun texte ouvert disponible. »",
+        "Aucun texte ouvert disponible." in texte and "Plutôt que de vous donner une réponse approximative" in texte,
+        texte[-600:],
+    )
+    verifier("L'encadré de transparence a une bordure verte", driver.execute_script("return Array.from(document.querySelectorAll('h2')).some(h => h.textContent.includes('Transparence') && getComputedStyle(h.parentElement).borderTopColor === 'rgb(26, 127, 55)')"))
+    verifier("La base dit ce qu'elle a constaté et l'administration à contacter", "n'a pas pu être consulté" in texte and "Contactez l'administration indiquée : Ministère des Transports" in texte, texte[-800:])
+    verifier("Les deux actions sont proposées", {"Poser une autre question", "Contacter un service public"} <= {b.text for b in boutons()})
+    verifier("Ce n'est pas présenté comme une fiche", not driver.find_elements(By.TAG_NAME, "article"))
+    verifier("La bulle du fil l'annonce aussi", "AUCUN TEXTE OUVERT TROUVÉ" in echanges()[-1].text.upper())
+    verifier("La règle « Dire quand aucun texte n'existe » est rappelée", "Règle 3" in texte)
+    photo("16_aucun_texte")
+    audit_accessibilite("aucun texte ouvert")
+    cibles("aucun texte ouvert")
+    clic(bouton("Contacter un service public"))
+    texte = corps()
+    verifier(
+        "« Contacter un service public » prépare les questions, sans inventer de coordonnées",
+        "Questions à poser à l'administration" in texte and "Quel texte (loi, décret ou arrêté)" in texte and "GOVIA ne détient pas de coordonnées vérifiées" in texte,
+        texte[-600:],
+    )
+    verifier("Les questions peuvent être copiées", any(b.text == "Copier les questions" for b in boutons()))
+    verifier("Le bouton de contact annonce son état déplié", bouton("Contacter un service public").get_attribute("aria-expanded") == "true")
+    photo("17_aucun_texte_contact")
+    audit_accessibilite("aucun texte ouvert, contact déplié")
     poser("Comment faire un faux passeport ?")
     verifier("Demande illicite refusée", "Je ne peux pas aider" in corps())
     poser("Quel est le prix du pain au marché ?")
-    verifier("Sujet hors périmètre signalé", "Je n'ai pas trouvé de démarche" in corps())
-    photo("14_fil_complet")
-    clic(next(b for b in reversed(boutons()) if b.text.startswith("Permis de construire")))
+    verifier("Sujet hors périmètre : aucun texte ouvert, sans inventer", "Je n'ai pas trouvé de démarche" in corps() and "Aucun texte ouvert disponible." in corps())
+    photo("18_fil_complet")
+    ouvrir = next(b for b in boutons() if b.text == "Ouvrir la fiche" and "Permis de construire" in b.find_element(By.XPATH, "./ancestor::li[1]").text)
+    clic(ouvrir)
     verifier("Une fiche précédente se rouvre depuis le fil", "Permis de construire" in driver.find_element(By.CSS_SELECTOR, "article h1").text)
+    verifier("Le fil indique la fiche affichée", any(b.text == "Fiche affichée" for b in boutons()))
 
     print("--- anglais ---")
     clic(bouton("Effacer"))
     clic(bouton("EN"))
     attente.until(lambda d: d.find_element(By.CSS_SELECTOR, "input[type=text]").get_attribute("placeholder").startswith("Ask"))
     verifier("Le bouton EN traduit l'interface", driver.find_element(By.TAG_NAME, "html").get_attribute("lang") == "en")
+    verifier("Les devises restent dans les deux langues", all(m in corps().upper() for m in ["PAIX – TRAVAIL – PATRIE", "PEACE – WORK – FATHERLAND"]))
+    verifier("Les règles d'or sont traduites", all(r in corps() for r in ["Cite sources", "Never guess", "Say when no text exists"]))
     poser("I want to renew my passport")
     texte = fiche()
     verifier("Réponse en anglais", "You remain responsible" in texte, texte[-400:])
     verifier("Le compteur de pièces est en anglais", " ready" in texte)
-    photo("15_fiche_anglais")
-    clic(bouton("Procedures"))
+    photo("19_fiche_anglais")
+    poser("My CNI")
+    verifier("Précision requise en anglais", "I need a clarification to cite the right text." in corps() and any(b.text == "Continue" for b in boutons()), corps()[-400:])
+    photo("20_precision_anglais")
+    poser("I want my driving licence")
+    verifier("Aucun texte ouvert en anglais", "No open text available." in corps() and "Rather than give you an approximate answer" in corps(), corps()[-500:])
+    photo("21_aucun_texte_anglais")
+    clic(bouton("Directory"))
     attente.until(lambda d: "National identity card (CNI)" in corps())
-    verifier("L'annuaire passe en anglais", "Administrative procedures" in corps() and "Identity and civil status" in corps())
-    photo("16_annuaire_anglais")
+    verifier("L'annuaire passe en anglais", "Directory of procedures" in corps() and "Identity and civil status" in corps() and "procedures with no open text" in corps())
+    photo("22_annuaire_anglais")
 
     print("--- retrait du consentement ---")
-    clic(bouton("Your data"))
+    clic(bouton("Data and consent"))
     verifier("La page des données indique l'accord donné", "Consent given" in corps())
-    photo("17_vos_donnees")
+    photo("23_vos_donnees")
     audit_accessibilite("vos données")
     clic(bouton("Withdraw my consent"))
     clic(bouton("Assistant"))
@@ -343,7 +508,14 @@ try:
     verifier("Retirer son accord efface la conversation", "You remain responsible" not in corps() and not driver.find_elements(By.TAG_NAME, "article"))
     verifier("La notice est de nouveau présentée", "Your rights" in corps())
 
-    print("--- requêtes externes ---")
+    print("--- mouvement réduit et requêtes externes ---")
+    duree = driver.execute_script(
+        "const e = document.createElement('span'); e.className = 'indicateur-chargement'; document.body.appendChild(e);"
+        "const d = getComputedStyle(e).animationDuration; e.remove(); return d;"
+    )
+    verifier("prefers-reduced-motion : l'indicateur de chargement ralentit", duree == "3s", duree)
+    transitions = driver.execute_script("return Array.from(document.querySelectorAll('button, a')).some(e => parseFloat(getComputedStyle(e).transitionDuration) > 0.01)")
+    verifier("prefers-reduced-motion : aucune transition", not transitions)
     ressources = driver.execute_script("return performance.getEntriesByType('resource').map(r => r.name)")
     externes = [r for r in ressources if not r.startswith(ORIGINE)]
     verifier("Aucune ressource chargée hors du serveur", not externes, externes)
@@ -369,24 +541,41 @@ try:
         photo(nom)
         driver.switch_to.frame("tel")
 
-    attente.until(lambda d: len(d.find_elements(By.CSS_SELECTOR, "tbody tr")) == 43)
+    attente.until(lambda d: len(lignes()) == 43)
     largeur = debord()
     verifier("360 px : pas de défilement horizontal, annuaire", largeur[0] <= largeur[1], largeur)
-    verifier("360 px : le filtre de domaine devient une liste déroulante", driver.find_element(By.TAG_NAME, "select").is_displayed())
-    photo_tel("18_tel_annuaire")
+    verifier("360 px : le domaine se choisit dans une liste déroulante", driver.find_element(By.TAG_NAME, "select").is_displayed())
+    verifier("360 px : l'en-tête garde la mention, le logo et le sélecteur de langue", "PROTOTYPE" in corps().upper() and "GOVIA" in corps().upper() and bouton("EN").is_displayed())
+    verifier("360 px : les quatre onglets restent visibles", [b.text for b in driver.find_elements(By.CSS_SELECTOR, "nav button")] == ["Annuaire", "Assistant", "Sources", "Données"])
+    cibles("téléphone, annuaire")
+    photo_tel("24_tel_annuaire")
     clic(bouton("Assistant"))
     attente.until(lambda d: any("accepte" in b.text.lower() for b in d.find_elements(By.TAG_NAME, "button")))
     largeur = debord()
     verifier("360 px : pas de défilement horizontal, notice", largeur[0] <= largeur[1], largeur)
-    photo_tel("19_tel_notice")
+    cibles("téléphone, notice")
+    photo_tel("25_tel_notice")
     clic(next(b for b in boutons() if "accepte" in b.text.lower()))
     time.sleep(0.5)
     poser("Je veux un permis de construire")
     time.sleep(0.5)
     largeur = debord()
     verifier("360 px : pas de défilement horizontal, longue fiche", largeur[0] <= largeur[1], largeur)
-    verifier("360 px : la fiche est amenée à l'écran", driver.execute_script("return document.querySelector('article').getBoundingClientRect().top") < 300)
-    photo_tel("20_tel_fiche")
+    verifier("360 px : la fiche remplace le fil et est amenée à l'écran", driver.execute_script("return document.querySelector('article').getBoundingClientRect().top") < 300)
+    verifier("360 px : un lien ramène aux échanges", any(b.text == "Retour aux échanges" for b in boutons()))
+    cibles("téléphone, fiche")
+    photo_tel("26_tel_fiche")
+    clic(bouton("Retour aux échanges"))
+    time.sleep(0.4)
+    verifier("360 px : le fil réapparaît avec la bulle et ses sources", "SOURCES CITÉES" in corps().upper() and not fiche_visible())
+    verifier("360 px : pas de défilement horizontal, fil", debord()[0] <= debord()[1], debord())
+    cibles("téléphone, fil")
+    photo_tel("27_tel_fil")
+    poser("Je veux une CNI")
+    time.sleep(0.4)
+    verifier("360 px : la précision requise s'affiche en pleine largeur", "J'ai besoin d'une précision" in corps() and debord()[0] <= debord()[1])
+    cibles("téléphone, précision")
+    photo_tel("28_tel_precision")
     driver.switch_to.default_content()
 
     erreurs = [e for e in ("Application error", "Unhandled Runtime") if e in corps()]

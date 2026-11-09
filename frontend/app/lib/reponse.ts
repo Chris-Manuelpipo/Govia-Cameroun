@@ -123,3 +123,50 @@ export function separerExtrait(item: string): { reference: string | null; texte:
     ? { reference: item.slice(0, position), texte: item.slice(position + 3) }
     : { reference: null, texte: item };
 }
+
+/** Nombre d'éléments d'un genre (étapes, pièces...), tel qu'affiché dans la fiche. */
+export function compter(analyse: Analyse, genre: Genre): number {
+  return analyse.sections.filter((s) => s.genre === genre).reduce((total, s) => total + s.items.length, 0);
+}
+
+export interface AnalyseLacune {
+  titre: string | null;
+  /** Ce que la base a constaté sur la démarche, tel que rédigé par l'agent. */
+  constat: string | null;
+  autorite: string | null;
+  /** Guide non officiel signalé par la base, à présenter comme tel. */
+  guide: string | null;
+}
+
+const ENTETE_AUTORITE = /^(?:Administration à contacter|Administration to contact)\s*:\s*(.+?)\.?$/;
+const ENTETE_GUIDE = /^(?:Guide pratique non officiel, à vérifier|Unofficial practical guide, to be verified)\s*:\s*(\S+)/;
+/** Formule générale de l'agent (« je n'ai pas de source ouverte fiable... »), remplacée par l'encadré de transparence. */
+const FORMULE_GENERALE = /source ouverte fiable|reliable open source/i;
+
+/**
+ * Décompose la réponse « lacune » de l'agent : titre, constat propre à la démarche, administration, guide.
+ * La formule générale (« je préfère vous le dire... ») est reconnue à son contenu et écartée : l'écran « aucun texte »
+ * la remplace par son encadré de transparence. Tout autre paragraphe reste affiché comme constat.
+ */
+export function analyserLacune(contenu: string): AnalyseLacune {
+  const { titre, paragraphes } = analyser(contenu);
+  let autorite: string | null = null;
+  let guide: string | null = null;
+  const restes: string[] = [];
+  for (const brut of paragraphes) {
+    // Tolère un gras ou une puce autour de l'en-tête : « **Administration à contacter** : X ».
+    const paragraphe = brut.replace(/\*\*/g, "").replace(/^[-•]\s+/, "");
+    const a = ENTETE_AUTORITE.exec(paragraphe);
+    if (a) {
+      autorite = a[1];
+      continue;
+    }
+    const g = ENTETE_GUIDE.exec(paragraphe);
+    if (g) {
+      guide = g[1];
+      continue;
+    }
+    if (!FORMULE_GENERALE.test(paragraphe)) restes.push(paragraphe);
+  }
+  return { titre, constat: restes.length ? restes.join(" ") : null, autorite, guide };
+}

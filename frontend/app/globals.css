@@ -3,21 +3,51 @@
 @tailwind utilities;
 
 :root {
+  /* Surfaces et texte */
   --fond: #f4f5f7;
   --surface: #ffffff;
   --texte: #1b2129;
   --texte-2: #55606d;
   --ligne: #d9dde3;
   --ligne-forte: #8b95a1;
+
+  /* Institutionnel */
   --marine: #0b2a4a;
+  --marine-2: #17426f;
+  --sur-marine: #c9d6e6;
   --accent: #0b5cad;
   --accent-fonce: #084a8c;
   --accent-clair: #e7f0f9;
+
+  /* États des démarches. Les teintes « fonce » servent au texte sur fond clair teinté ;
+     « vif » aux repères graphiques (l'orange #8a5300 est trop proche du rouge en vision des couleurs altérée). */
   --ok: #1a7f37;
+  --ok-fonce: #14602a;
+  --ok-clair: #e9f5ed;
   --attention: #8a5300;
+  --attention-vif: #c47f00;
   --attention-clair: #fdf3e1;
   --erreur: #b42318;
   --erreur-clair: #fdecea;
+
+  /* Couleurs nationales */
+  --vert: #007a3d;
+  --rouge: #ce1126;
+  --jaune: #fcd116;
+
+  /* Hauteur de la navigation collante : les éléments collants de la page se placent juste dessous.
+     Sur grand écran, la conversation défile dans son propre cadre : aucun décalage. */
+  --nav-h: 55px;
+}
+@media (min-width: 640px) {
+  :root {
+    --nav-h: 49px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --nav-h: 0px;
+  }
 }
 
 html {
@@ -33,10 +63,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Fond discret à motifs (document, sceau, plume), comme sur les portails publics. */
+/* Fond à motifs (sceau, plume, document, tampon), comme sur les portails publics.
+   Trait marine à 9 % : visible de près, sans gêner la lecture du texte posé dessus. */
 .fond-motif {
   background-color: var(--fond);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' fill='none' stroke='%230b2a4a' stroke-opacity='.035' stroke-width='1.5'%3E%3Crect x='14' y='12' width='22' height='28' rx='2'/%3E%3Cpath d='M19 20h12M19 26h12M19 32h8'/%3E%3Ccircle cx='88' cy='30' r='11'/%3E%3Cpath d='M84 30l3 3 6-6'/%3E%3Cpath d='M30 96l22-22 5 5-22 22-7 2z'/%3E%3Cpath d='M80 84h24v18H80zM80 90h24'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27200%27%20height=%27200%27%20fill=%27none%27%20stroke=%27%230b2a4a%27%20stroke-opacity=%270.09%27%20stroke-width=%271.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cg%20transform=%27rotate(-10%2048%2048)%27%3E%3Ccircle%20cx=%2748%27%20cy=%2748%27%20r=%2726%27/%3E%3Ccircle%20cx=%2748%27%20cy=%2748%27%20r=%2720.5%27%20stroke-dasharray=%271.4%203.1%27/%3E%3Cpath%20d=%27M48.0%2037.0L50.8%2044.7L58.9%2044.9L52.5%2050.0L54.8%2057.8L48.0%2053.2L41.2%2057.8L43.5%2050.0L37.1%2044.9L45.2%2044.7z%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(8%20150%2058)%27%3E%3Cpath%20d=%27M126%2088C128%2058%20150%2032%20184%2024C184%2052%20168%2078%20136%2090z%27/%3E%3Cpath%20d=%27M124%2092L176%2032%27/%3E%3Cpath%20d=%27M141%2074l-9-2M149%2065l-10-3M157%2056l-10-4M165%2047l-9-4%27/%3E%3Cpath%20d=%27M124%2092l-6%208%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(-7%2048%20150)%27%3E%3Cpath%20d=%27M28%20122h28l12%2012v42H28z%27/%3E%3Cpath%20d=%27M56%20122v12h12%27/%3E%3Cpath%20d=%27M37%20146h22M37%20155h22M37%20164h13%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(12%20146%20150)%27%3E%3Ccircle%20cx=%27146%27%20cy=%27150%27%20r=%2718%27/%3E%3Ccircle%20cx=%27146%27%20cy=%27150%27%20r=%2713%27/%3E%3Cpath%20d=%27M138%20150l5.5%205.5L155%20144%27/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 200px 200px;
 }
 
 /* Défilement horizontal conservé, barre masquée. */
@@ -47,9 +79,13 @@ body {
   display: none;
 }
 
+/* Focus clavier toujours visible : bleu sur fond clair, jaune sur le marine de l'en-tête. */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+.sur-marine :focus-visible {
+  outline-color: var(--jaune);
 }
 
 th {
@@ -82,7 +118,18 @@ summary {
   }
 }
 
+/* Mouvement réduit : plus de transition ni de défilement animé ; l'indicateur de chargement,
+   seul signe de progression, tourne très lentement au lieu de s'arrêter. */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
   .indicateur-chargement {
     animation-duration: 3s;
   }
