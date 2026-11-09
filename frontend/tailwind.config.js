@@ -13,6 +13,12 @@ module.exports = {
         "ligne-forte": "var(--ligne-forte)",
         // Institutionnel : marine pour l'en-tête et le texte fort, bleu pour les liens et boutons
         marine: "var(--marine)",
+        titre: "var(--titre)",
+        bouton: "var(--bouton)",
+        "bouton-fonce": "var(--bouton-fonce)",
+        desactive: "var(--desactive)",
+        "sur-desactive": "var(--sur-desactive)",
+        bulle: "var(--bulle)",
         "marine-2": "var(--marine-2)",
         "sur-marine": "var(--sur-marine)",
         accent: "var(--accent)",

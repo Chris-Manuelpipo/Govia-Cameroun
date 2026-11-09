@@ -30,7 +30,7 @@ function Tuile({ libelle, valeur, repere }: { libelle: string; valeur: number; r
   return (
     <div className="flex flex-col-reverse justify-end border border-ligne bg-surface px-4 py-3">
       <dt className="mt-1.5 text-[13px] leading-snug text-texte-2">{repere || libelle}</dt>
-      <dd className="text-[30px] font-semibold leading-none text-marine">{valeur}</dd>
+      <dd className="text-[30px] font-semibold leading-none text-titre">{valeur}</dd>
     </div>
   );
 }

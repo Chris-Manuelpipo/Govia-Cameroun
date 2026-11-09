@@ -68,7 +68,7 @@ export function FormulaireCitoyen({ initial, langue, consent }: { initial: Formu
         </p>
       )}
       <div className="mt-4 flex flex-wrap gap-2">
-        <button onClick={copier} className="min-h-[44px] bg-accent px-4 font-semibold text-white hover:bg-accent-fonce">
+        <button onClick={copier} className="min-h-[44px] bg-bouton px-4 font-semibold text-white hover:bg-bouton-fonce">
           {copie ? t.copie : t.copier}
         </button>
         <label className="inline-flex min-h-[44px] cursor-pointer items-center border border-ligne-forte px-4 font-medium hover:bg-fond focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent">

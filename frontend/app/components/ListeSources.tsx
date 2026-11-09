@@ -43,7 +43,7 @@ export function ListeSources({ documents, stats, erreur, langue }: { documents: 
 
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 lg:px-6">
-      <h1 className="text-[26px] font-bold leading-tight text-marine">{t.sourcesPageTitre}</h1>
+      <h1 className="text-[26px] font-bold leading-tight text-titre">{t.sourcesPageTitre}</h1>
       <p className="mt-1 max-w-[760px] text-texte-2">{t.sourcesIntro}</p>
 
       {erreur && (
@@ -93,7 +93,6 @@ export function ListeSources({ documents, stats, erreur, langue }: { documents: 
           <p className="mt-3 text-sm text-texte-2" aria-live="polite">
             {t.documentsN(visibles.length)}
           </p>
-          <p className="mt-0.5 text-[13px] text-texte-2">{t.typesAide}</p>
         </>
       )}
 
@@ -102,7 +101,7 @@ export function ListeSources({ documents, stats, erreur, langue }: { documents: 
           <table className="w-full border-collapse">
             <caption className="sr-only">{t.sourcesPageTitre}</caption>
             <thead>
-              <tr className="border-b-2 border-marine text-sm">
+              <tr className="border-b-2 border-titre text-sm">
                 <th scope="col" className="px-3 py-2.5">
                   {t.colonnesSources.document}
                 </th>

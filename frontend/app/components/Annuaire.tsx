@@ -17,6 +17,26 @@ const GROUPE_FOND: Record<Statut, string> = {
   lacune: "bg-erreur-clair border-l-4 border-l-erreur",
 };
 
+const ICONE_DOMAINE: Record<string, NomIcone> = {
+  "Identité et état civil": "personne",
+  "Protection sociale": "bouclier",
+  "Impôts et taxes": "monnaie",
+  "Création d'entreprise": "mallette",
+  "Urbanisme et foncier": "maison",
+  Véhicules: "voiture",
+  "Commerce extérieur": "globe",
+  "Numérique et données": "cle",
+  Justice: "balance",
+  Travail: "mallette",
+  "Vie associative": "groupe",
+  Étrangers: "globe",
+  Éducation: "graduation",
+  "Vie locale": "batiment",
+  "Vie citoyenne": "groupe",
+  "Emploi public": "batiment",
+};
+const iconeDomaine = (d: string): NomIcone => ICONE_DOMAINE[d] || "document";
+
 type Filtre = "tous" | Statut;
 
 const normaliser = (texte: string) =>
@@ -73,7 +93,7 @@ export function Annuaire({
   if (erreur && demarches.length === 0) {
     return (
       <div className="mx-auto max-w-[1280px] px-4 py-6 lg:px-6">
-        <h1 className="text-[26px] font-bold leading-tight text-marine">{t.annuaireTitre}</h1>
+        <h1 className="text-[26px] font-bold leading-tight text-titre">{t.annuaireTitre}</h1>
         <p role="alert" className="mt-4 border-l-4 border-erreur bg-erreur-clair px-3 py-2 text-erreur">
           {t.annuaireIndisponible}
         </p>
@@ -83,10 +103,7 @@ export function Annuaire({
 
   return (
     <div className="mx-auto max-w-[1280px] px-4 py-6 lg:px-6">
-      <h1 className="text-[26px] font-bold leading-tight text-marine">{t.annuaireTitre}</h1>
-      <p className="mt-1 max-w-[760px] text-texte-2">{t.annuaireIntro}</p>
-      {demarches.length > 0 && <p className="mt-1 text-texte-2">{t.annuaireResume(demarches.length, couvertes, partielles, lacunes)}</p>}
-
+      <h1 className="text-[26px] font-bold leading-tight text-titre">{t.annuaireTitre}</h1>
       {/* Les lacunes sont une catégorie à part entière, au même rang que les démarches couvertes. */}
       <div role="group" aria-label={t.filtresEtat} className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {cartes.map((c) => {
@@ -97,13 +114,13 @@ export function Annuaire({
               key={c.id}
               onClick={() => setEtat(c.id)}
               aria-pressed={actif}
-              className={`flex min-h-[76px] flex-col justify-between border border-t-4 px-4 py-2.5 text-left ${
+              className={`flex min-h-[68px] flex-col justify-between border border-t-4 px-4 py-2 text-left ${
                 statut === "lacune" ? "border-t-erreur" : "border-t-transparent"
-              } ${actif ? "border-marine bg-accent-clair outline outline-1 outline-marine" : "border-ligne bg-surface hover:border-ligne-forte"}`}
+              } ${actif ? "border-titre bg-accent-clair outline outline-1 outline-titre" : "border-ligne bg-surface hover:border-ligne-forte"}`}
             >
               <span className="flex items-start justify-between gap-2">
-                <span className="text-[26px] font-bold leading-none text-marine">{c.nombre}</span>
-                {actif && <Icone nom="coche" taille={16} className="text-marine" />}
+                <span className="text-[26px] font-bold leading-none text-titre">{c.nombre}</span>
+                {actif && <Icone nom="coche" taille={16} className="text-titre" />}
               </span>
               <span className="mt-1.5 flex items-center gap-1.5 text-[14px] leading-tight">
                 {statut && <Icone nom={STATUTS[statut].icone} taille={15} className={STATUTS[statut].couleur} />}
@@ -143,15 +160,77 @@ export function Annuaire({
         </label>
       </div>
 
+      <div role="group" aria-label={t.domaine} className="sans-barre -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-wrap lg:px-0">
+        {domaines.map(([id, effectif]) => {
+          const actif = domaine === id;
+          return (
+            <button
+              key={id}
+              data-domaine={id}
+              aria-pressed={actif}
+              onClick={() => setDomaine(actif ? "" : id)}
+              className={`flex min-h-[44px] shrink-0 items-center gap-2 border px-3 text-[14px] ${
+                actif ? "border-accent bg-accent-clair font-semibold text-accent-fonce outline outline-1 outline-accent" : "border-ligne-forte bg-surface hover:bg-fond"
+              } ${effectif === 0 ? "opacity-50" : ""}`}
+            >
+              <Icone nom={iconeDomaine(id)} taille={18} className={actif ? "text-accent" : "text-texte-2"} />
+              {libelleDomaine(id)} <span className="text-texte-2">({effectif})</span>
+            </button>
+          );
+        })}
+      </div>
+
       <p className="mt-4 text-sm text-texte-2" aria-live="polite">
         {t.resultats(visibles.length)}
       </p>
 
-      <div className="mt-1 overflow-x-auto border border-ligne bg-surface">
+      <div className="mt-2 hidden space-y-5 md:block">
+        {ORDRE.map((statut) => {
+          const lignes = visibles.filter((d) => d.statut === statut);
+          if (!lignes.length) return null;
+          return (
+            <section key={statut} aria-label={t.groupes[statut](lignes.length)}>
+              <h2 className={`flex items-center gap-2 px-3 py-2 text-[14px] font-semibold ${GROUPE_FOND[statut]}`}>
+                <Icone nom={STATUTS[statut].icone} taille={16} className={STATUTS[statut].couleur} />
+                {t.groupes[statut](lignes.length)}
+              </h2>
+              {statut === "lacune" && <p className="bg-erreur-clair px-3 pb-2 text-[13px] text-texte-2">{t.groupeLacune}</p>}
+              <ul className="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                {lignes.map((d) => (
+                  <li key={d.id} data-carte={d.id}>
+                    <button
+                      onClick={() => onOuvrir(nom(d))}
+                      className={`flex h-full min-h-[104px] w-full items-start gap-3 border border-t-4 bg-surface p-3 text-left hover:border-ligne-forte hover:bg-fond ${
+                        statut === "lacune" ? "border-ligne border-t-erreur" : statut === "partiel" ? "border-ligne border-t-attention-vif" : "border-ligne border-t-ok"
+                      }`}
+                    >
+                      <span className="grid h-11 w-11 shrink-0 place-items-center bg-accent-clair text-accent-fonce">
+                        <Icone nom={iconeDomaine(d.domaine)} taille={22} />
+                      </span>
+                      <span className="flex min-w-0 flex-1 flex-col gap-1">
+                        <span className="font-semibold leading-snug text-titre">{nom(d)}</span>
+                        <span className="text-[13px] text-texte-2">{d.autorite}</span>
+                        <span className="mt-auto pt-1 text-[13px]">
+                          <Etat ton={STATUTS[d.statut].ton} icone={STATUTS[d.statut].icone}>
+                            {t.statuts[d.statut]}
+                          </Etat>
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })}
+        {visibles.length === 0 && demarches.length > 0 && <p className="py-4 text-texte-2">{t.aucunResultat}</p>}
+      </div>
+
+      <div className="mt-1 overflow-x-auto border border-ligne bg-surface md:hidden">
         <table className="w-full border-collapse">
           <caption className="sr-only">{t.annuaireTitre}</caption>
           <thead>
-            <tr className="border-b-2 border-marine text-sm">
+            <tr className="border-b-2 border-titre text-sm">
               <th scope="col" className="px-3 py-2.5">
                 {t.colonnes.demarche}
               </th>
@@ -204,21 +283,6 @@ export function Annuaire({
         {visibles.length === 0 && demarches.length > 0 && <p className="px-3 py-4 text-texte-2">{t.aucunResultat}</p>}
       </div>
 
-      <section className="mt-6 border-t border-ligne pt-3 text-sm" aria-label={t.legendeTitre}>
-        <h2 className="font-semibold">{t.legendeTitre}</h2>
-        <dl className="mt-1.5 space-y-1 text-texte-2">
-          {ORDRE.map((s) => (
-            <div key={s} className="sm:grid sm:grid-cols-[170px_minmax(0,1fr)]">
-              <dt className="font-medium text-texte">
-                <Etat ton={STATUTS[s].ton} icone={STATUTS[s].icone}>
-                  {t.statuts[s]}
-                </Etat>
-              </dt>
-              <dd>{t.legende[s]}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
     </div>
   );
 }

@@ -20,12 +20,22 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b2a4a",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#0b2a4a" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b2a4a" },
+  ],
 };
+
+// Appliqué avant l'affichage pour éviter un flash du mauvais thème : choix gardé, sinon réglage du système.
+const SCRIPT_THEME =
+  "try{var t=localStorage.getItem('govia-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={texte.variable}>
+    <html lang="fr" className={texte.variable} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_THEME }} />
+      </head>
       <body>{children}</body>
     </html>
   );

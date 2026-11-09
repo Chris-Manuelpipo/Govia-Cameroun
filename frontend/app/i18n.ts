@@ -3,27 +3,16 @@ export type Langue = "FR" | "EN";
 
 const FR = {
   // En-tête, navigation, règles d'or
-  sousTitre: "Démarches administratives",
   langue: "Langue / Language",
   vues: { demarches: "Annuaire", assistant: "Assistant", sources: "Sources", donnees: "Données" },
   vuesLongues: { demarches: "Annuaire", assistant: "Assistant", sources: "Sources", donnees: "Données et consentement" },
   navigation: "Navigation principale",
   allerAuContenu: "Aller au contenu",
-  prototype: "Prototype",
-  prototypeTexte: "Service de démonstration. Il ne remplace ni le texte officiel ni l'administration compétente.",
-  reglesTitre: "Règles d'or",
-  regleN: (n: number) => `Règle ${n}`,
-  regles: [
-    { titre: "Citer ses sources", texte: "Jamais de réponse sans document quand c'est possible." },
-    { titre: "Ne jamais deviner", texte: "Demander une précision plutôt que d'inventer." },
-    { titre: "Dire quand aucun texte n'existe", texte: "Transparence totale, pas d'hallucination." },
-  ],
+  passerSombre: "Passer en mode sombre",
+  passerClair: "Passer en mode clair",
 
   // Annuaire
   annuaireTitre: "Annuaire des démarches",
-  annuaireIntro: "Choisissez une démarche pour interroger l'assistant. Chaque ligne indique l'administration compétente et l'état de la source.",
-  annuaireResume: (demarches: number, couvertes: number, partielles: number, lacunes: number) =>
-    `${demarches} démarches répertoriées : ${couvertes} couvertes par un texte ouvert, ${partielles} partielles et ${lacunes} sans texte ouvert.`,
   rechercher: "Rechercher une démarche",
   recherchePlaceholder: "Passeport, patente, permis...",
   domaine: "Domaine",
@@ -46,12 +35,6 @@ const FR = {
   annuaireIndisponible: "Annuaire indisponible : vérifiez que le service est démarré.",
   colonnes: { demarche: "Démarche", domaine: "Domaine", administration: "Administration", etat: "État" },
   statuts: { couvert: "Couverte", partiel: "Partielle", lacune: "Sans texte ouvert" },
-  legendeTitre: "État d'une démarche",
-  legende: {
-    couvert: "Appuyée sur un texte ou une fiche de portail relus à la source.",
-    partiel: "Appuyée sur une reproduction ancienne ou incomplète, à confirmer.",
-    lacune: "Aucun texte ouvert trouvé. L'assistant le signale et ne détaille aucune procédure.",
-  },
 
   // Assistant
   assistantTitre: "Assistant",
@@ -234,7 +217,7 @@ const FR = {
   } as Record<string, string>,
   lirePiece: "Lire une pièce (PNG, JPEG)",
   lecture: "Lecture...",
-  lectureAvertissement: "Prototype : n'envoyez ni vraie pièce, ni photo d'identité, ni empreinte.",
+  lectureAvertissement: "N'envoyez ni vraie pièce, ni photo d'identité, ni empreinte.",
   copier: "Copier",
   copie: "Copié",
 
@@ -253,38 +236,26 @@ const FR = {
   tousTypes: "Tous les types",
   toutesVerifications: "Toutes",
   typesPluriel: { texte_officiel: "Textes officiels", reproduction: "Reproductions", portail_institutionnel: "Portails" },
-  typesAide: "Texte officiel : publié par l'autorité. Reproduction : copie d'un texte par un tiers, signalée comme telle. Portail : fiche d'un portail institutionnel.",
   documentsN: (n: number) => `${n} document${n > 1 ? "s" : ""}`,
   aucunDocument: "Aucun document ne correspond à ces filtres.",
   colonnesSources: { document: "Document", type: "Type", extraits: "Extraits", verification: "Vérification" },
   sourcesIndisponibles: "Liste des sources indisponible : vérifiez que le service est démarré.",
 
-  pied: "GOVIA Cameroun. Prototype développé pour le hackathon ITU AI for Good Lab. Modèle local par défaut.",
+  pied: "GOVIA Cameroun. Développé pour le hackathon ITU AI for Good Lab. Il oriente et cite les textes : il ne remplace ni le texte officiel ni l'administration compétente.",
 };
 
 export type Textes = typeof FR;
 
 const EN: Textes = {
-  sousTitre: "Administrative procedures",
   langue: "Langue / Language",
   vues: { demarches: "Directory", assistant: "Assistant", sources: "Sources", donnees: "Data" },
   vuesLongues: { demarches: "Directory", assistant: "Assistant", sources: "Sources", donnees: "Data and consent" },
   navigation: "Main navigation",
   allerAuContenu: "Skip to content",
-  prototype: "Prototype",
-  prototypeTexte: "Demonstration service. It does not replace the official text or the competent administration.",
-  reglesTitre: "Golden rules",
-  regleN: (n: number) => `Rule ${n}`,
-  regles: [
-    { titre: "Cite sources", texte: "No answer without a document whenever one exists." },
-    { titre: "Never guess", texte: "Ask for clarification rather than invent." },
-    { titre: "Say when no text exists", texte: "Full transparency, no hallucination." },
-  ],
+  passerSombre: "Switch to dark mode",
+  passerClair: "Switch to light mode",
 
   annuaireTitre: "Directory of procedures",
-  annuaireIntro: "Choose a procedure to ask the assistant. Each line shows the competent administration and the state of the source.",
-  annuaireResume: (demarches: number, couvertes: number, partielles: number, lacunes: number) =>
-    `${demarches} procedures listed: ${couvertes} covered by an open text, ${partielles} partial and ${lacunes} with no open text.`,
   rechercher: "Search a procedure",
   recherchePlaceholder: "Passport, business licence, permit...",
   domaine: "Domain",
@@ -307,12 +278,6 @@ const EN: Textes = {
   annuaireIndisponible: "Directory unavailable: check that the service is running.",
   colonnes: { demarche: "Procedure", domaine: "Domain", administration: "Administration", etat: "Status" },
   statuts: { couvert: "Covered", partiel: "Partial", lacune: "No open text" },
-  legendeTitre: "Status of a procedure",
-  legende: {
-    couvert: "Based on a text or portal record re-read at the source.",
-    partiel: "Based on an old or incomplete reproduction, to be confirmed.",
-    lacune: "No open text found. The assistant reports this and details no procedure.",
-  },
 
   assistantTitre: "Assistant",
   assistantTexte: "Describe your situation. The assistant identifies the procedure, asks for details if needed and answers from the texts in the knowledge base.",
@@ -488,7 +453,7 @@ const EN: Textes = {
   } as Record<string, string>,
   lirePiece: "Read a document (PNG, JPEG)",
   lecture: "Reading...",
-  lectureAvertissement: "Prototype: do not send real documents, identity photos or fingerprints.",
+  lectureAvertissement: "Do not send real documents, identity photos or fingerprints.",
   copier: "Copy",
   copie: "Copied",
 
@@ -506,13 +471,12 @@ const EN: Textes = {
   tousTypes: "All types",
   toutesVerifications: "All",
   typesPluriel: { texte_officiel: "Official texts", reproduction: "Reproductions", portail_institutionnel: "Portals" },
-  typesAide: "Official text: published by the authority. Reproduction: copy of a text by a third party, flagged as such. Portal: record from an institutional portal.",
   documentsN: (n: number) => `${n} document${n > 1 ? "s" : ""}`,
   aucunDocument: "No document matches these filters.",
   colonnesSources: { document: "Document", type: "Type", extraits: "Extracts", verification: "Verification" },
   sourcesIndisponibles: "List of sources unavailable: check that the service is running.",
 
-  pied: "GOVIA Cameroun. Prototype developed for the ITU AI for Good Lab hackathon. Local model by default.",
+  pied: "GOVIA Cameroun. Developed for the ITU AI for Good Lab hackathon. It guides and cites the texts: it does not replace the official text or the competent administration.",
 };
 
 export const TEXTES: Record<Langue, Textes> = { FR, EN };

@@ -47,7 +47,7 @@ export function AucunTexte({ message, t, onAutreQuestion }: { message: Message; 
           <span className="mx-auto grid h-24 w-24 place-items-center rounded-full border border-ligne bg-fond text-texte-2">
             <Icone nom="document" taille={46} epaisseur={1.5} />
           </span>
-          <h1 id={`${id}-titre`} className="mt-6 text-balance text-[24px] font-bold leading-tight text-marine">
+          <h1 id={`${id}-titre`} className="mt-6 text-balance text-[24px] font-bold leading-tight text-titre">
             {t.aucunTexte.titre}
           </h1>
           <p className="mt-1.5 text-[16px] text-texte-2">{demarche || t.aucunTexte.horsPerimetre}</p>
@@ -97,7 +97,7 @@ export function AucunTexte({ message, t, onAutreQuestion }: { message: Message; 
         </div>
 
         <div className="flex flex-wrap gap-3 border-t border-ligne px-6 py-4">
-          <button onClick={onAutreQuestion} className="min-h-[44px] bg-accent px-5 font-semibold text-white hover:bg-accent-fonce">
+          <button onClick={onAutreQuestion} className="min-h-[44px] bg-bouton px-5 font-semibold text-white hover:bg-bouton-fonce">
             {t.aucunTexte.autreQuestion}
           </button>
           <button
@@ -114,7 +114,7 @@ export function AucunTexte({ message, t, onAutreQuestion }: { message: Message; 
         {contact && (
           <div id={`${id}-contact`} className="border-t border-ligne bg-fond px-6 py-4">
             <h2 className="flex items-center gap-2 font-semibold">
-              <Icone nom="batiment" taille={18} className="text-marine" />
+              <Icone nom="batiment" taille={18} className="text-titre" />
               {t.aucunTexte.contactTitre}
             </h2>
             <ol className="mt-2 list-decimal space-y-1 pl-5">
@@ -130,12 +130,6 @@ export function AucunTexte({ message, t, onAutreQuestion }: { message: Message; 
           </div>
         )}
 
-        <p className="border-t border-ligne px-6 py-2.5 text-[13px] text-texte-2">
-          <span className="font-semibold text-marine">
-            {t.regleN(3)} · {t.regles[2].titre}.
-          </span>{" "}
-          {t.regles[2].texte}
-        </p>
       </section>
     </div>
   );

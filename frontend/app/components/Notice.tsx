@@ -38,7 +38,7 @@ export function Notice({
   return (
     <div className="border border-ligne bg-surface">
       <div className="px-4 pb-1 pt-5 sm:px-6">
-        <h1 className="text-[26px] font-bold leading-tight text-marine">{notice.titre}</h1>
+        <h1 className="text-[26px] font-bold leading-tight text-titre">{notice.titre}</h1>
 
         {/* Statut du consentement : visible avant toute lecture */}
         {consent ? (
@@ -78,7 +78,7 @@ export function Notice({
       {!consent && (
         <div className="sticky bottom-0 z-10 border-t border-ligne bg-surface px-4 py-3 sm:px-6">
           <div className="flex flex-wrap gap-2">
-            <button onClick={onAccepter} className="min-h-[44px] bg-accent px-4 font-semibold text-white hover:bg-accent-fonce">
+            <button onClick={onAccepter} className="min-h-[44px] bg-bouton px-4 font-semibold text-white hover:bg-bouton-fonce">
               {notice.action}
             </button>
             <button onClick={onRefuser} className="min-h-[44px] border border-ligne-forte px-4 font-medium hover:bg-fond">

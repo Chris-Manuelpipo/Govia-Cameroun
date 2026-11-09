@@ -160,8 +160,8 @@ export function Assistant({
           )}
         </div>
 
-        <div ref={fil} tabIndex={-1} className="flex-1 pb-32 focus:outline-none lg:min-h-0 lg:overflow-y-auto lg:pb-0">
-          {messages.length === 0 ? <p className="px-4 py-4 text-sm text-texte-2">{t.aucunEchange}</p> : <Echanges messages={messages} selection={selection} t={t} onOuvrir={onOuvrir} />}
+        <div ref={fil} tabIndex={0} className="flex-1 pb-32 lg:min-h-0 lg:overflow-y-auto lg:pb-0">
+          {messages.length === 0 ? <p className="px-4 py-4 text-sm text-texte-2">{t.aucunEchange}</p> : <Echanges messages={messages} selection={selection} occupe={chargement} t={t} onOuvrir={onOuvrir} onEnvoyer={onEnvoyer} />}
         </div>
 
         <form
@@ -193,7 +193,7 @@ export function Assistant({
             <button
               type="submit"
               disabled={!consent || chargement || !saisie.trim()}
-              className="inline-flex h-11 shrink-0 items-center gap-2 bg-accent px-4 font-semibold text-white hover:bg-accent-fonce disabled:cursor-not-allowed disabled:bg-[#e3e6ea] disabled:text-[#55606d]"
+              className="inline-flex h-11 shrink-0 items-center gap-2 bg-bouton px-4 font-semibold text-white hover:bg-bouton-fonce disabled:cursor-not-allowed disabled:bg-desactive disabled:text-sur-desactive"
             >
               {t.envoyer}
               <Icone nom="envoyer" taille={16} />
@@ -205,9 +205,9 @@ export function Assistant({
       {/* Panneau : fiche, précision requise, aucun texte ouvert, ou accueil */}
       <section
         ref={panneau}
-        tabIndex={-1}
+        tabIndex={0}
         aria-label={t.fiche}
-        className={`fond-motif ${panneauVisible ? "block" : "hidden"} scroll-mt-[var(--nav-h)] focus:outline-none lg:block lg:h-full lg:overflow-y-auto`}
+        className={`fond-motif ${panneauVisible ? "block" : "hidden"} scroll-mt-[var(--nav-h)] lg:block lg:h-full lg:overflow-y-auto`}
       >
         {consent && (
           <div className="border-b border-ligne bg-surface lg:hidden">
@@ -231,11 +231,11 @@ export function Assistant({
         ) : (
           <div className="mx-auto max-w-[800px] px-0 py-0 sm:px-4 sm:py-6 lg:px-8 lg:py-8">
             <div className="border border-ligne bg-surface px-5 py-6 sm:px-7">
-              <h1 className="text-[26px] font-bold leading-tight text-marine">{t.assistantTitre}</h1>
+              <h1 className="text-[26px] font-bold leading-tight text-titre">{t.assistantTitre}</h1>
               <p className="mt-2 text-texte-2">{t.assistantTexte}</p>
               <p className="mt-1 text-[14px] text-texte-2">{t.assistantLimites}</p>
 
-              <h2 className="mt-6 border-b-2 border-marine pb-1.5 text-[17px] font-bold">{t.exemplesTitre}</h2>
+              <h2 className="mt-6 border-b-2 border-titre pb-1.5 text-[17px] font-bold">{t.exemplesTitre}</h2>
               <ul className="divide-y divide-ligne">
                 {t.exemples.map((exemple) => (
                   <li key={exemple}>

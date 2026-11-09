@@ -43,7 +43,7 @@ export function Donnees({
         <Notice notice={notice} erreur={erreur} langue={langue} consent={consent} enAttente={enAttente} onAccepter={onAccepter} onRefuser={onRefuser} onRetirer={onRetirer} />
 
         <aside aria-labelledby="stats-titre" className="border border-ligne bg-surface px-4 py-4 sm:px-5 lg:sticky lg:top-16">
-          <h2 id="stats-titre" className="text-[17px] font-bold text-marine">
+          <h2 id="stats-titre" className="text-[17px] font-bold text-titre">
             {t.statsTitre}
           </h2>
           {base ? (

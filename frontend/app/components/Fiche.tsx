@@ -22,7 +22,7 @@ function Riche({ texte }: { texte: string }) {
 
 function Titre2({ children, droite }: { children: React.ReactNode; droite?: React.ReactNode }) {
   return (
-    <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-3 border-b-2 border-marine pb-1.5">
+    <div className="mb-1 flex flex-wrap items-baseline justify-between gap-x-3 border-b-2 border-titre pb-1.5">
       <h2 className="text-[17px] font-bold">{children}</h2>
       {droite && <span className="text-sm text-texte-2">{droite}</span>}
     </div>
@@ -59,7 +59,7 @@ function Pieces({ section, t }: { section: Section; t: Textes }) {
                 return (
                   <li key={position}>
                     <label className="flex min-h-[44px] cursor-pointer items-start gap-3 py-2.5 hover:bg-fond">
-                      <input type="checkbox" checked={cochee} onChange={() => basculer(position)} className="mt-0.5 h-5 w-5 shrink-0 accent-[#0b5cad]" />
+                      <input type="checkbox" checked={cochee} onChange={() => basculer(position)} className="mt-0.5 h-5 w-5 shrink-0 accent-accent" />
                       <span className={`extrait-exact block ${cochee ? "text-texte-2 line-through" : ""}`}>{item}</span>
                     </label>
                   </li>
@@ -121,7 +121,7 @@ function Faits({ analyse, t }: { analyse: Analyse; t: Textes }) {
     <div className="overflow-x-auto">
       <table className="w-full border-collapse text-[15px]">
         <thead>
-          <tr className="border-b-2 border-marine text-sm">
+          <tr className="border-b-2 border-titre text-sm">
             {plusieurs && <th className="py-1.5 pr-4">{t.fiche}</th>}
             {couts[0] && <th className="py-1.5 pr-4">{couts[0].titre}</th>}
             {durees[0] && <th className="py-1.5">{durees[0].titre}</th>}
@@ -194,7 +194,7 @@ function OngletSources({ citations, t }: { citations: Citation[]; t: Textes }) {
     <div className="space-y-6">
       {documents.map(([titre, extraits]) => (
         <section key={titre}>
-          <div className="border-b-2 border-marine pb-1.5">
+          <div className="border-b-2 border-titre pb-1.5">
             <h2 className="font-bold">{titre}</h2>
             <p className="text-sm text-texte-2">{t.typesSource[extraits[0].type_source]}</p>
           </div>
@@ -249,7 +249,7 @@ function OngletControle({ audit, mode, t }: { audit: Audit; mode?: string; t: Te
       <div className="mt-5 overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="border-b-2 border-marine text-sm">
+            <tr className="border-b-2 border-titre text-sm">
               <th className="py-1.5 pr-4">{t.colonnesControle.controle}</th>
               <th className="py-1.5 pr-4">{t.colonnesControle.resultat}</th>
               <th className="py-1.5">{t.colonnesControle.detail}</th>
@@ -322,10 +322,9 @@ export function Fiche({
   return (
     <article className="mx-auto w-full max-w-[960px] border-ligne bg-surface lg:my-6 lg:border">
       <header className="px-4 pb-4 pt-5 lg:px-8">
-        <p className="text-[12px] font-bold uppercase tracking-wider text-texte-2">{t.fiche}</p>
-        {titre && <h1 className="mt-0.5 text-[26px] font-bold leading-tight text-marine">{titre}</h1>}
+        {titre && <h1 className="text-[26px] font-bold leading-tight text-titre">{titre}</h1>}
         {niveau && (
-          <div className="mt-3 max-w-[640px]">
+          <div className="mt-2 max-w-[680px]">
             <ConfianceComplete confiance={niveau} t={t} />
           </div>
         )}
@@ -356,7 +355,7 @@ export function Fiche({
             aria-selected={onglet === o.id}
             aria-controls="panneau-fiche"
             onClick={() => setOnglet(o.id)}
-            className={`-mb-px min-h-[46px] whitespace-nowrap border-b-[3px] px-3 first:pl-0 ${onglet === o.id ? "border-accent font-semibold text-marine" : "border-transparent text-texte-2 hover:text-texte"}`}
+            className={`-mb-px min-h-[46px] whitespace-nowrap border-b-[3px] px-3 first:pl-0 ${onglet === o.id ? "border-accent font-semibold text-titre" : "border-transparent text-texte-2 hover:text-texte"}`}
           >
             {o.libelle}
           </button>
@@ -366,7 +365,7 @@ export function Fiche({
       <div role="tabpanel" id="panneau-fiche" aria-labelledby={`onglet-${onglet}`} className="px-4 py-5 lg:px-8">
         {onglet === "demarche" && (
           <div className="space-y-6">
-            {analyse.alertes.map((alerte) => (
+            {analyse.alertes.filter((a) => !(niveau?.raison === "sources" && /pas encore pu v[ée]rifier|not yet been able to verify/i.test(a))).map((alerte) => (
               <p key={alerte} className="extrait-exact border-l-4 border-attention-vif bg-attention-clair px-3 py-2">
                 {alerte.replace(/^(Attention|Warning)\s*:\s*/, "")}
               </p>

@@ -26,12 +26,12 @@ export function ConfianceComplete({ confiance, t }: { confiance: Confiance; t: T
   const style = STYLE_CONFIANCE[confiance.niveau];
   const { libelle, detail } = t.confiance[confiance.niveau];
   return (
-    <div className={`flex items-start gap-2.5 border-l-4 px-3 py-2 ${style.boite}`}>
-      <Icone nom={style.icone} taille={20} className={`mt-0.5 ${style.couleur}`} />
-      <div>
-        <p className="font-semibold text-texte">{libelle}</p>
-        <p className="text-[14px] text-texte-2">{confiance.raison ? t.raisons[confiance.raison] : detail}</p>
-      </div>
-    </div>
+    <p className="flex items-start gap-2">
+      <Icone nom={style.icone} taille={18} className={`mt-[3px] ${style.couleur}`} />
+      <span>
+        <span className="font-semibold text-texte">{libelle}</span>
+        <span className="text-[14px] text-texte-2"> — {confiance.raison ? t.raisons[confiance.raison] : detail}</span>
+      </span>
+    </p>
   );
 }

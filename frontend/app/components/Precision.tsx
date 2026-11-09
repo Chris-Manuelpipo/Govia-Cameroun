@@ -52,7 +52,7 @@ export function Precision({
             <Icone nom="interrogation" taille={30} epaisseur={2.4} />
           </span>
           <p className="mt-2.5 text-[12px] font-bold uppercase tracking-wider text-texte-2">{t.precision.surtitre}</p>
-          <h1 id={`${id}-titre`} className="mt-1 text-balance text-[22px] font-bold leading-snug text-marine">
+          <h1 id={`${id}-titre`} className="mt-1 text-balance text-[22px] font-bold leading-snug text-titre">
             {t.precision.titre}
           </h1>
           {message.procedure && <p className="mt-1.5 text-texte-2">{message.procedure}</p>}
@@ -79,7 +79,7 @@ export function Precision({
                         }`}
                       >
                         {o.libelle}
-                        <span aria-hidden="true" className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 ${actif ? "border-accent bg-accent text-white" : "border-ligne-forte"}`}>
+                        <span aria-hidden="true" className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border-2 ${actif ? "border-bouton bg-bouton text-white" : "border-ligne-forte"}`}>
                           {actif && <Icone nom="coche" taille={12} epaisseur={3.5} />}
                         </span>
                       </span>
@@ -95,7 +95,7 @@ export function Precision({
               type="submit"
               disabled={!peutContinuer}
               aria-describedby={!selection && !fige ? `${id}-aide` : undefined}
-              className="inline-flex min-h-[44px] min-w-[150px] items-center justify-center gap-2 bg-accent px-5 font-semibold text-white hover:bg-accent-fonce disabled:cursor-not-allowed disabled:bg-[#e3e6ea] disabled:text-[#55606d] disabled:hover:bg-[#e3e6ea]"
+              className="inline-flex min-h-[44px] min-w-[150px] items-center justify-center gap-2 bg-bouton px-5 font-semibold text-white hover:bg-bouton-fonce disabled:cursor-not-allowed disabled:bg-desactive disabled:text-sur-desactive disabled:hover:bg-desactive"
             >
               {occupe && <span className="indicateur-chargement" aria-hidden="true" />}
               {t.precision.continuer}
@@ -128,12 +128,6 @@ export function Precision({
             ))}
           </ul>
         </div>
-        <p className="border-t border-ligne px-6 py-2.5 text-[13px] text-texte-2">
-          <span className="font-semibold text-marine">
-            {t.regleN(2)} · {t.regles[1].titre}.
-          </span>{" "}
-          {t.regles[1].texte}
-        </p>
       </section>
     </div>
   );

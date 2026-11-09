@@ -6,13 +6,14 @@ import { Etat, Icone } from "./icones";
 const estLien = (url: string) => /^https?:\/\//i.test(url);
 
 /**
- * Pied « Sources » d'une réponse : chaque document cité, son lien, son type et son état de vérification.
- * Texte de 14 px et cibles de 44 px : ce n'est pas une note de bas de page.
+ * Pied « Sources » d'une réponse : chaque document cité, son lien et son état de vérification.
+ * En version compacte (bulle du fil), une ligne par document ; sinon le type et les articles cités s'ajoutent.
  */
 export function SourcesCitees({
   documents,
   t,
   max,
+  compact = false,
   onTout,
   className = "",
 }: {
@@ -20,6 +21,7 @@ export function SourcesCitees({
   t: Textes;
   /** Au-delà, le bloc se limite aux premiers documents et propose d'ouvrir la fiche. */
   max?: number;
+  compact?: boolean;
   onTout?: () => void;
   className?: string;
 }) {
@@ -29,40 +31,54 @@ export function SourcesCitees({
 
   return (
     <section aria-label={t.sourcesCitees(documents.length)} className={`border-t border-ligne bg-fond ${className}`}>
-      <div className="flex items-center gap-1.5 px-3 pb-1 pt-2.5 text-[12px] font-bold uppercase tracking-wider text-texte-2">
-        <Icone nom="document" taille={14} />
-        {t.sourcesCitees(documents.length)}
-      </div>
+      <p className="px-3 pb-0.5 pt-2 text-[12px] font-semibold text-texte-2">{t.sourcesCitees(documents.length)}</p>
       <ul className="divide-y divide-ligne">
         {montres.map((d) => (
-          <li key={d.cle} className="px-3 py-1">
-            {estLien(d.url) ? (
-              <a
-                href={d.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex min-h-[44px] items-start gap-1.5 py-1.5 font-medium text-accent underline-offset-2 hover:underline"
-              >
-                <span className="line-clamp-2 text-[14px] leading-snug">
-                  {d.titre}
-                  <span className="sr-only"> ({t.ouvrirSource})</span>
+          <li key={d.cle} className="px-3">
+            <div className={`flex gap-2 ${compact ? "items-center" : "items-start"}`}>
+              {estLien(d.url) ? (
+                <a
+                  href={d.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex min-h-[44px] min-w-0 flex-1 items-center gap-1.5 py-1.5 font-medium text-accent underline-offset-2 hover:underline"
+                >
+                  <span className={`text-[14px] leading-snug ${compact ? "line-clamp-2" : ""}`}>
+                    {d.titre}
+                    <span className="sr-only"> ({t.ouvrirSource})</span>
+                  </span>
+                  <Icone nom="externe" taille={13} className="shrink-0" />
+                </a>
+              ) : (
+                <p className="min-w-0 flex-1 py-3 text-[14px] font-medium leading-snug">{d.titre}</p>
+              )}
+              {compact && (
+                <span title={d.verifie ? t.verifie : t.aVerifier} className="shrink-0">
+                  <Etat ton={d.verifie ? "ok" : "attention"} taille={16}>
+                    <span className="sr-only">{d.verifie ? t.verifie : t.aVerifier}</span>
+                  </Etat>
                 </span>
-                <Icone nom="externe" taille={13} className="mt-1" />
-              </a>
-            ) : (
-              <p className="py-1.5 text-[14px] font-medium leading-snug">{d.titre}</p>
+              )}
+            </div>
+            {!compact && (
+              <p className="flex flex-wrap items-center gap-x-3 pb-1.5 text-[13px] text-texte-2">
+                <span>
+                  {t.typesSource[d.type]}
+                  {d.articles.length > 0 && (
+                    <span>
+                      {" "}
+                      · {d.articles.slice(0, 2).join(" ; ")}
+                      {d.articles.length > 2 ? "…" : ""}
+                    </span>
+                  )}
+                </span>
+                <span className="text-texte">
+                  <Etat ton={d.verifie ? "ok" : "attention"} taille={14}>
+                    {d.verifie ? t.verifie : t.aVerifier}
+                  </Etat>
+                </span>
+              </p>
             )}
-            <p className="flex flex-wrap items-center gap-x-3 pb-1.5 text-[13px] text-texte-2">
-              <span>
-                {t.typesSource[d.type]}
-                {d.articles.length > 0 && <span className="extrait-exact"> · {d.articles.slice(0, 2).join(" ; ")}{d.articles.length > 2 ? "…" : ""}</span>}
-              </span>
-              <span className="text-texte">
-                <Etat ton={d.verifie ? "ok" : "attention"} taille={14}>
-                  {d.verifie ? t.verifie : t.aVerifier}
-                </Etat>
-              </span>
-            </p>
           </li>
         ))}
       </ul>

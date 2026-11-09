@@ -188,7 +188,11 @@ try:
         verifier(f"Cibles cliquables de 44 px au moins : {nom}", not petites, petites)
 
     def lignes():
-        return driver.find_elements(By.CSS_SELECTOR, "tbody tr[data-demarche]")
+        """Démarches affichées, en carte (grand écran) ou en ligne de tableau (mobile)."""
+        return [e for e in driver.find_elements(By.CSS_SELECTOR, "tr[data-demarche], li[data-carte]") if e.is_displayed()]
+
+    def bouton_demarche(nom):
+        return next(b for b in driver.find_elements(By.CSS_SELECTOR, "tr[data-demarche] button, li[data-carte] button") if b.is_displayed() and b.text.split("\n")[0] == nom)
 
     def echanges():
         """Un élément par question posée : la question et la réponse qui la suit."""
@@ -208,13 +212,11 @@ try:
     attente.until(lambda d: len(lignes()) == 43)
     texte = corps()
     verifier("L'annuaire s'ouvre d'abord et liste les 43 démarches", "Annuaire des démarches" in texte)
-    verifier(
-        "Le résumé vient de l'API",
-        "43 démarches répertoriées : 31 couvertes par un texte ouvert, 2 partielles et 10 sans texte ouvert." in texte,
-        texte[:500],
-    )
+    compte = driver.execute_script("return Array.from(document.querySelectorAll('main [role=group][aria-label] button[aria-pressed]')).map(b => b.innerText.replace(/\\n/g, ' '))")
+    verifier("Les cartes d'état portent les chiffres de l'API", all(any(c.startswith(n) for c in compte) for n in ["43 ", "31 ", "2 ", "10 "]), compte)
     verifier("L'administration compétente est indiquée", "Direction Générale des Impôts" in texte)
-    verifier("Le statut de prototype est affiché", "PROTOTYPE" in texte.upper() and "ne remplace ni le texte officiel" in texte)
+    verifier("Plus de mention « Prototype » ni de bande « Règles d'or »", "PROTOTYPE" not in texte.upper() and "RÈGLES D'OR" not in texte.upper(), texte[:300])
+    verifier("La réserve d'usage reste au pied de la page", "ne remplace ni le texte officiel" in texte)
     verifier(
         "L'en-tête porte les devises dans les deux langues",
         all(m in texte.upper() for m in ["RÉPUBLIQUE DU CAMEROUN", "PAIX – TRAVAIL – PATRIE", "REPUBLIC OF CAMEROON", "PEACE – WORK – FATHERLAND"]),
@@ -222,7 +224,6 @@ try:
     )
     couleurs = driver.execute_script("return Array.from(document.querySelectorAll('header span')).slice(0, 3).map(e => getComputedStyle(e).backgroundColor)")
     verifier("La bande tricolore est vert, rouge, jaune", couleurs == ["rgb(0, 122, 61)", "rgb(206, 17, 38)", "rgb(252, 209, 22)"], couleurs)
-    verifier("Les trois règles d'or sont affichées", all(r in texte for r in ["Citer ses sources", "Ne jamais deviner", "Dire quand aucun texte n'existe"]), texte[:600])
     nav = driver.find_elements(By.CSS_SELECTOR, "nav button")
     verifier("Quatre onglets de navigation", [b.text for b in nav] == ["Annuaire", "Assistant", "Sources", "Données et consentement"], [b.text for b in nav])
     langue = bouton("FR")
@@ -314,7 +315,7 @@ try:
     clic(bouton("Refuser"))
     verifier("Refuser ramène à l'annuaire", len(lignes()) == 43 or "Annuaire des démarches" in corps())
     journal_avant = nombre_chat_journalises()
-    clic(next(b for b in boutons() if b.text == "Patente"))
+    clic(bouton_demarche("Patente"))
     time.sleep(0.5)
     verifier("Un clic sans accord met la demande en attente", "« Patente » sera traitée après votre accord" in corps(), corps()[:400])
     verifier("Aucune question n'est envoyée sans accord", nombre_chat_journalises() == journal_avant and not driver.find_elements(By.TAG_NAME, "article"))
@@ -361,7 +362,6 @@ try:
     )
     verifier("« Continuer » est inactif tant qu'aucune option n'est choisie", not bouton("Continuer").is_enabled())
     verifier("L'agent explique pourquoi il demande", "Pourquoi cette question ?" in corps() and "ordonnance n° 81/02" in corps() and "Éviter l'erreur" in corps())
-    verifier("La règle « Ne jamais deviner » est rappelée sur cet écran", "Règle 2" in corps())
     verifier("La bulle du fil annonce la précision requise", "PRÉCISION REQUISE" in echanges()[0].text.upper())
     verifier("Une question de précision n'ouvre pas de fiche", not driver.find_elements(By.TAG_NAME, "article"))
     photo("09_precision")
@@ -382,7 +382,7 @@ try:
     verifier("Le choix du cas donne la bonne pièce", "attestation de déclaration de perte" in texte.lower(), texte[:600])
     verifier("L'état ne prétend pas que tout est vérifié", "À vérifier" in texte and "Vérifié — sources ouvertes" not in texte, texte[:400])
     verifier("La raison est donnée", "n'a pas encore été vérifiée" in texte, texte[:400])
-    verifier("L'alerte sur les sources à vérifier est visible", "pas encore pu vérifier" in texte)
+    verifier("L'avertissement sur les sources à vérifier n'est pas répété", texte.count("pas encore") == 1, texte[:500])
     verifier("Les onglets annoncent leur contenu", all(any(b.text.startswith(n) for b in driver.find_elements(By.CSS_SELECTOR, "[role=tab]")) for n in ["Démarche", "Sources (", "Contrôle (", "Formulaire"]))
     photo("11_fiche_cni")
 
@@ -448,7 +448,6 @@ try:
     verifier("Les deux actions sont proposées", {"Poser une autre question", "Contacter un service public"} <= {b.text for b in boutons()})
     verifier("Ce n'est pas présenté comme une fiche", not driver.find_elements(By.TAG_NAME, "article"))
     verifier("La bulle du fil l'annonce aussi", "AUCUN TEXTE OUVERT TROUVÉ" in echanges()[-1].text.upper())
-    verifier("La règle « Dire quand aucun texte n'existe » est rappelée", "Règle 3" in texte)
     photo("16_aucun_texte")
     audit_accessibilite("aucun texte ouvert")
     cibles("aucun texte ouvert")
@@ -466,12 +465,52 @@ try:
     poser("Comment faire un faux passeport ?")
     verifier("Demande illicite refusée", "Je ne peux pas aider" in corps())
     poser("Quel est le prix du pain au marché ?")
-    verifier("Sujet hors périmètre : aucun texte ouvert, sans inventer", "Je n'ai pas trouvé de démarche" in corps() and "Aucun texte ouvert disponible." in corps())
+    verifier("Sujet hors périmètre : réponse claire avec des exemples, sans écran « aucun texte »", "pas sûr d'avoir compris" in corps() and any(b.text == "Créer une société" for b in boutons()) and "Aucun texte ouvert" not in echanges()[-1].text, echanges()[-1].text)
     photo("18_fil_complet")
     ouvrir = next(b for b in boutons() if b.text == "Ouvrir la fiche" and "Permis de construire" in b.find_element(By.XPATH, "./ancestor::li[1]").text)
     clic(ouvrir)
     verifier("Une fiche précédente se rouvre depuis le fil", "Permis de construire" in driver.find_element(By.CSS_SELECTOR, "article h1").text)
     verifier("Le fil indique la fiche affichée", any(b.text == "Fiche affichée" for b in boutons()))
+
+    print("--- conversation naturelle ---")
+    poser("Bonjour")
+    verifier("« Bonjour » reçoit une réponse de GOVIA avec des exemples", "je suis GOVIA" in corps() and any(b.text == "Renouveler ma CNI" for b in boutons()), corps()[-500:])
+    verifier("Une salutation n'ouvre ni fiche ni écran d'impasse", "Aucun texte ouvert" not in echanges()[-1].text and "Ouvrir la fiche" not in echanges()[-1].text)
+    poser("Peux tu m'en dire plus en ce qui concerne les procédures administratives ??")
+    verifier("Une question générale sur les démarches reçoit un aperçu chiffré", "J'en connais 43" in corps() and "Pour 10 autres" in corps(), corps()[-600:])
+    photo("19_conversation")
+    audit_accessibilite("conversation")
+    cibles("conversation")
+    clic(next(b for b in boutons() if b.text == "Créer une société"))
+    attendre_fin()
+    verifier("Un exemple cliquable aboutit à une vraie réponse", driver.find_elements(By.TAG_NAME, "article") or "PRÉCISION REQUISE" in corps().upper(), corps()[-300:])
+    poser("Merci beaucoup")
+    verifier("Un remerciement reçoit une réponse polie", "Avec plaisir" in corps())
+    poser("Hi")
+    verifier("« Hi » reçoit une réponse en anglais même si l'interface est en français", "Hello, I'm GOVIA" in corps(), corps()[-300:])
+
+    print("--- mode clair et mode sombre ---")
+    verifier("Le thème clair est actif par défaut", driver.find_element(By.TAG_NAME, "html").get_attribute("data-theme") == "light")
+    clic(driver.find_element(By.CSS_SELECTOR, "button[aria-label='Passer en mode sombre']"))
+    verifier("La bascule passe en mode sombre", driver.find_element(By.TAG_NAME, "html").get_attribute("data-theme") == "dark")
+    fond = driver.execute_script("return getComputedStyle(document.body).backgroundColor")
+    verifier("Le fond de page devient sombre", fond != "rgb(255, 255, 255)", fond)
+    photo("20_mode_sombre_assistant")
+    audit_accessibilite("mode sombre, assistant")
+    cibles("mode sombre")
+    clic(bouton("Annuaire"))
+    time.sleep(0.5)
+    photo("21_mode_sombre_annuaire")
+    audit_accessibilite("mode sombre, annuaire")
+    clic(bouton("Sources"))
+    time.sleep(0.5)
+    audit_accessibilite("mode sombre, sources")
+    clic(bouton("Données et consentement"))
+    time.sleep(0.5)
+    audit_accessibilite("mode sombre, données")
+    clic(driver.find_element(By.CSS_SELECTOR, "button[aria-label='Passer en mode clair']"))
+    verifier("La bascule revient au mode clair", driver.find_element(By.TAG_NAME, "html").get_attribute("data-theme") == "light")
+    clic(bouton("Assistant"))
 
     print("--- anglais ---")
     clic(bouton("Effacer"))
@@ -479,7 +518,6 @@ try:
     attente.until(lambda d: d.find_element(By.CSS_SELECTOR, "input[type=text]").get_attribute("placeholder").startswith("Ask"))
     verifier("Le bouton EN traduit l'interface", driver.find_element(By.TAG_NAME, "html").get_attribute("lang") == "en")
     verifier("Les devises restent dans les deux langues", all(m in corps().upper() for m in ["PAIX – TRAVAIL – PATRIE", "PEACE – WORK – FATHERLAND"]))
-    verifier("Les règles d'or sont traduites", all(r in corps() for r in ["Cite sources", "Never guess", "Say when no text exists"]))
     poser("I want to renew my passport")
     texte = fiche()
     verifier("Réponse en anglais", "You remain responsible" in texte, texte[-400:])
@@ -545,7 +583,7 @@ try:
     largeur = debord()
     verifier("360 px : pas de défilement horizontal, annuaire", largeur[0] <= largeur[1], largeur)
     verifier("360 px : le domaine se choisit dans une liste déroulante", driver.find_element(By.TAG_NAME, "select").is_displayed())
-    verifier("360 px : l'en-tête garde la mention, le logo et le sélecteur de langue", "PROTOTYPE" in corps().upper() and "GOVIA" in corps().upper() and bouton("EN").is_displayed())
+    verifier("360 px : l'en-tête garde le logo, le sélecteur de langue et la bascule de thème", "GOVIA" in corps().upper() and bouton("EN").is_displayed())
     verifier("360 px : les quatre onglets restent visibles", [b.text for b in driver.find_elements(By.CSS_SELECTOR, "nav button")] == ["Annuaire", "Assistant", "Sources", "Données"])
     cibles("téléphone, annuaire")
     photo_tel("24_tel_annuaire")

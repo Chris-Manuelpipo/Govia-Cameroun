@@ -6,7 +6,6 @@ import { Donnees } from "./components/Donnees";
 import { EnTete } from "./components/EnTete";
 import { ListeSources } from "./components/ListeSources";
 import { Navigation } from "./components/Navigation";
-import { Regles } from "./components/Regles";
 import { Langue, TEXTES } from "./i18n";
 import { panneauDe } from "./lib/confiance";
 import { DemarcheCatalogue, DocumentSource, Message, Notice as TypeNotice, Stats, Vue } from "./types";
@@ -176,13 +175,12 @@ export default function Home() {
     <div className={`flex min-h-screen flex-col ${surAssistant ? "lg:h-screen lg:overflow-hidden" : ""}`}>
       <a
         href="#contenu"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:bg-surface focus:px-4 focus:py-3 focus:font-semibold focus:text-marine focus:shadow-[0_0_0_2px_#0b2a4a]"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-2 focus:top-2 focus:z-50 focus:bg-surface focus:px-4 focus:py-3 focus:font-semibold focus:text-titre focus:outline focus:outline-2 focus:outline-accent"
       >
         {t.allerAuContenu}
       </a>
       <EnTete langue={langue} t={t} onLangue={setLangue} />
       <Navigation vue={vue} t={t} onVue={setVue} />
-      <Regles t={t} />
 
       <main id="contenu" ref={contenu} tabIndex={-1} className={`fond-motif min-h-0 flex-1 focus:outline-none ${surAssistant ? "lg:overflow-hidden" : ""}`}>
         {vue === "demarches" && <Annuaire demarches={catalogue} erreur={erreurCatalogue} langue={langue} onOuvrir={ouvrir} />}
@@ -234,7 +232,6 @@ export default function Home() {
 
         {!surAssistant && (
           <footer className="mx-auto max-w-[1280px] px-4 pb-8 pt-2 text-[13px] text-texte-2 lg:px-6">
-            <p>{t.prototypeTexte}</p>
             <p>{t.pied}</p>
           </footer>
         )}

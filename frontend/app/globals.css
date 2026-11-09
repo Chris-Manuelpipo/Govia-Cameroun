@@ -15,9 +15,9 @@
   --marine: #0b2a4a;
   --marine-2: #17426f;
   --sur-marine: #c9d6e6;
-  --accent: #0b5cad;
-  --accent-fonce: #084a8c;
-  --accent-clair: #e7f0f9;
+  --accent: #007a3d;
+  --accent-fonce: #005c2e;
+  --accent-clair: #e6f3ec;
 
   /* États des démarches. Les teintes « fonce » servent au texte sur fond clair teinté ;
      « vif » aux repères graphiques (l'orange #8a5300 est trop proche du rouge en vision des couleurs altérée). */
@@ -38,6 +38,16 @@
   /* Hauteur de la navigation collante : les éléments collants de la page se placent juste dessous.
      Sur grand écran, la conversation défile dans son propre cadre : aucun décalage. */
   --nav-h: 55px;
+
+  /* Éléments propres au thème : titres, bouton principal, bouton inactif, bulle de l'utilisateur, motif de fond. */
+  --titre: #0b2a4a;
+  --bouton: #007a3d;
+  --bouton-fonce: #005c2e;
+  --desactive: #e3e6ea;
+  --sur-desactive: #55606d;
+  --bulle: #9fcfb3;
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27200%27%20height=%27200%27%20fill=%27none%27%20stroke=%27%230b2a4a%27%20stroke-opacity=%270.09%27%20stroke-width=%271.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cg%20transform=%27rotate(-10%2048%2048)%27%3E%3Ccircle%20cx=%2748%27%20cy=%2748%27%20r=%2726%27/%3E%3Ccircle%20cx=%2748%27%20cy=%2748%27%20r=%2720.5%27%20stroke-dasharray=%271.4%203.1%27/%3E%3Cpath%20d=%27M48.0%2037.0L50.8%2044.7L58.9%2044.9L52.5%2050.0L54.8%2057.8L48.0%2053.2L41.2%2057.8L43.5%2050.0L37.1%2044.9L45.2%2044.7z%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(8%20150%2058)%27%3E%3Cpath%20d=%27M126%2088C128%2058%20150%2032%20184%2024C184%2052%20168%2078%20136%2090z%27/%3E%3Cpath%20d=%27M124%2092L176%2032%27/%3E%3Cpath%20d=%27M141%2074l-9-2M149%2065l-10-3M157%2056l-10-4M165%2047l-9-4%27/%3E%3Cpath%20d=%27M124%2092l-6%208%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(-7%2048%20150)%27%3E%3Cpath%20d=%27M28%20122h28l12%2012v42H28z%27/%3E%3Cpath%20d=%27M56%20122v12h12%27/%3E%3Cpath%20d=%27M37%20146h22M37%20155h22M37%20164h13%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(12%20146%20150)%27%3E%3Ccircle%20cx=%27146%27%20cy=%27150%27%20r=%2718%27/%3E%3Ccircle%20cx=%27146%27%20cy=%27150%27%20r=%2713%27/%3E%3Cpath%20d=%27M138%20150l5.5%205.5L155%20144%27/%3E%3C/g%3E%3C/svg%3E");
+  color-scheme: light;
 }
 @media (min-width: 640px) {
   :root {
@@ -48,6 +58,36 @@
   :root {
     --nav-h: 0px;
   }
+}
+
+/* Thème sombre : chaque teinte est choisie pour la surface sombre (contrastes vérifiés : texte 5,7:1 au moins,
+   repères graphiques 3:1 au moins), pas obtenue en inversant le thème clair. */
+:root[data-theme="dark"] {
+  --fond: #0e131a;
+  --surface: #161c25;
+  --texte: #e8ecf1;
+  --texte-2: #9fabba;
+  --ligne: #2a3340;
+  --ligne-forte: #6b7788;
+  --accent: #4cc47f;
+  --accent-fonce: #8fdcb0;
+  --accent-clair: #10291a;
+  --ok: #3fb868;
+  --ok-fonce: #7fe0a0;
+  --ok-clair: #112a1b;
+  --attention: #f0b05a;
+  --attention-vif: #e09a1c;
+  --attention-clair: #2b2210;
+  --erreur: #f26b7a;
+  --erreur-clair: #301616;
+  --titre: #e6eefb;
+  --bouton: #007a3d;
+  --bouton-fonce: #008a43;
+  --desactive: #2a323d;
+  --sur-desactive: #9aa6b5;
+  --bulle: #1f5a38;
+  --motif: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27200%27%20height=%27200%27%20fill=%27none%27%20stroke=%27%23ffffff%27%20stroke-opacity=%270.08%27%20stroke-width=%271.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cg%20transform=%27rotate(-10%2048%2048)%27%3E%3Ccircle%20cx=%2748%27%20cy=%2748%27%20r=%2726%27/%3E%3Ccircle%20cx=%2748%27%20cy=%2748%27%20r=%2720.5%27%20stroke-dasharray=%271.4%203.1%27/%3E%3Cpath%20d=%27M48.0%2037.0L50.8%2044.7L58.9%2044.9L52.5%2050.0L54.8%2057.8L48.0%2053.2L41.2%2057.8L43.5%2050.0L37.1%2044.9L45.2%2044.7z%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(8%20150%2058)%27%3E%3Cpath%20d=%27M126%2088C128%2058%20150%2032%20184%2024C184%2052%20168%2078%20136%2090z%27/%3E%3Cpath%20d=%27M124%2092L176%2032%27/%3E%3Cpath%20d=%27M141%2074l-9-2M149%2065l-10-3M157%2056l-10-4M165%2047l-9-4%27/%3E%3Cpath%20d=%27M124%2092l-6%208%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(-7%2048%20150)%27%3E%3Cpath%20d=%27M28%20122h28l12%2012v42H28z%27/%3E%3Cpath%20d=%27M56%20122v12h12%27/%3E%3Cpath%20d=%27M37%20146h22M37%20155h22M37%20164h13%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(12%20146%20150)%27%3E%3Ccircle%20cx=%27146%27%20cy=%27150%27%20r=%2718%27/%3E%3Ccircle%20cx=%27146%27%20cy=%27150%27%20r=%2713%27/%3E%3Cpath%20d=%27M138%20150l5.5%205.5L155%20144%27/%3E%3C/g%3E%3C/svg%3E");
+  color-scheme: dark;
 }
 
 html {
@@ -67,7 +107,7 @@ body {
    Trait marine à 9 % : visible de près, sans gêner la lecture du texte posé dessus. */
 .fond-motif {
   background-color: var(--fond);
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20width=%27200%27%20height=%27200%27%20fill=%27none%27%20stroke=%27%230b2a4a%27%20stroke-opacity=%270.09%27%20stroke-width=%271.5%27%20stroke-linecap=%27round%27%20stroke-linejoin=%27round%27%3E%3Cg%20transform=%27rotate(-10%2048%2048)%27%3E%3Ccircle%20cx=%2748%27%20cy=%2748%27%20r=%2726%27/%3E%3Ccircle%20cx=%2748%27%20cy=%2748%27%20r=%2720.5%27%20stroke-dasharray=%271.4%203.1%27/%3E%3Cpath%20d=%27M48.0%2037.0L50.8%2044.7L58.9%2044.9L52.5%2050.0L54.8%2057.8L48.0%2053.2L41.2%2057.8L43.5%2050.0L37.1%2044.9L45.2%2044.7z%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(8%20150%2058)%27%3E%3Cpath%20d=%27M126%2088C128%2058%20150%2032%20184%2024C184%2052%20168%2078%20136%2090z%27/%3E%3Cpath%20d=%27M124%2092L176%2032%27/%3E%3Cpath%20d=%27M141%2074l-9-2M149%2065l-10-3M157%2056l-10-4M165%2047l-9-4%27/%3E%3Cpath%20d=%27M124%2092l-6%208%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(-7%2048%20150)%27%3E%3Cpath%20d=%27M28%20122h28l12%2012v42H28z%27/%3E%3Cpath%20d=%27M56%20122v12h12%27/%3E%3Cpath%20d=%27M37%20146h22M37%20155h22M37%20164h13%27/%3E%3C/g%3E%3Cg%20transform=%27rotate(12%20146%20150)%27%3E%3Ccircle%20cx=%27146%27%20cy=%27150%27%20r=%2718%27/%3E%3Ccircle%20cx=%27146%27%20cy=%27150%27%20r=%2713%27/%3E%3Cpath%20d=%27M138%20150l5.5%205.5L155%20144%27/%3E%3C/g%3E%3C/svg%3E");
+  background-image: var(--motif);
   background-size: 200px 200px;
 }
 

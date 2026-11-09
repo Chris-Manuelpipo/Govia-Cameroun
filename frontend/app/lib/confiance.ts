@@ -40,7 +40,7 @@ export type Panneau = "fiche" | "precision" | "aucun";
 export function panneauDe(m: Message): Panneau | null {
   if (m.chargement || m.erreur) return null;
   if (m.type === "clarification") return "precision";
-  if (m.type === "lacune" || (m.type === "hors_perimetre" && !m.citations?.length)) return "aucun";
+  if (m.type === "lacune") return "aucun";
   if (m.type === "reponse" || m.citations?.length) return "fiche";
   return null;
 }
