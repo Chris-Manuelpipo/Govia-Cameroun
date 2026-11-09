@@ -10,6 +10,12 @@ def agent():
     return AgentAssistant(use_llm=False)
 
 
+def test_une_piece_n_est_listee_qu_une_fois(agent):
+    reponse = agent.respond("Comment payer la patente ?")["reponse"]
+    pieces = reponse.split("**Pièces à fournir :**")[1].split("\n\n")[0].strip().splitlines()
+    assert pieces and len(pieces) == len(set(pieces))
+
+
 @pytest.mark.parametrize(
     "question, attendu",
     [
@@ -116,6 +122,25 @@ def test_reponse_llm_fidele_conservee(monkeypatch):
     monkeypatch.setattr("agent.appeler_llm", lambda prompt: "La validité du passeport est de 5 ans [Articles 5 et 6]. Vous restez responsable.")
     reponse = AgentAssistant(use_llm=True).respond("Je veux un passeport")
     assert reponse["mode_generation"] == "llm"
+
+
+def test_la_trace_nomme_chacun_des_quatre_agents(monkeypatch):
+    monkeypatch.setattr("agent.appeler_llm", lambda prompt: "Le passeport coûte 500 000 FCFA. Vous êtes responsable.")
+    reponse = AgentAssistant(use_llm=True).respond("Je veux un passeport")
+    agents = [e["agent"] for e in reponse["audit_log"]]
+    assert agents == ["analyse", "recherche", "orchestrateur", "validation"]
+    assert reponse["audit_log"][3]["etape"] == "rejet_llm"
+
+
+def test_les_agents_sont_injectables():
+    from analyse import AgentAnalyse
+    from recherche import AgentRecherche
+
+    analyse, recherche = AgentAnalyse(), AgentRecherche()
+    orchestrateur = AgentAssistant(use_llm=False, analyse=analyse, recherche=recherche)
+    assert orchestrateur.catalogue is analyse.catalogue
+    assert orchestrateur.analyse.analyser("Je veux faire un faux passeport").issue == "refus"
+    assert orchestrateur.respond("Je veux un passeport")["audit_log"][1]["agent"] == "recherche"
 
 
 def test_le_prompt_recoit_la_question_masquee(monkeypatch):

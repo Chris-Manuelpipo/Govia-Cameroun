@@ -18,16 +18,30 @@ Le masquage relève de la pseudonymisation au sens de l'article 5 de la Loi n° 
 
 ## Architecture
 
+GOVIA repose sur quatre agents :
+
+| Agent | Rôle | Module |
+|---|---|---|
+| Orchestrateur | Coordination et gestion du flux de travail : enchaîne les agents, fait rédiger le LLM local, compose la réponse | `agent.py` |
+| Analyse | Compréhension de la demande et classification de la procédure : refus, précision demandée, hors périmètre, lacune, démarche et cas | `analyse.py` (s'appuie sur `catalogue.py`) |
+| Recherche | Recherche documentaire et extraction des informations pertinentes (RAG) : pièces, étapes, coûts, citations, limitées à la démarche | `recherche.py` (s'appuie sur `rag.py`) |
+| Validation | Vérification des informations, conformité et contrôle des sources : sur le brouillon du LLM, puis sur la réponse finale | `auditor.py` |
+
 ```
-Citoyen ──> Next.js (FR/EN) ──> /api/* ──> FastAPI
-                                            ├─ catalogue.py   démarche, cas, ambiguïté
-                                            ├─ rag.py         ChromaDB, ou mots-clés en secours
-                                            ├─ privacy.py     masquage avant le modèle
-                                            ├─ agent.py       réponse sourcée, LLM local (Ollama)
-                                            ├─ auditor.py     contrôle avant publication
-                                            ├─ ocr.py         lecture d'une pièce (Tesseract)
-                                            └─ journal.py     journal d'audit sans donnée personnelle
+Citoyen ──> Next.js (FR/EN) ──> /api/* ──> FastAPI (main.py)
+                                              │
+                                        Orchestrateur ─────────────────────────────┐
+                                         │ 1. Analyse      démarche, cas, ambiguïté  │
+                                         │ 2. Recherche    catalogue + RAG           │
+                                         │ 3. Rédaction    LLM local, données masquées
+                                         │ 4. Validation   brouillon, puis réponse finale
+                                         └──> publier / publier avec réserve / bloquer
+
+Services : rag.py (ChromaDB, ou mots-clés en secours) · privacy.py (masquage avant le modèle)
+           ocr.py (lecture d'une pièce) · journal.py (journal d'audit sans donnée personnelle)
 ```
+
+Chaque entrée de `audit_log` indique l'agent qui l'a produite (`analyse`, `recherche`, `orchestrateur`, `validation`).
 
 ## Base de connaissances
 
@@ -94,6 +108,15 @@ API_URL=http://localhost:8000 npm run dev
 ```bash
 cd backend && pytest
 python scripts/build_kb.py --check
+
+# Mêmes tests avec la vraie recherche vectorielle
+cd backend && GOVIA_TEST_CHROMA=1 pytest
+
+# Interface : Firefox réel, Next.js standalone et FastAPI, sans LLM ni Chroma.
+# Couvre le parcours citoyen, l'accessibilité WCAG A/AA (axe-core) et un écran de 360 px.
+pip install selenium
+cd frontend && npm run build && cd ..
+python scripts/test_interface.py
 ```
 
 ## Comparaison version A / version B
@@ -114,7 +137,7 @@ Le résultat est écrit dans `docs/comparaison_ab.md`. Sans LLM joignable, la ve
 | `/consentement?langue=FR` | GET | Notice d'information |
 | `/kb/stats`, `/kb/documents`, `/kb/catalogue` | GET | Base, sources, démarches et lacunes |
 | `/kb/search?q=...&n=5` | GET | Recherche dans la base |
-| `/chat` | POST | Agent et auditeur |
+| `/chat` | POST | Orchestrateur et ses trois agents |
 | `/upload` | POST | Lecture d'une pièce pour préparer le formulaire |
 
 ```json
@@ -128,16 +151,17 @@ POST /chat
 
 ## Configuration
 
-Voir [`.env.example`](.env.example). Le LLM cloud reste désactivé sauf `GOVIA_ALLOW_CLOUD_LLM=1` : il implique un transfert à l'étranger soumis à autorisation préalable (art. 32).
+Voir [`.env.example`](.env.example). Le seuil de recherche `GOVIA_MIN_SCORE` vaut 0,45 : sa mesure est dans [`docs/calibration_seuil.md`](docs/calibration_seuil.md) et se refait avec `scripts/calibrer_seuil.py`. Le LLM cloud reste désactivé sauf `GOVIA_ALLOW_CLOUD_LLM=1` : il implique un transfert à l'étranger soumis à autorisation préalable (art. 32).
 
 ## Limites connues
 
+- Le backend ne se connecte à rien d'extérieur d'après un échantillonnage de ses connexions (`onnxruntime` contactait Microsoft avant `ORT_DISABLE_TELEMETRY=1`). Une mise en production doit en plus bloquer le trafic sortant au niveau du réseau.
 - La notice annonce le droit de contester une réponse et de demander une intervention humaine (art. 21 et 44), mais aucun contact n'est encore indiqué : l'équipe doit compléter `NOTICE` dans `backend/main.py`.
 - 8 chunks IDCAM et PassCam restent à contrôler dans un navigateur.
 - La loi n° 2011/011 sur l'état civil n'a pas pu être consultée : les délais cités proviennent de l'ordonnance de 1981 et sont signalés comme à confirmer.
 - Les fiches eRegulations ne sont pas datées et concernent Yaoundé ; les montants et délais sont à confirmer au guichet.
 - L'auditeur ne contrôle pas les nombres écrits en toutes lettres ni le sens général d'un texte du LLM.
-- Les étapes et pièces sont publiées en français, y compris dans une réponse en anglais.
+- Les étapes, les pièces et le détail des contrôles restent en français, y compris dans une réponse en anglais.
 - Il n'existe pas d'API publique IDCAM ou PassCam : le formulaire aide à préparer la saisie, rien n'est soumis.
 - La vidéo de `demo/` montre l'ancienne version et doit être refaite avec `scripts/demo_capture.py`.
 

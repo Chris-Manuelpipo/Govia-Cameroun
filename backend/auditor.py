@@ -1,4 +1,7 @@
-"""GOVIA-Auditeur : second agent, qui contrôle chaque réponse avant publication.
+"""Agent de validation (auditeur) : vérifie les informations, la conformité et les sources.
+
+Il intervient deux fois, sous la conduite de l'orchestrateur : sur le brouillon du LLM,
+qu'il peut faire écarter, puis sur la réponse finale avant publication.
 
 Contrairement à un simple relevé de citations, l'auditeur vérifie :
 1. l'intégrité : chaque citation existe dans la base, avec le texte exact ;
@@ -80,7 +83,7 @@ def audit(
             if c["id"] in base and (c["texte"] != base[c["id"]]["texte"] or c["source_url"] != base[c["id"]]["source_url"])
         ]
         if inconnues or modifiees:
-            noter("integrite", "echec", f"Citations absentes de la base : {inconnues} ; texte modifié : {modifiees}.")
+            noter("integrite", "echec", f"Citations absentes de la base : {', '.join(inconnues) or 'aucune'} ; texte modifié : {', '.join(modifiees) or 'aucun'}.")
         elif citations:
             noter("integrite", "ok", f"{len(citations)} citation(s) retrouvée(s) mot pour mot dans la base.")
 
@@ -95,16 +98,16 @@ def audit(
         admises = set(procedures_admises or [procedure_id]) | TRANSVERSAUX
         hors_sujet = [c["id"] for c in citations if c.get("procedure_id") not in admises]
         if hors_sujet:
-            noter("pertinence", "echec", f"Citations hors de la démarche « {procedure_id} » : {hors_sujet}.")
+            noter("pertinence", "echec", f"Citations hors de cette démarche : {', '.join(hors_sujet)}.")
         else:
-            noter("pertinence", "ok", f"Toutes les citations concernent la démarche « {procedure_id} ».")
+            noter("pertinence", "ok", "Toutes les citations concernent cette démarche.")
 
     # 4. Faits vérifiables
     corpus = [c["texte"] for c in citations]
     connus = _nombres(corpus)
     non_etayes = sorted(_faits(reponse) - connus)
     if non_etayes:
-        noter("faits", "echec", f"Montants ou délais absents des sources citées : {non_etayes}.")
+        noter("faits", "echec", f"Montants ou délais absents des sources citées : {', '.join(non_etayes)}.")
     elif citations:
         noter("faits", "ok", "Les montants et délais annoncés figurent dans les sources citées.")
 
@@ -115,12 +118,12 @@ def audit(
         key=int,
     )
     if articles_inconnus:
-        noter("references", "echec", f"Articles cités mais absents des sources : {articles_inconnus}.")
+        noter("references", "echec", f"Articles cités mais absents des sources : {', '.join(articles_inconnus)}.")
 
     # 5. Fiabilité des sources
-    a_verifier = sorted({c["doc"] for c in citations if c.get("statut_verification") != "verifie"})
+    a_verifier = sorted({c.get("titre") or c["doc"] for c in citations if c.get("statut_verification") != "verifie"})
     if a_verifier:
-        noter("fiabilite", "reserve", f"Sources non encore vérifiées : {a_verifier}.")
+        noter("fiabilite", "reserve", f"Sources non encore vérifiées : {' ; '.join(a_verifier)}.")
     if statut_demarche == "partiel":
         noter("fiabilite", "reserve", "Démarche appuyée sur une reproduction ancienne ou incomplète : à confirmer.")
 
@@ -128,7 +131,7 @@ def audit(
     texte_norm = normaliser(reponse)
     subjectif = [e for e in EXPRESSIONS_SUBJECTIVES if re.search(rf"(?<!\w){e}(?!\w)", texte_norm)]
     if subjectif:
-        noter("ton", "reserve", f"Formulations subjectives : {subjectif}.")
+        noter("ton", "reserve", f"Formulations subjectives : {', '.join(subjectif)}.")
     if type_reponse == "reponse" and not any(m in texte_norm for m in MOTS_RESPONSABILITE):
         noter("responsabilite", "reserve", "La réponse ne rappelle pas que le citoyen vérifie et reste responsable.")
 
@@ -152,3 +155,41 @@ def audit(
         details=[c.detail for c in controles if c.resultat == "ok"],
         gaps=gaps,
     )
+
+
+def _procedures_admises(demarche: Optional[dict]) -> List[str]:
+    if not demarche:
+        return []
+    return [demarche["id"], *demarche.get("procedures_liees", [])]
+
+
+class AgentValidation:
+    """Applique `audit` avec le contexte de la démarche fixé par l'agent d'analyse."""
+
+    def __init__(self, base: Optional[dict] = None):
+        self.base = base
+
+    def controler_brouillon(self, brouillon: str, demarche: dict, citations: List[dict]) -> AuditResult:
+        """Contrôle le texte rédigé par le LLM avant de l'accepter à la place des extraits."""
+        return audit(
+            brouillon, citations, base=self.base, procedure_id=demarche["id"],
+            procedures_admises=_procedures_admises(demarche),
+            type_reponse="reponse", statut_demarche=demarche["statut"],
+        )
+
+    def controler_reponse(self, reponse_agent: dict, demarche: Optional[dict]) -> AuditResult:
+        """Contrôle la réponse finale, quel qu'en soit le type, avant publication."""
+        return audit(
+            reponse_agent["reponse"],
+            reponse_agent["citations"],
+            base=self.base,
+            procedure_id=reponse_agent["procedure_id"] if reponse_agent["citations"] else None,
+            procedures_admises=_procedures_admises(demarche),
+            type_reponse=reponse_agent["type_reponse"],
+            statut_demarche=reponse_agent["statut_demarche"],
+            note_lacune=demarche.get("note_lacune") if demarche and demarche["statut"] == "lacune" else None,
+        )
+
+    def observer(self, reponse: str) -> AuditResult:
+        """Version A : l'auditeur observe sans contexte ni blocage, pour la comparaison."""
+        return audit(reponse, [], base=self.base, type_reponse="non_gouvernee")

@@ -19,7 +19,11 @@ RUN pip install --no-cache-dir --default-timeout=300 --retries 10 -r requirement
 
 # Le modèle d'embeddings est embarqué à la construction : aucune donnée de requête
 # ne passe par un service externe, et le démarrage fonctionne hors ligne.
-RUN python -c "import os; from sentence_transformers import SentenceTransformer; SentenceTransformer(os.environ['GOVIA_EMBED_MODEL'])"
+# Sur une connexion instable, chaque essai reprend le téléchargement là où il s'est arrêté.
+RUN for essai in 1 2 3 4 5 6 7 8 9 10; do \
+      HF_HUB_DISABLE_XET=1 HF_HUB_DOWNLOAD_TIMEOUT=60 python -c "import os; from sentence_transformers import SentenceTransformer; SentenceTransformer(os.environ['GOVIA_EMBED_MODEL'])" && exit 0; \
+      echo "Téléchargement interrompu (essai $essai), reprise dans 30 s"; sleep 30; \
+    done; exit 1
 
 COPY backend/ /app/backend/
 COPY knowledge_base/ /app/knowledge_base/
@@ -29,6 +33,6 @@ RUN useradd --system --uid 1001 govia \
     && chown -R govia /app/chroma_db /app/logs /app/hf_cache
 USER govia
 
-ENV HF_HUB_OFFLINE=1 ANONYMIZED_TELEMETRY=False
+ENV HF_HUB_OFFLINE=1 ANONYMIZED_TELEMETRY=False ORT_DISABLE_TELEMETRY=1
 EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

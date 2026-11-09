@@ -102,10 +102,12 @@ anglais)} qui assiste le citoyen dans ses démarches administratives : il
 identifie la procédure, vérifie les pièces requises, explique les
 étapes, \textbf{cite les textes officiels applicables} et propose de
 \textbf{pré-remplir le formulaire officiel} pour que le citoyen le
-valide et le soumette. Un \textbf{second agent (« auditeur de conformité
-»)} contrôle que chaque réponse et action de l'assistant est justifiée
-par un texte de la base de connaissances, et détecte les incohérences
-entre procédures et textes.
+valide et le soumette. Il repose sur \textbf{quatre agents} : un
+orchestrateur qui coordonne le flux, un agent d'analyse qui classe la
+demande, un agent de recherche (RAG) qui extrait les textes pertinents,
+et un \textbf{agent de validation (« auditeur de conformité »)} qui
+contrôle que chaque réponse est justifiée par un texte de la base de
+connaissances, et détecte les incohérences entre procédures et textes.
 
 \textbf{Conclusion de faisabilité : OUI, réalisable --- à condition de
 respecter quatre contraintes majeures.}
@@ -317,8 +319,8 @@ textes officiels applicables} (décret, loi, arrêté) avec référence
 précise. 5. Propose de \textbf{pré-remplir le formulaire officiel} ; le
 citoyen \textbf{valide et soumet}.
 
-\subsubsection{3.3 Architecture en deux
-agents}\label{architecture-en-deux-agents}
+\subsubsection{3.3 Architecture en quatre
+agents}\label{architecture-en-quatre-agents}
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
@@ -333,17 +335,25 @@ Rôle
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-\textbf{GOVIA-Assistant} & Dialogue avec le citoyen ; identifie la
-démarche ; vérifie les pièces ; explique les étapes ; cite les textes ;
-pré-remplit le formulaire. \\
-\textbf{GOVIA-Auditeur (conformité)} & Contrôle que chaque réponse et
-action de l'assistant est \textbf{justifiée par un texte de la base de
-connaissances} ; détecte les incohérences ; bloque/signale si une action
-n'est pas couverte par un texte. \\
+\textbf{Agent orchestrateur} & Coordination et gestion du flux de
+travail : reçoit la question, enchaîne les autres agents, fait rédiger
+le LLM, compose la réponse et pré-remplit le formulaire. \\
+\textbf{Agent d'analyse} & Compréhension de la demande et
+classification de la procédure : identifie la démarche et le cas,
+demande une précision plutôt que de deviner, refuse une demande
+illicite, signale une lacune. \\
+\textbf{Agent de recherche} & Recherche documentaire et extraction des
+informations pertinentes (RAG) : pièces, étapes, coûts et citations,
+limités aux textes de la démarche. \\
+\textbf{Agent de validation (auditeur de conformité)} & Vérification
+des informations, conformité et contrôle des sources : contrôle que
+chaque réponse est \textbf{justifiée par un texte de la base de
+connaissances} ; détecte les incohérences ; bloque ou signale si une
+affirmation n'est pas couverte par un texte. \\
 \end{longtable}
 
-Cette architecture est directement inspirée du thème : « Un second agent
-peut contrôler si les réponses respectent les règles publiées. »
+L'agent de validation est directement inspiré du thème : « Un second
+agent peut contrôler si les réponses respectent les règles publiées. »
 
 \subsubsection{\texorpdfstring{3.4 Autonomie choisie :
 \textbf{pré-remplissage} (citoyen valide et
@@ -659,15 +669,15 @@ sources ouvertes et réelles ; données de cas d'usage synthétiques. \\
 proposée}\label{architecture-proposuxe9e}
 
 \begin{verbatim}
-[Citoyen] --prompt bilingue--> [Intent / orchestrateur]
+[Citoyen] --prompt bilingue--> [Agent orchestrateur]
+                                     |  rédaction LLM + pré-remplissage + journal d'audit
+          +--------------------------+--------------------------+
+          |                          |                          |
+  [Agent d'analyse]        [Agent de recherche]       [Agent de validation]
+   démarche, cas,           RAG sur base politiques,   vérifie chaque réponse
+   précision, refus,        pièces, étapes, coûts,     vs textes, sources,
+   lacune                   citations                  blocage si gap
                                      |
-            +------------------------+------------------------+
-            |                                                |
-      [GOVIA-Assistant]                              [GOVIA-Auditeur]
-         |  RAG sur base politiques                    | vérifie chaque
-         |  extraction intent + requêtage              | réponse/action vs textes
-         |  génération réponse + pré-remplissage        | blocage si gap
-         |  journal d'audit                              |
       [Formulaire pré-rempli] --validation citoyenne--> [SINK : soumission citoyenne]
 \end{verbatim}
 
@@ -1012,11 +1022,17 @@ nov.)}\label{phase-2-mvp-j4j7-30-oct.2-nov.}
 \begin{itemize}
 \tightlist
 \item[$\square$]
-  \textbf{GOVIA-Assistant} : RAG + extraction d'intention + génération +
+  \textbf{Agent orchestrateur} : coordination du flux, génération +
   pré-remplissage.
 \item[$\square$]
-  \textbf{GOVIA-Auditeur} : vérification des réponses vs textes, journal
-  d'audit.
+  \textbf{Agent d'analyse} : compréhension de la demande, classification
+  de la procédure.
+\item[$\square$]
+  \textbf{Agent de recherche} : RAG, extraction des pièces, étapes et
+  citations.
+\item[$\square$]
+  \textbf{Agent de validation} : vérification des réponses vs textes,
+  conformité, journal d'audit.
 \item[$\square$]
   OCR des pièces (Tesseract).
 \item[$\square$]

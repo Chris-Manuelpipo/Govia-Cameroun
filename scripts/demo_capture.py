@@ -39,7 +39,9 @@ async def capture():
         await page.goto(APP_URL, wait_until="networkidle", timeout=30000)
         await page.wait_for_timeout(2000)
 
-        # Accept consent
+        # Ouvre l'assistant, puis accepte la notice.
+        await page.locator("nav button:has-text('Assistant')").click()
+        await page.wait_for_timeout(800)
         consent_btn = page.locator("button:has-text(\"j'accepte\")")
         if await consent_btn.count() > 0:
             await consent_btn.click()
@@ -60,7 +62,7 @@ async def capture():
             await send_btn.click()
 
             # Attend la fin de la réponse : disparition de l'indicateur de frappe.
-            await page.wait_for_function("document.querySelectorAll('.typing-dot').length === 0", timeout=ATTENTE_MAX_MS)
+            await page.wait_for_function("document.querySelectorAll('[data-chargement]').length === 0", timeout=ATTENTE_MAX_MS)
             await page.wait_for_timeout(1500)
 
             # Scroll to bottom

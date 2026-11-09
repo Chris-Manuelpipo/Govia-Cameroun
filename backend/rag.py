@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Iterable, List, Optional
@@ -17,10 +18,19 @@ from typing import Iterable, List, Optional
 from catalogue import KB_DIR
 from textes_utils import contient_mot, normaliser
 
+# Télémétrie de Chroma désactivée : sa bibliothèque posthog, trop récente, ne produit qu'une erreur sans envoi.
+logging.getLogger("chromadb.telemetry.product.posthog").setLevel(logging.CRITICAL)
+
+# Rien ne doit sortir du serveur. Chargé par Chroma, onnxruntime contacte sinon le collecteur de
+# télémétrie de Microsoft dès son import : la variable doit être posée avant, et
+# disable_telemetry_events() ne suffit pas (mesuré sur onnxruntime 1.31.1).
+os.environ["ORT_DISABLE_TELEMETRY"] = "1"
+
 COLLECTION = "govia_policies"
 CHROMA_DIR = Path(os.getenv("GOVIA_CHROMA_DIR", KB_DIR.parent / "chroma_db"))
 MODELE_EMBEDDINGS = os.getenv("GOVIA_EMBED_MODEL", "paraphrase-multilingual-MiniLM-L12-v2")
-SEUIL_VECTORIEL = float(os.getenv("GOVIA_MIN_SCORE", "0.35"))
+# Mesuré sur un petit jeu de questions étiquetées : voir docs/calibration_seuil.md.
+SEUIL_VECTORIEL = float(os.getenv("GOVIA_MIN_SCORE", "0.45"))
 SEUIL_MOTS = float(os.getenv("GOVIA_MIN_KEYWORD_SCORE", "0.5"))
 
 MOTS_VIDES = set(

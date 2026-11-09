@@ -22,7 +22,6 @@ from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
 from agent import AgentAssistant, prefill_form
-from auditor import audit
 from catalogue import KB_DIR
 from journal import consigner
 from ocr import extract_text
@@ -152,20 +151,12 @@ def chat(req: ChatRequest):
         except Exception as erreur:
             raise HTTPException(status_code=503, detail=f"LLM indisponible pour la version A ({type(erreur).__name__}).")
         # L'auditeur observe sans bloquer : on mesure ce que la gouvernance aurait intercepté.
-        resultat = audit(reponse_agent["reponse"], [], base=kb.par_id, type_reponse="non_gouvernee")
+        resultat = agent.validation.observer(reponse_agent["reponse"])
     else:
         reponse_agent = agent.respond(question, historique, req.language)
         demarche = agent.catalogue.par_id.get(reponse_agent["procedure_id"] or "")
-        resultat = audit(
-            reponse_agent["reponse"],
-            reponse_agent["citations"],
-            base=kb.par_id,
-            procedure_id=reponse_agent["procedure_id"] if reponse_agent["citations"] else None,
-            procedures_admises=[d for d in [demarche and demarche["id"], *(demarche or {}).get("procedures_liees", [])] if d],
-            type_reponse=reponse_agent["type_reponse"],
-            statut_demarche=reponse_agent["statut_demarche"],
-            note_lacune=demarche.get("note_lacune") if demarche and demarche["statut"] == "lacune" else None,
-        )
+        # Second passage de l'agent de validation, sur la réponse finale.
+        resultat = agent.validation.controler_reponse(reponse_agent, demarche)
         if resultat.decision == "bloquer":
             # Filet de sécurité : la réponse composée d'extraits ne devrait jamais en arriver là.
             reponse_agent["reponse"] = (

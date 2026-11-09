@@ -26,7 +26,7 @@
   <!-- fond -->
   <rect width="1240" height="980" fill="url(#bg1)"/>
   <text x="620" y="42" text-anchor="middle" font-size="24" font-weight="bold" fill="#0b3d66">Architecture Complète — GOVIA Cameroun</text>
-  <text x="620" y="66" text-anchor="middle" font-size="12" fill="#6b7280">Système agentique bilingue FR/EN · agent assistant + auditeur de conformité</text>
+  <text x="620" y="66" text-anchor="middle" font-size="12" fill="#6b7280">Système agentique bilingue FR/EN · quatre agents : orchestrateur, analyse, recherche (RAG), validation</text>
 
   <!-- Ligne verticale de séparation infrastructure -->
   <rect x="20" y="95" width="1200" height="850" rx="12" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"/>
@@ -66,20 +66,28 @@
   <rect x="60" y="354" width="8" height="112" rx="4" fill="url(#blue1)"/>
   <text x="80" y="378" font-size="13" font-weight="bold" fill="#0b3d66">BACKEND — FastAPI (Python)</text>
 
-  <!-- 3 boîtes backend -->
-  <rect x="90" y="388" width="330" height="62" rx="6" fill="#eef2ff" stroke="#6366f1"/>
-  <text x="255" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#3730a3">GOVIA-Assistant</text>
-  <text x="255" y="428" text-anchor="middle" font-size="10" fill="#4f46e5">agent.py · requêtage RAG · génération citée · pré-remplissage</text>
+  <!-- 4 agents backend -->
+  <rect x="90" y="388" width="255" height="54" rx="6" fill="#e0ecf7" stroke="#14598c"/>
+  <text x="217" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#0b3d66">Agent orchestrateur</text>
+  <text x="217" y="424" text-anchor="middle" font-size="10" fill="#14598c">agent.py · coordination du flux</text>
+  <text x="217" y="437" text-anchor="middle" font-size="10" fill="#14598c">rédaction LLM · pré-remplissage</text>
 
-  <rect x="455" y="388" width="330" height="62" rx="6" fill="#fef3f2" stroke="#ef4444"/>
-  <text x="620" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#b91c1c">GOVIA-Auditeur</text>
-  <text x="620" y="428" text-anchor="middle" font-size="10" fill="#dc2626">auditor.py · vérifie réponse vs textes · détecte les gaps</text>
+  <rect x="357" y="388" width="255" height="54" rx="6" fill="#f0f9ff" stroke="#0284c7"/>
+  <text x="484" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#075985">Agent d'analyse</text>
+  <text x="484" y="424" text-anchor="middle" font-size="10" fill="#0369a1">analyse.py · catalogue.py</text>
+  <text x="484" y="437" text-anchor="middle" font-size="10" fill="#0369a1">compréhension · classification</text>
 
-  <rect x="820" y="388" width="330" height="62" rx="6" fill="#ecfdf5" stroke="#10b981"/>
-  <text x="985" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#065f46">RAG + OCR</text>
-  <text x="985" y="428" text-anchor="middle" font-size="10" fill="#059669">rag.py · ocr.py · embeddings · anonymisation</text>
+  <rect x="624" y="388" width="255" height="54" rx="6" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="751" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#5b21b6">Agent de recherche (RAG)</text>
+  <text x="751" y="424" text-anchor="middle" font-size="10" fill="#6d28d9">recherche.py · rag.py</text>
+  <text x="751" y="437" text-anchor="middle" font-size="10" fill="#6d28d9">extraction pièces, étapes, citations</text>
 
-  <text x="80" y="452" font-size="10" fill="#94a3b8">schemas.py · main.py · endpoints /chat · /kb/search · /upload · /kb/stats</text>
+  <rect x="891" y="388" width="259" height="54" rx="6" fill="#fef3f2" stroke="#ef4444"/>
+  <text x="1020" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#b91c1c">Agent de validation</text>
+  <text x="1020" y="424" text-anchor="middle" font-size="10" fill="#dc2626">auditor.py · contrôle des sources</text>
+  <text x="1020" y="437" text-anchor="middle" font-size="10" fill="#dc2626">conformité · publier / bloquer</text>
+
+  <text x="80" y="458" font-size="10" fill="#94a3b8">Services : privacy.py (masquage) · ocr.py (Tesseract) · journal.py · main.py · endpoints /chat · /kb/search · /upload · /kb/stats</text>
 
   <!-- arrow vers KB -->
   <line x1="620" y1="466" x2="620" y2="486" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
@@ -88,8 +96,8 @@
   <rect x="60" y="488" width="1120" height="58" rx="8" fill="#fffbeb" stroke="#f59e0b" filter="url(#shadow)"/>
   <rect x="60" y="488" width="8" height="58" rx="4" fill="url(#orange1)"/>
   <text x="80" y="512" font-size="13" font-weight="bold" fill="#b45309">Base de Connaissances — JSONL (machine-readable, ouverte)</text>
-  <text x="80" y="532" font-size="11" fill="#92400e">50 chunks · 11 textes réels camerounais · décrets, lois, ordonnances, procédures IDCAM/PassCam</text>
-  <text x="80" y="546" font-size="10" fill="#b45309">CNI · Passeport · État civil · Nationalité · Travail · Protection données · Cybersécurité · Carte grise</text>
+  <text x="80" y="526" font-size="11" fill="#92400e">256 chunks · 44 documents camerounais · 43 démarches (31 couvertes, 2 partielles, 10 lacunes documentées)</text>
+  <text x="80" y="540" font-size="10" fill="#b45309">Identité &amp; état civil · Entreprise · Impôts · Protection sociale · Urbanisme · Foncier · Commerce extérieur · Véhicules · Associations</text>
 
   <!-- arrow vers services -->
   <line x1="620" y1="546" x2="620" y2="566" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow)"/>
@@ -104,7 +112,7 @@
   <text x="255" y="616" text-anchor="middle" font-size="11" font-weight="bold" fill="#6d28d9">Ollama · Mistral 7B (LLM local)</text>
 
   <rect x="455" y="600" width="330" height="22" rx="5" fill="#f5f3ff" stroke="#a78bfa"/>
-  <text x="620" y="616" text-anchor="middle" font-size="11" font-weight="bold" fill="#6d28d9">ChromaDB · embeddings all-MiniLM</text>
+  <text x="620" y="616" text-anchor="middle" font-size="11" font-weight="bold" fill="#6d28d9">ChromaDB · paraphrase-multilingual-MiniLM</text>
 
   <rect x="820" y="600" width="330" height="22" rx="5" fill="#f5f3ff" stroke="#a78bfa"/>
   <text x="985" y="616" text-anchor="middle" font-size="11" font-weight="bold" fill="#6d28d9">Tesseract (OCR local · fra+eng)</text>
@@ -126,7 +134,7 @@
   <!-- ===== DASHBOARD PARTIE 2 (à gauche, bandeau vertical) ===== -->
   <rect x="60" y="800" width="1120" height="30" rx="6" fill="#dbeafe" stroke="#3b82f6"/>
   <text x="80" y="820" font-size="11" font-weight="bold" fill="#1e40af">PARTIE 2 — Ancrage Réglementaire : base de connaissances (JSONL ouverte) + mapping Y.3172 + analyse d'écarts</text>
-  <text x="1140" y="820" text-anchor="end" font-size="11" fill="#1e40af">PARTIE 1 — Solution technique : agent + RAG + auditeur + démo</text>
+  <text x="1140" y="820" text-anchor="end" font-size="11" fill="#1e40af">PARTIE 1 — Solution technique : quatre agents + RAG + démo</text>
 
   <!-- legende -->
   <rect x="60" y="850" width="1120" height="62" rx="6" fill="#ffffff" stroke="#e2e8f0"/>

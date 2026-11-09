@@ -14,7 +14,7 @@ lang: fr
 
 ## 1. Synthèse exécutive
 
-GOVIA Cameroun est un **agent d'IA agentique bilingue (français / anglais)** qui assiste le citoyen dans ses démarches administratives : il identifie la procédure, vérifie les pièces requises, explique les étapes, **cite les textes officiels applicables** et propose de **pré-remplir le formulaire officiel** pour que le citoyen le valide et le soumette. Un **second agent (« auditeur de conformité »)** contrôle que chaque réponse et action de l'assistant est justifiée par un texte de la base de connaissances, et détecte les incohérences entre procédures et textes.
+GOVIA Cameroun est un **agent d'IA agentique bilingue (français / anglais)** qui assiste le citoyen dans ses démarches administratives : il identifie la procédure, vérifie les pièces requises, explique les étapes, **cite les textes officiels applicables** et propose de **pré-remplir le formulaire officiel** pour que le citoyen le valide et le soumette. Il repose sur **quatre agents** : un orchestrateur qui coordonne le flux, un agent d'analyse qui classe la demande, un agent de recherche (RAG) qui extrait les textes pertinents, et un **agent de validation (« auditeur de conformité »)** qui contrôle que chaque réponse est justifiée par un texte de la base de connaissances, et détecte les incohérences entre procédures et textes.
 
 **Conclusion de faisabilité : OUI, réalisable — à condition de respecter quatre contraintes majeures.**
 
@@ -104,14 +104,16 @@ Le citoyen ne maîtrise pas la procédure exacte d'une démarche administrative 
 4. **Cite les textes officiels applicables** (décret, loi, arrêté) avec référence précise.
 5. Propose de **pré-remplir le formulaire officiel** ; le citoyen **valide et soumet**.
 
-### 3.3 Architecture en deux agents
+### 3.3 Architecture en quatre agents
 
 | Agent | Rôle |
 |---|---|
-| **GOVIA-Assistant** | Dialogue avec le citoyen ; identifie la démarche ; vérifie les pièces ; explique les étapes ; cite les textes ; pré-remplit le formulaire. |
-| **GOVIA-Auditeur (conformité)** | Contrôle que chaque réponse et action de l'assistant est **justifiée par un texte de la base de connaissances** ; détecte les incohérences ; bloque/signale si une action n'est pas couverte par un texte. |
+| **Agent orchestrateur** | Coordination et gestion du flux de travail : reçoit la question, enchaîne les autres agents, fait rédiger le LLM, compose la réponse et pré-remplit le formulaire. |
+| **Agent d'analyse** | Compréhension de la demande et classification de la procédure : identifie la démarche et le cas, demande une précision plutôt que de deviner, refuse une demande illicite, signale une lacune. |
+| **Agent de recherche** | Recherche documentaire et extraction des informations pertinentes (RAG) : pièces, étapes, coûts et citations, limités aux textes de la démarche. |
+| **Agent de validation (auditeur de conformité)** | Vérification des informations, conformité et contrôle des sources : contrôle que chaque réponse est **justifiée par un texte de la base de connaissances** ; détecte les incohérences ; bloque ou signale si une affirmation n'est pas couverte par un texte. |
 
-Cette architecture est directement inspirée du thème : « Un second agent peut contrôler si les réponses respectent les règles publiées. »
+L'agent de validation est directement inspiré du thème : « Un second agent peut contrôler si les réponses respectent les règles publiées. »
 
 ### 3.4 Autonomie choisie : **pré-remplissage** (citoyen valide et soumet)
 
@@ -215,15 +217,15 @@ La Loi n° 2024/017 est **l'instrument le plus contraignant** pour GOVIA. Points
 ### 5.1 Architecture proposée
 
 ```
-[Citoyen] --prompt bilingue--> [Intent / orchestrateur]
+[Citoyen] --prompt bilingue--> [Agent orchestrateur]
+                                     |  rédaction LLM + pré-remplissage + journal d'audit
+          +--------------------------+--------------------------+
+          |                          |                          |
+  [Agent d'analyse]        [Agent de recherche]       [Agent de validation]
+   démarche, cas,           RAG sur base politiques,   vérifie chaque réponse
+   précision, refus,        pièces, étapes, coûts,     vs textes, sources,
+   lacune                   citations                  blocage si gap
                                      |
-            +------------------------+------------------------+
-            |                                                |
-      [GOVIA-Assistant]                              [GOVIA-Auditeur]
-         |  RAG sur base politiques                    | vérifie chaque
-         |  extraction intent + requêtage              | réponse/action vs textes
-         |  génération réponse + pré-remplissage        | blocage si gap
-         |  journal d'audit                              |
       [Formulaire pré-rempli] --validation citoyenne--> [SINK : soumission citoyenne]
 ```
 
@@ -340,8 +342,10 @@ Recherche des démarches + leurs **textes réels et ouverts**. Statuts : OK  = t
 - [ ] Décision cloud vs local (démo cloud avec anonymisation ; version conforme local).
 
 ### Phase 2 — MVP (J4–J7, ~30 oct.–2 nov.)
-- [ ] **GOVIA-Assistant** : RAG + extraction d'intention + génération + pré-remplissage.
-- [ ] **GOVIA-Auditeur** : vérification des réponses vs textes, journal d'audit.
+- [ ] **Agent orchestrateur** : coordination du flux, génération + pré-remplissage.
+- [ ] **Agent d'analyse** : compréhension de la demande, classification de la procédure.
+- [ ] **Agent de recherche** : RAG, extraction des pièces, étapes et citations.
+- [ ] **Agent de validation** : vérification des réponses vs textes, conformité, journal d'audit.
 - [ ] OCR des pièces (Tesseract).
 - [ ] Consentement explicite du citoyen.
 

@@ -43,3 +43,11 @@ def test_extraction_des_champs_pour_le_formulaire():
     texte = "Nom : MBALLA\nPrénoms : Jean Pierre\nDate de naissance : 12/03/1990\nProfession : Enseignant"
     champs = extraire_champs(texte)
     assert champs == {"nom": "MBALLA", "prenoms": "Jean Pierre", "date_naissance": "12/03/1990", "profession": "Enseignant"}
+
+
+def test_la_telemetrie_d_onnxruntime_est_coupee_avant_tout_chargement():
+    import os
+
+    import rag  # noqa: F401
+
+    assert os.environ["ORT_DISABLE_TELEMETRY"] == "1"

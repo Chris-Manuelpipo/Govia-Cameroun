@@ -113,30 +113,43 @@
   <text x="960" y="272" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">SINK — Cible</text>
   <text x="960" y="290" text-anchor="middle" font-size="10" fill="#dbeafe">Citoyen valide &amp; soumet · Auditeur reçoit le rapport</text>
 
-  <!-- ===== Sous-pipeline : flux 2 agents ===== -->
-  <text x="620" y="330" text-anchor="middle" font-size="13" font-weight="bold" fill="#0b3d66">Flux détaillé — Deux agents (GOVIA-Assistant + GOVIA-Auditeur)</text>
+  <!-- ===== Sous-pipeline : flux 4 agents ===== -->
+  <text x="620" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#0b3d66">Flux détaillé — Quatre agents</text>
 
-  <!-- Assistant box -->
-  <rect x="80" y="344" width="460" height="120" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2" filter="url(#shadow2)"/>
-  <text x="310" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#5b21b6">GOVIA-Assistant</text>
-  <text x="100" y="390" font-size="10" fill="#6d28d9">▸ Requêtage RAG → citations politiques</text>
-  <text x="100" y="408" font-size="10" fill="#6d28d9">▸ Génération réponse citée (articles + références)</text>
-  <text x="100" y="426" font-size="10" fill="#6d28d9">▸ Identification procédure + pièces + étapes</text>
-  <text x="100" y="444" font-size="10" fill="#6d28d9">▸ Pré-remplissage formulaire (simulation)</text>
-  <text x="310" y="458" text-anchor="middle" font-size="9" fill="#a78bfa">produce response + formulaire_prerempli + audit_log</text>
+  <!-- Orchestrateur (bandeau) -->
+  <rect x="80" y="336" width="1080" height="34" rx="8" fill="#0b3d66" filter="url(#shadow2)"/>
+  <text x="100" y="358" font-size="12" font-weight="bold" fill="#ffffff">Agent orchestrateur</text>
+  <text x="250" y="358" font-size="10" fill="#dbeafe">Coordination et gestion du flux de travail · rédaction LLM local (données masquées) · pré-remplissage · journal d'audit</text>
 
-  <!-- arrow Assistant → Auditeur -->
-  <line x1="540" y1="404" x2="648" y2="404" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow2)"/>
-  <text x="595" y="396" text-anchor="middle" font-size="9" fill="#6b7280">contrôle</text>
+  <!-- liens orchestrateur → agents -->
+  <line x1="250" y1="370" x2="250" y2="384" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="620" y1="370" x2="620" y2="384" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="990" y1="370" x2="990" y2="384" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow2)"/>
 
-  <!-- Auditeur box -->
-  <rect x="660" y="344" width="460" height="120" rx="10" fill="#fef3f2" stroke="#ef4444" stroke-width="2" filter="url(#shadow2)"/>
-  <text x="930" y="368" text-anchor="middle" font-size="13" font-weight="bold" fill="#b91c1c">GOVIA-Auditeur</text>
-  <text x="680" y="390" font-size="10" fill="#dc2626">▸ Vérifie chaque réponse vs base de connaissances</text>
-  <text x="680" y="408" font-size="10" fill="#dc2626">▸ Détecte les incohérences (procédure vs texte)</text>
-  <text x="680" y="426" font-size="10" fill="#dc2626">▸ Bloque/signale si une action n'est pas couverte</text>
-  <text x="680" y="444" font-size="10" fill="#dc2626">▸ Produit le verdict : conforme / partiel / non conforme</text>
-  <text x="930" y="458" text-anchor="middle" font-size="9" fill="#fca5a5">retourne verdict + gaps → SINK (rapport d'audit)</text>
+  <!-- Agent d'analyse -->
+  <rect x="80" y="388" width="340" height="88" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2" filter="url(#shadow2)"/>
+  <text x="250" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#075985">1 · Agent d'analyse</text>
+  <text x="96" y="428" font-size="10" fill="#0369a1">▸ Comprend la demande, classe la procédure</text>
+  <text x="96" y="445" font-size="10" fill="#0369a1">▸ Identifie le cas ou demande une précision</text>
+  <text x="96" y="462" font-size="10" fill="#0369a1">▸ Refus si illicite · lacune si aucun texte</text>
+
+  <line x1="420" y1="432" x2="446" y2="432" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow2)"/>
+
+  <!-- Agent de recherche -->
+  <rect x="450" y="388" width="340" height="88" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2" filter="url(#shadow2)"/>
+  <text x="620" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#5b21b6">2 · Agent de recherche (RAG)</text>
+  <text x="466" y="428" font-size="10" fill="#6d28d9">▸ Recherche documentaire limitée à la démarche</text>
+  <text x="466" y="445" font-size="10" fill="#6d28d9">▸ Extrait pièces, étapes, coûts, durées</text>
+  <text x="466" y="462" font-size="10" fill="#6d28d9">▸ Citations exactes (article, texte, URL)</text>
+
+  <line x1="790" y1="432" x2="816" y2="432" stroke="#6b7280" stroke-width="2" marker-end="url(#arrow2)"/>
+
+  <!-- Agent de validation -->
+  <rect x="820" y="388" width="340" height="88" rx="10" fill="#fef3f2" stroke="#ef4444" stroke-width="2" filter="url(#shadow2)"/>
+  <text x="990" y="408" text-anchor="middle" font-size="12" font-weight="bold" fill="#b91c1c">3 · Agent de validation (auditeur)</text>
+  <text x="836" y="428" font-size="10" fill="#dc2626">▸ Vérifie sources, faits, pertinence, ton</text>
+  <text x="836" y="445" font-size="10" fill="#dc2626">▸ Contrôle le brouillon LLM puis la réponse finale</text>
+  <text x="836" y="462" font-size="10" fill="#dc2626">▸ Publier · publier avec réserve · bloquer</text>
 
   <!-- ===== VERSION A vs B ===== -->
   <text x="620" y="500" text-anchor="middle" font-size="13" font-weight="bold" fill="#0b3d66">Bonus — Comparaison Version A (sans gouvernance) vs Version B (gouvernée)</text>

@@ -24,5 +24,13 @@ logs/
 # Réglages locaux de Claude Code
 .claude/
 
+# Fichiers de compilation LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+docs/etude/*.log
+
 # Vidéo brute de capture
 demo/*.webm
+demo/concat_list.txt

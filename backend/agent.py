@@ -1,28 +1,33 @@
-"""GOVIA-Assistant : guide le citoyen dans ses démarches à partir de sources vérifiées.
+"""Agent orchestrateur : coordonne les trois autres agents et gère le flux de travail.
+
+GOVIA repose sur quatre agents :
+- l'orchestrateur (ce module) enchaîne les étapes et compose la réponse au citoyen ;
+- l'agent d'analyse (`analyse.py`) comprend la demande et classe la procédure ;
+- l'agent de recherche (`recherche.py`) extrait pièces, étapes et citations (RAG) ;
+- l'agent de validation (`auditor.py`) vérifie les informations, la conformité et les sources.
 
 Déroulé de la version gouvernée (B) :
-1. refuser une demande illicite ;
-2. identifier la démarche et le cas, ou demander une précision au lieu de deviner ;
-3. signaler une lacune quand aucune source ouverte n'existe, sans inventer ;
-4. rassembler pièces, étapes et citations depuis le catalogue et le RAG ;
-5. rédiger avec le LLM local sur la seule base de ces sources, données masquées ;
-6. faire contrôler le texte par l'auditeur ; un texte rejeté est remplacé par une
-   réponse composée uniquement des extraits sourcés.
+1. analyse : refuser une demande illicite, identifier la démarche et le cas, ou demander
+   une précision au lieu de deviner, ou signaler une lacune sans inventer ;
+2. recherche : rassembler pièces, étapes et citations depuis le catalogue et le RAG ;
+3. rédaction : le LLM local rédige sur la seule base de ces sources, données masquées ;
+4. validation : l'auditeur contrôle le brouillon ; un texte rejeté est remplacé par une
+   réponse composée uniquement des extraits sourcés. La réponse finale est contrôlée
+   une seconde fois avant publication (voir `main.py`).
 
 La version A (sans gouvernance) interroge le LLM seul, pour la comparaison du rapport.
-L'agent ne soumet jamais rien à la place du citoyen.
+Aucun agent ne soumet rien à la place du citoyen.
 """
 from __future__ import annotations
 
 import os
 from typing import List, Optional
 
-from auditor import audit
-from catalogue import Catalogue, Detection
+from analyse import AgentAnalyse, Analyse
+from auditor import AgentValidation
+from catalogue import Catalogue
 from privacy import masquer
-from rag import citation_de, kb
-
-MAX_CITATIONS_RAG = 3
+from recherche import AgentRecherche
 
 TEXTES = {
     "FR": {
@@ -163,43 +168,38 @@ Les marqueurs comme [NOM] ou [DATE] remplacent des données masquées : ne cherc
 Réponds en {langue_reponse}, de manière claire et concise."""
 
 
-class AgentAssistant:
-    def __init__(self, use_llm: bool = True, catalogue: Optional[Catalogue] = None):
+class AgentOrchestrateur:
+    def __init__(
+        self,
+        use_llm: bool = True,
+        catalogue: Optional[Catalogue] = None,
+        analyse: Optional[AgentAnalyse] = None,
+        recherche: Optional[AgentRecherche] = None,
+        validation: Optional[AgentValidation] = None,
+    ):
         self.use_llm = use_llm
-        self.catalogue = catalogue or Catalogue()
+        self.analyse = analyse or AgentAnalyse(catalogue)
+        self.recherche = recherche or AgentRecherche()
+        self.validation = validation or AgentValidation(base=self.recherche.kb.par_id)
+
+    @property
+    def catalogue(self) -> Catalogue:
+        return self.analyse.catalogue
 
     # ---------------------------------------------------------------- Version B
     def respond(self, query: str, historique: Optional[List[str]] = None, langue: str = "FR", champs: Optional[dict] = None) -> dict:
-        historique = historique or []
-        detection = self.catalogue.detecter(query, historique)
-        if detection.illicite:
+        analyse = self.analyse.analyser(query, historique)
+        if analyse.issue == "refus":
             return self._simple("refus", TEXTES[langue]["refus"], "detection_illicite")
-        if detection.demarche is None:
-            if detection.ambigu:
-                return self._clarifier_demarches(detection, langue)
+        if analyse.issue == "clarification_demarche":
+            return self._clarifier_demarches(analyse, langue)
+        if analyse.issue == "hors_perimetre":
             return self._hors_perimetre(query, langue)
-
-        demarche = detection.demarche
-        if demarche["statut"] == "lacune":
-            return self._lacune(demarche, langue)
-
-        cas = self.catalogue.detecter_cas(demarche, self._textes_du_cas(query, historique, demarche))
-        if demarche.get("cas_mode") == "choix" and cas is None:
-            return self._clarifier_cas(demarche, langue)
-        return self._repondre(query, demarche, cas, langue, champs)
-
-    def _textes_du_cas(self, query: str, historique: List[str], demarche: dict) -> List[str]:
-        """Messages où chercher le cas : le message courant, puis le précédent s'il s'y rapporte.
-
-        Remonter plus loin ferait resservir un cas périmé, et un message sur une autre démarche
-        (« j'ai perdu mon passeport ») ne dit rien du cas de celle-ci.
-        """
-        textes = [query]
-        if historique:
-            citees = self.catalogue.demarches_citees(historique[-1])
-            if not citees or demarche in citees:
-                textes.append(historique[-1])
-        return textes
+        if analyse.issue == "lacune":
+            return self._lacune(analyse.demarche, langue)
+        if analyse.issue == "clarification_cas":
+            return self._clarifier_cas(analyse.demarche, langue)
+        return self._repondre(query, analyse.demarche, analyse.cas, langue, champs)
 
     def _simple(self, type_reponse: str, texte: str, etape: str, **extra) -> dict:
         return {
@@ -215,12 +215,12 @@ class AgentAssistant:
             "citations": extra.pop("citations", []),
             "formulaire_prerempli": None,
             "mode_generation": "regles",
-            "audit_log": [{"etape": etape}],
+            "audit_log": [{"agent": extra.pop("agent", "analyse"), "etape": etape}],
             **extra,
         }
 
-    def _clarifier_demarches(self, detection: Detection, langue: str) -> dict:
-        options = [{"libelle": _nom(d, langue), "message": _nom(d, langue)} for d in detection.candidats]
+    def _clarifier_demarches(self, analyse: Analyse, langue: str) -> dict:
+        options = [{"libelle": _nom(d, langue), "message": _nom(d, langue)} for d in analyse.candidats]
         return self._simple(
             "clarification", TEXTES[langue]["clarifier"], "clarification_demarche", options=options
         )
@@ -237,11 +237,11 @@ class AgentAssistant:
         )
 
     def _hors_perimetre(self, query: str, langue: str) -> dict:
-        passages = kb.retrieve(query, n_k=3)
+        passages = self.recherche.orienter(query)
         if not passages:
             return self._simple("hors_perimetre", TEXTES[langue]["hors"], "hors_perimetre")
         lignes = [TEXTES[langue]["proches"]] + [f"- {p['article']} — {p['titre']}" for p in passages]
-        return self._simple("hors_perimetre", "\n".join(lignes), "orientation_rag", citations=passages)
+        return self._simple("hors_perimetre", "\n".join(lignes), "orientation_rag", citations=passages, agent="recherche")
 
     def _lacune(self, demarche: dict, langue: str) -> dict:
         textes = TEXTES[langue]
@@ -257,65 +257,6 @@ class AgentAssistant:
         )
 
     # --------------------------------------------------------------- Réponse sourcée
-    def _fiches_retenues(self, demarche: dict, cas: Optional[dict]) -> List[dict]:
-        if cas and cas.get("fiche"):
-            return [f for f in demarche["fiches"] if f["fiche"] == cas["fiche"]]
-        return demarche["fiches"]
-
-    def _rassembler(self, query: str, demarche: dict, cas: Optional[dict]) -> dict:
-        """Réunit pièces, étapes, coûts et citations d'après le catalogue, puis le RAG."""
-        fiches = self._fiches_retenues(demarche, cas)
-        pieces: List[dict] = list(demarche.get("pieces", []))
-        etapes: List[dict] = list(demarche.get("etapes", []))
-        identifiants: List[str] = []
-        if cas:
-            pieces = list(cas.get("pieces", [])) + pieces
-            if cas.get("chunk"):
-                identifiants.append(cas["chunk"])
-
-        couts, durees = [], []
-        for fiche in fiches:
-            prefixe = f"{fiche['libelle']} : " if len(fiches) > 1 else ""
-            source = {c.rsplit("::", 1)[1]: c for c in fiche["chunks"]}
-            etapes += [{"texte": prefixe + e, "chunk": source["etapes"]} for e in fiche["etapes"]]
-            if "documents" in source:
-                pieces += [{"texte": prefixe + p, "chunk": source["documents"]} for p in fiche["pieces"]]
-            if fiche["cout"]:
-                couts.append(prefixe + " ; ".join(fiche["cout"]))
-            if fiche["duree_totale"]:
-                durees.append(prefixe + fiche["duree_totale"])
-            identifiants += fiche["chunks"]
-
-        identifiants += [x["chunk"] for x in pieces + etapes]
-        identifiants += demarche.get("chunks_complementaires", [])
-        vus = list(dict.fromkeys(identifiants))
-        citations = [citation_de(kb.par_id[i], 1.0) for i in vus if i in kb.par_id]
-
-        # Le RAG complète par des passages de la même démarche, jamais d'une autre.
-        admis = set(vus)
-        fiches_ecartees = {
-            i for f in demarche["fiches"] if f not in fiches for i in f["chunks"]
-        }
-        supplements = [
-            c for c in kb.retrieve(query, n_k=MAX_CITATIONS_RAG + len(vus) + 1, procedure_ids=[demarche["id"]])
-            if c["id"] not in admis and c["id"] not in fiches_ecartees
-        ]
-        supplements = supplements[:MAX_CITATIONS_RAG]
-        citations += supplements
-
-        # Une démarche sans pièces ni étapes (protection des données, signature...) reste
-        # fondée sur ses textes : à défaut de passage proche, on cite ses premiers articles.
-        if not citations:
-            supplements = [citation_de(kb.par_id[i], 0.0) for i in demarche["chunks"][:MAX_CITATIONS_RAG]]
-            citations = list(supplements)
-
-        complements = [i for i in demarche.get("chunks_complementaires", []) if i in kb.par_id]
-        extraits = [c for c in citations if c["id"] in complements or c in supplements]
-        return {
-            "pieces": pieces, "etapes": etapes, "couts": couts, "durees": durees,
-            "citations": citations, "extraits": extraits,
-        }
-
     def _composer(self, demarche: dict, cas: Optional[dict], elements: dict, langue: str, formulaire: bool) -> str:
         """Réponse composée uniquement d'extraits sourcés : pas de reformulation possible."""
         textes = TEXTES[langue]
@@ -330,7 +271,9 @@ class AgentAssistant:
         if elements["etapes"]:
             lignes += ["", f"**{textes['etapes']} :**"] + [f"{i}. {e['texte']}" for i, e in enumerate(elements["etapes"], 1)]
         if elements["pieces"]:
-            lignes += ["", f"**{textes['pieces']} :**"] + [f"- {p['texte']}" for p in elements["pieces"]]
+            # Une même pièce peut servir à plusieurs étapes de la fiche : elle n'est listée qu'une fois.
+            pieces = dict.fromkeys(p["texte"] for p in elements["pieces"])
+            lignes += ["", f"**{textes['pieces']} :**"] + [f"- {p}" for p in pieces]
         if elements["couts"]:
             lignes += ["", f"**{textes['cout']} :**"] + [f"- {c}" for c in elements["couts"]]
         if elements["durees"]:
@@ -353,7 +296,7 @@ class AgentAssistant:
         return "\n".join(lignes)
 
     def _repondre(self, query: str, demarche: dict, cas: Optional[dict], langue: str, champs: Optional[dict]) -> dict:
-        elements = self._rassembler(query, demarche, cas)
+        elements = self.recherche.rassembler(query, demarche, cas)
         formulaire = prefill_form(demarche["id"], champs)
         secours = self._composer(demarche, cas, elements, langue, formulaire is not None)
 
@@ -361,20 +304,18 @@ class AgentAssistant:
         if self.use_llm:
             try:
                 brouillon = appeler_llm(construire_prompt(masquer(query), demarche, cas, elements["citations"], langue))
-                controle = audit(
-                    brouillon, elements["citations"], base=kb.par_id, procedure_id=demarche["id"],
-                    procedures_admises=[demarche["id"], *demarche.get("procedures_liees", [])],
-                    type_reponse="reponse", statut_demarche=demarche["statut"],
-                )
+            except Exception as erreur:  # service indisponible, délai dépassé, réponse invalide
+                mode = "extraits_sources_llm_indisponible"
+                journal.append({"agent": "orchestrateur", "etape": "llm_indisponible", "erreur": type(erreur).__name__})
+            else:
+                controle = self.validation.controler_brouillon(brouillon, demarche, elements["citations"])
                 if controle.decision == "bloquer":
                     reponse = f"{TEXTES[langue]['ecarte']}\n\n{secours}"
                     mode = "extraits_sources_apres_rejet_llm"
-                    journal.append({"etape": "rejet_llm", "motifs": controle.gaps})
+                    journal.append({"agent": "validation", "etape": "rejet_llm", "motifs": controle.gaps})
                 else:
                     reponse, mode = brouillon, "llm"
-            except Exception as erreur:  # service indisponible, délai dépassé, réponse invalide
-                mode = "extraits_sources_llm_indisponible"
-                journal.append({"etape": "llm_indisponible", "erreur": type(erreur).__name__})
+                    journal.append({"agent": "validation", "etape": "brouillon_accepte", "verdict": controle.verdict})
 
         return {
             "type_reponse": "reponse",
@@ -390,9 +331,9 @@ class AgentAssistant:
             "formulaire_prerempli": formulaire,
             "mode_generation": mode,
             "audit_log": [
-                {"etape": "detection", "procedure_id": demarche["id"], "cas": cas["id"] if cas else None},
-                {"etape": "sources", "recherche": kb.mode, "nb_citations": len(elements["citations"])},
-                {"etape": "generation", "mode": mode},
+                {"agent": "analyse", "etape": "detection", "procedure_id": demarche["id"], "cas": cas["id"] if cas else None},
+                {"agent": "recherche", "etape": "sources", "recherche": self.recherche.mode, "nb_citations": len(elements["citations"])},
+                {"agent": "orchestrateur", "etape": "generation", "mode": mode},
                 *journal,
             ],
         }
@@ -421,5 +362,9 @@ class AgentAssistant:
             "citations": [],
             "formulaire_prerempli": None,
             "mode_generation": "llm_sans_gouvernance",
-            "audit_log": [{"etape": "generation", "mode": "llm_sans_gouvernance"}],
+            "audit_log": [{"agent": "orchestrateur", "etape": "generation", "mode": "llm_sans_gouvernance"}],
         }
+
+
+# Nom historique, conservé pour main.py, les scripts et les tests.
+AgentAssistant = AgentOrchestrateur

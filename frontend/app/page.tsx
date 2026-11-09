@@ -1,181 +1,112 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Langue, TEXTES } from "./i18n";
+import { Annuaire } from "./components/Annuaire";
+import { Fiche } from "./components/Fiche";
+import { Etat, Marque } from "./components/icones";
+import { ListeSources } from "./components/ListeSources";
+import { Notice } from "./components/Notice";
+import { analyser } from "./lib/reponse";
+import { Langue, TEXTES, Textes } from "./i18n";
+import { DemarcheCatalogue, DocumentSource, Message, Notice as TypeNotice, Stats, Vue } from "./types";
 
-interface Citation {
-  id: string;
-  article: string;
-  texte: string;
-  titre: string;
-  source_url: string;
-  type_source: "texte_officiel" | "reproduction" | "portail_institutionnel";
-  statut_verification: string;
-  note: string;
-}
+const VUES: Vue[] = ["demarches", "assistant", "sources", "donnees"];
 
-interface Controle {
-  nom: string;
-  resultat: "ok" | "reserve" | "echec";
-  detail: string;
-}
+/** Une réponse qui s'ouvre comme une fiche ; les autres (précision, refus) restent dans le fil. */
+const estFiche = (m: Message) => m.type === "reponse" || m.type === "lacune" || !!m.citations?.length;
 
-interface Audit {
-  verdict: "conforme" | "partiel" | "non_conforme";
-  controles: Controle[];
-  gaps: string[];
-}
-
-interface Formulaire {
-  procedure_id: string;
-  plateforme: string;
-  champs: { nom: string; valeur: string }[];
-}
-
-interface Option {
-  libelle: string;
-  message: string;
-}
-
-interface Message {
-  role: "user" | "agent";
-  content: string;
-  type?: string;
-  procedure?: string | null;
-  statut?: "couvert" | "partiel" | "lacune" | null;
-  options?: Option[];
-  citations?: Citation[];
-  audit?: Audit;
-  formulaire?: Formulaire | null;
-  chargement?: boolean;
-}
-
-type Notice = Record<string, string>;
-
-const RUBRIQUES = ["responsable", "finalite", "donnees", "destinataires", "conservation", "transfert", "droits", "limites"] as const;
-
-/** Affiche le gras et les listes produits par l'agent, sans jamais injecter de HTML. */
-function TexteAgent({ texte }: { texte: string }) {
-  return (
-    <div className="text-sm leading-relaxed space-y-1">
-      {texte.split("\n").map((ligne, i) => {
-        if (!ligne.trim()) return <div key={i} className="h-2" />;
-        const liste = /^(\s*-\s|\s*\d+\.\s)/.test(ligne);
-        const morceaux = ligne.split(/(\*\*[^*]+\*\*)/g).map((m, j) =>
-          m.startsWith("**") && m.endsWith("**") ? <strong key={j}>{m.slice(2, -2)}</strong> : <span key={j}>{m}</span>,
-        );
-        return (
-          <p key={i} className={liste ? "pl-3" : ""}>
-            {morceaux}
-          </p>
-        );
-      })}
-    </div>
-  );
-}
-
-function FormulaireCitoyen({ initial, langue, consent }: { initial: Formulaire; langue: Langue; consent: boolean }) {
-  const t = TEXTES[langue];
-  const [champs, setChamps] = useState(initial.champs);
-  const [ouvert, setOuvert] = useState(false);
-  const [lecture, setLecture] = useState(false);
-  const [erreur, setErreur] = useState("");
-  const [copie, setCopie] = useState(false);
-
-  function modifier(nom: string, valeur: string) {
-    setChamps((liste) => liste.map((c) => (c.nom === nom ? { ...c, valeur } : c)));
+function ReponseDansLeFil({
+  message,
+  index,
+  selection,
+  occupe,
+  consent,
+  t,
+  onSelection,
+  onOption,
+}: {
+  message: Message;
+  index: number;
+  selection: number | null;
+  occupe: boolean;
+  consent: boolean;
+  t: Textes;
+  onSelection: (index: number) => void;
+  onOption: (texte: string) => void;
+}) {
+  if (message.chargement) {
+    return (
+      <p data-chargement className="flex items-center gap-2 text-texte-2">
+        <span className="indicateur-chargement" aria-hidden="true" />
+        {t.recherche}
+      </p>
+    );
   }
-
-  async function lirePiece(fichier: File) {
-    setLecture(true);
-    setErreur("");
-    const donnees = new FormData();
-    donnees.append("file", fichier);
-    donnees.append("consentement", String(consent));
-    donnees.append("procedure_id", initial.procedure_id);
-    try {
-      const reponse = await fetch("/api/upload", { method: "POST", body: donnees });
-      const corps = await reponse.json();
-      if (!reponse.ok) {
-        setErreur(corps.detail || t.erreurService);
-        return;
-      }
-      const detectes: Record<string, string> = corps.champs_detectes || {};
-      setChamps((liste) => liste.map((c) => (detectes[c.nom] ? { ...c, valeur: detectes[c.nom] } : c)));
-    } catch {
-      setErreur(t.erreurConnexion);
-    } finally {
-      setLecture(false);
-    }
+  if (message.erreur) {
+    return (
+      <p role="alert" className="border-l-[3px] border-erreur bg-erreur-clair px-3 py-2 text-erreur">
+        {message.content}
+      </p>
+    );
   }
-
-  async function copier() {
-    const texte = champs.map((c) => `${t.champs[c.nom] || c.nom} : ${c.valeur}`).join("\n");
-    await navigator.clipboard.writeText(texte);
-    setCopie(true);
-    setTimeout(() => setCopie(false), 1500);
-  }
-
-  if (!ouvert) {
+  if (estFiche(message)) {
+    const ouverte = selection === index;
+    const analyse = analyser(message.content);
+    const titre = message.procedure || analyse.titre || analyse.paragraphes[0] || t.fiche;
+    const nombre = message.citations?.length || 0;
     return (
       <button
-        onClick={() => setOuvert(true)}
-        className="mt-3 text-xs font-bold text-[#0369A1] border border-[#0369A1] rounded-lg px-3 py-1.5 hover:bg-[#E0F2FE]"
+        onClick={() => onSelection(index)}
+        aria-current={ouverte ? "true" : undefined}
+        className={`block w-full border-l-[3px] py-1.5 pl-2.5 pr-2 text-left ${ouverte ? "border-accent bg-accent-clair" : "border-ligne-forte hover:bg-surface"}`}
       >
-        {t.formulaire}
+        <span className="block font-medium text-accent-fonce">{titre}</span>
+        <span className="block text-[13px] text-texte-2">
+          {nombre > 0 && `${t.resumeFiche(nombre)} · `}
+          {ouverte ? t.ficheOuverte : t.voirFiche}
+        </span>
       </button>
     );
   }
-
   return (
-    <div className="mt-3 border border-[#E2E8F0] rounded-xl p-3 bg-[#F8FAFC]">
-      <p className="text-xs text-[#475569] mb-2">{t.formulaireIntro(initial.plateforme)}</p>
-      <div className="grid sm:grid-cols-2 gap-2">
-        {champs.map((c) => (
-          <label key={c.nom} className="text-xs text-[#475569]">
-            {t.champs[c.nom] || c.nom}
-            <input
-              value={c.valeur}
-              onChange={(e) => modifier(c.nom, e.target.value)}
-              className="mt-0.5 w-full bg-white border border-[#E2E8F0] rounded-lg px-2 py-1.5 text-sm text-[#020617]"
-            />
-          </label>
-        ))}
-      </div>
-      <p className="text-[11px] text-[#92400E] mt-2">{t.lectureAvertissement}</p>
-      {erreur && <p role="alert" className="text-xs text-[#DC2626] mt-1">{erreur}</p>}
-      <div className="flex flex-wrap gap-2 mt-2">
-        <label className="text-xs font-semibold text-[#0369A1] border border-[#E2E8F0] bg-white rounded-lg px-3 py-1.5 cursor-pointer hover:border-[#0369A1]">
-          {lecture ? t.lecture : t.lirePiece}
-          <input
-            type="file"
-            accept="image/png,image/jpeg"
-            className="sr-only"
-            disabled={lecture}
-            onChange={(e) => {
-              const fichier = e.target.files?.[0];
-              if (fichier) lirePiece(fichier);
-              e.target.value = "";
-            }}
-          />
-        </label>
-        <button onClick={copier} className="text-xs font-semibold text-white bg-[#0F172A] rounded-lg px-3 py-1.5 hover:bg-[#0369A1]">
-          {copie ? t.copie : t.copier}
-        </button>
-      </div>
+    <div>
+      <p>{message.content.replace(/\*\*/g, "")}</p>
+      {!!message.options?.length && (
+        <ul className="mt-2 divide-y divide-ligne border border-ligne bg-surface">
+          {message.options.map((o) => (
+            <li key={o.message}>
+              <button
+                disabled={occupe || !consent}
+                onClick={() => onOption(o.message)}
+                className="block w-full px-3 py-2 text-left font-medium text-accent hover:bg-accent-clair disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {o.libelle}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
 
 export default function Home() {
+  const [vue, setVue] = useState<Vue>("demarches");
   const [langue, setLangue] = useState<Langue>("FR");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [selection, setSelection] = useState<number | null>(null);
   const [saisie, setSaisie] = useState("");
   const [chargement, setChargement] = useState(false);
   const [consent, setConsent] = useState(false);
-  const [notice, setNotice] = useState<Notice | null>(null);
+  const [enAttente, setEnAttente] = useState<string | null>(null);
+  const [notice, setNotice] = useState<TypeNotice | null>(null);
   const [erreurNotice, setErreurNotice] = useState(false);
-  const fin = useRef<HTMLDivElement>(null);
+  const [catalogue, setCatalogue] = useState<DemarcheCatalogue[]>([]);
+  const [stats, setStats] = useState<Stats | null>(null);
+  const [documents, setDocuments] = useState<DocumentSource[]>([]);
+  const [erreurDocuments, setErreurDocuments] = useState(false);
+  const finDuFil = useRef<HTMLDivElement>(null);
+  const panneau = useRef<HTMLElement>(null);
+  const contenu = useRef<HTMLElement>(null);
   const t = TEXTES[langue];
 
   useEffect(() => {
@@ -191,17 +122,79 @@ export default function Home() {
   }, [langue]);
 
   useEffect(() => {
-    fin.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, chargement]);
+    fetch("/api/catalogue")
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then(setCatalogue)
+      .catch(() => setCatalogue([]));
+    fetch("/api/stats")
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then(setStats)
+      .catch(() => setStats(null));
+    fetch("/api/documents")
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((index) => setDocuments(index.documents))
+      .catch(() => setErreurDocuments(true));
+  }, []);
 
-  async function envoyer(texte: string) {
-    if (!consent || chargement || !texte.trim()) return;
+  useEffect(() => {
+    finDuFil.current?.scrollIntoView({ block: "nearest" });
+  }, [messages.length, chargement]);
+
+  // Une fiche se lit depuis son début, sur grand écran comme sur téléphone.
+  useEffect(() => {
+    if (selection === null || !panneau.current) return;
+    panneau.current.scrollTop = 0;
+    panneau.current.scrollIntoView({ block: "start" });
+  }, [selection]);
+
+  useEffect(() => {
+    contenu.current?.scrollTo(0, 0);
+    window.scrollTo(0, 0);
+  }, [vue]);
+
+  function effacer() {
+    setMessages([]);
+    setSelection(null);
+  }
+
+  function retirerConsentement() {
+    setConsent(false);
+    setEnAttente(null);
+    setSaisie("");
+    effacer();
+  }
+
+  function refuser() {
+    setEnAttente(null);
+    setVue("demarches");
+  }
+
+  function accepter() {
+    setConsent(true);
+    setVue("assistant");
+    if (enAttente) {
+      const question = enAttente;
+      setEnAttente(null);
+      envoyer(question, true);
+    }
+  }
+
+  /** Depuis l'annuaire : sans accord, la demande attend et rien n'est envoyé. */
+  function ouvrir(texte: string) {
+    setVue("assistant");
+    if (consent) envoyer(texte);
+    else setEnAttente(texte);
+  }
+
+  async function envoyer(texte: string, accord: boolean = consent) {
+    if (!accord || chargement || !texte.trim()) return;
 
     // L'historique permet de répondre à une question de précision de l'agent.
     const historique = messages
-      .filter((m) => !m.chargement)
+      .filter((m) => !m.chargement && !m.erreur)
       .slice(-8)
       .map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.content.slice(0, 3900) }));
+    const indexReponse = messages.length + 1;
 
     setMessages((liste) => [...liste, { role: "user", content: texte }, { role: "agent", content: "", chargement: true }]);
     setSaisie("");
@@ -214,276 +207,210 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: [...historique, { role: "user", content: texte }],
-          consentement: consent,
+          consentement: accord,
           language: langue,
         }),
       });
       const corps = await reponse.json();
       if (!reponse.ok) {
-        const detail = typeof corps.detail === "string" ? corps.detail : t.erreurService;
-        remplacer({ role: "agent", content: `⚠️ ${detail}` });
+        remplacer({ role: "agent", erreur: true, content: typeof corps.detail === "string" ? corps.detail : t.erreurService });
         return;
       }
-      remplacer({
+      const message: Message = {
         role: "agent",
         content: corps.agent.reponse,
         type: corps.agent.type_reponse,
         procedure: corps.agent.procedure_identifiee,
         statut: corps.agent.statut_demarche,
+        mode: corps.agent.mode_generation,
         options: corps.agent.options,
         citations: corps.agent.citations,
         audit: corps.audit,
         formulaire: corps.agent.formulaire_prerempli,
-      });
+      };
+      remplacer(message);
+      if (estFiche(message)) setSelection(indexReponse);
     } catch {
-      remplacer({ role: "agent", content: `⚠️ ${t.erreurConnexion}` });
+      remplacer({ role: "agent", erreur: true, content: t.erreurConnexion });
     } finally {
       setChargement(false);
     }
   }
 
+  const ficheOuverte = selection !== null ? messages[selection] : null;
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-gradient-to-r from-[#0F172A] to-[#0F3D70] text-white px-6 py-3 shadow-lg">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#14598C] to-[#0F172A] flex items-center justify-center shadow-md">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" aria-hidden="true">
-                <path d="M12 3 L20 6 V12 C20 16 16.5 19 12 21 C7.5 19 4 16 4 12 V6 Z" />
-                <path d="M9 11 L9 16 L13 17.5" stroke="#7DD3FC" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="15" cy="8" r="1.5" fill="#FBBF24" stroke="none" />
-              </svg>
+    <div className="flex min-h-screen flex-col lg:h-screen lg:overflow-hidden">
+      <header className="shrink-0">
+        {/* Bande aux couleurs nationales, étoile au centre */}
+        <div className="relative flex h-1.5" aria-hidden="true">
+          <span className="flex-1 bg-[#007a3d]" />
+          <span className="flex-1 bg-[#ce1126]" />
+          <span className="flex-1 bg-[#fcd116]" />
+          <svg viewBox="0 0 10 10" className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 fill-[#fcd116]">
+            <path d="M5 0l1.2 3.6H10L6.9 5.8 8.1 9.5 5 7.2 1.9 9.5 3.1 5.8 0 3.6h3.8z" />
+          </svg>
+        </div>
+        <div className="border-b border-ligne bg-fond">
+          <div className="mx-auto grid max-w-[1000px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 py-2.5 text-[12px] leading-snug">
+            <div lang="fr">
+              <p className="font-bold uppercase tracking-wide text-texte">République du Cameroun</p>
+              <p className="italic text-texte-2">Paix – Travail – Patrie</p>
             </div>
-            <div>
-              <div className="text-lg font-bold tracking-tight">GOVIA</div>
-              <div className="text-[10px] tracking-[2px] text-[#93C5FD] uppercase">Cameroun</div>
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-marine">
+              <Marque taille={22} />
+            </span>
+            <div lang="en" className="text-right">
+              <p className="font-bold uppercase tracking-wide text-texte">Republic of Cameroon</p>
+              <p className="italic text-texte-2">Peace – Work – Fatherland</p>
             </div>
           </div>
-          <div role="group" aria-label="Langue / Language" className="flex rounded-full border border-[#3B82F6] overflow-hidden">
+        </div>
+        <div className="relative border-b border-ligne bg-surface px-4 py-2.5 text-center">
+          <p className="text-[20px] font-bold uppercase tracking-wide text-marine">GOVIA Cameroun</p>
+          <p className="text-sm font-medium text-accent">{t.sousTitre}</p>
+          <div role="group" aria-label="Langue / Language" className="absolute right-3 top-1/2 flex -translate-y-1/2 items-center gap-0.5 text-sm lg:right-6">
             {(["FR", "EN"] as Langue[]).map((l) => (
               <button
                 key={l}
                 onClick={() => setLangue(l)}
                 aria-pressed={langue === l}
-                className={`text-xs font-semibold px-3 py-1.5 transition-all ${langue === l ? "bg-white text-[#0F172A]" : "text-[#BFDBFE] hover:bg-white/10"}`}
+                className={`h-8 min-w-[36px] rounded px-2 ${langue === l ? "bg-marine font-semibold text-white" : "text-texte-2 hover:text-texte"}`}
               >
                 {l}
               </button>
             ))}
           </div>
         </div>
+        <nav aria-label={t.navigation} className="border-b border-ligne bg-surface">
+          <ul className="sans-barre flex overflow-x-auto px-4 lg:justify-center lg:px-6">
+            {VUES.map((v) => (
+              <li key={v}>
+                <button
+                  onClick={() => setVue(v)}
+                  aria-current={vue === v ? "page" : undefined}
+                  className={`-mb-px whitespace-nowrap border-b-[3px] px-3 py-2.5 first:pl-0 ${vue === v ? "border-accent font-semibold" : "border-transparent text-texte-2 hover:text-texte"}`}
+                >
+                  {t.vues[v]}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <p className="flex items-baseline gap-2 border-b border-ligne bg-fond px-4 py-1.5 text-[13px] text-texte-2 lg:px-6">
+          <span className="rounded-sm bg-attention-clair px-1.5 font-semibold text-attention">{t.prototype}</span>
+          <span>{t.prototypeTexte}</span>
+        </p>
       </header>
 
-      <AnimatePresence>
-        {!consent && (
-          <motion.section
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            aria-label={notice?.titre}
-            className="bg-[#FEF9E7] border border-[#FBBF24] rounded-xl mx-4 mt-3 px-5 py-3 max-w-3xl md:mx-auto w-[calc(100%-2rem)]"
-          >
-            {erreurNotice && <p role="alert" className="text-sm text-[#92400E]">{t.consentementErreur}</p>}
-            {!notice && !erreurNotice && <p className="text-sm text-[#92400E]">{t.consentementChargement}</p>}
-            {notice && (
-              <>
-                <h2 className="text-sm font-bold text-[#92400E]">{notice.titre}</h2>
-                <dl className="mt-1 space-y-1">
-                  {RUBRIQUES.map((r) => (
-                    <div key={r} className="text-xs text-[#92400E]">
-                      <dt className="inline font-semibold">{t.rubriques[r]} : </dt>
-                      <dd className="inline">{notice[r]}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <button
-                  onClick={() => setConsent(true)}
-                  className="mt-2 bg-[#0F172A] text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-[#0369A1] transition-all"
-                >
-                  {notice.action}
-                </button>
-              </>
-            )}
-          </motion.section>
-        )}
-      </AnimatePresence>
+      <main ref={contenu} className={`fond-motif min-h-0 flex-1 ${vue === "assistant" ? "lg:overflow-hidden" : "lg:overflow-y-auto"}`}>
+        {vue === "demarches" && <Annuaire demarches={catalogue} langue={langue} onOuvrir={ouvrir} />}
 
-      <main className="flex-1 max-w-3xl w-full mx-auto px-4 py-4 flex flex-col gap-3">
-        {consent && (
-          <div className="flex items-center justify-end gap-2 text-[11px] text-[#475569]">
-            <span>✓ {t.consentementAccord}</span>
-            <button onClick={() => setConsent(false)} className="underline hover:text-[#DC2626]">
-              {t.consentementRetirer}
-            </button>
+        {vue === "sources" && <ListeSources documents={documents} stats={stats} erreur={erreurDocuments} langue={langue} />}
+
+        {vue === "donnees" && (
+          <div className="max-w-[1180px] px-4 py-6 lg:px-6">
+            <Notice notice={notice} erreur={erreurNotice} langue={langue} consent={consent} enAttente={enAttente} onAccepter={accepter} onRefuser={refuser} onRetirer={retirerConsentement} />
           </div>
         )}
 
-        {messages.length === 0 && (
-          <div className="bg-white border border-[#E2E8F0] rounded-2xl px-5 py-4 shadow-sm">
-            <h1 className="text-base font-bold">{t.introTitre}</h1>
-            <p className="text-sm text-[#475569] mt-1">{t.introTexte}</p>
-            <div className="flex flex-wrap gap-2 mt-3">
-              {t.exemples.map((exemple) => (
-                <button
-                  key={exemple}
-                  disabled={!consent}
-                  onClick={() => envoyer(exemple)}
-                  className="text-xs text-[#0369A1] bg-[#E0F2FE] rounded-full px-3 py-1.5 hover:bg-[#BAE6FD] disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {exemple}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="flex-1 overflow-y-auto space-y-4 min-h-[320px]" aria-live="polite">
-          <AnimatePresence initial={false}>
-            {messages.map((m, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25 }}
-                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-              >
-                <div
-                  className={`max-w-[90%] ${
-                    m.role === "user"
-                      ? "bg-[#0F172A] text-white rounded-2xl rounded-br-md px-4 py-3 shadow-md text-sm whitespace-pre-wrap"
-                      : "bg-white border border-[#E2E8F0] rounded-2xl rounded-bl-md px-4 py-3 shadow-sm"
-                  }`}
-                >
-                  {m.role === "user" ? (
-                    m.content
-                  ) : m.chargement ? (
-                    <div className="flex items-center gap-1.5 py-2">
-                      {[0, 200, 400].map((delai) => (
-                        <span key={delai} className="typing-dot w-2 h-2 bg-[#475569] rounded-full" style={{ animationDelay: `${delai}ms` }} />
-                      ))}
-                    </div>
-                  ) : (
-                    <>
-                      {(m.procedure || m.statut) && (
-                        <div className="flex flex-wrap gap-1.5 mb-2">
-                          {m.procedure && <span className="proc-badge text-xs font-bold px-2.5 py-1 rounded-full">{m.procedure}</span>}
-                          {m.statut && (
-                            <span
-                              className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
-                                m.statut === "couvert" ? "audit-conforme" : m.statut === "partiel" ? "audit-partiel" : "audit-non-conforme"
-                              }`}
-                            >
-                              {t.statuts[m.statut]}
-                            </span>
+        {vue === "assistant" && (
+          <div className="lg:grid lg:h-full lg:grid-cols-[360px_minmax(0,1fr)]">
+            <section aria-label={t.echanges} className="flex flex-col border-b border-ligne bg-fond lg:h-full lg:min-h-0 lg:border-b-0 lg:border-r">
+              <div className="flex items-center justify-between border-b border-ligne px-4 py-2">
+                <h2 className="text-sm font-semibold">{t.echanges}</h2>
+                {messages.length > 0 && (
+                  <button onClick={effacer} disabled={chargement} className="text-sm text-accent underline underline-offset-2 disabled:opacity-50">
+                    {t.effacer}
+                  </button>
+                )}
+              </div>
+              <div className="lg:min-h-0 lg:flex-1 lg:overflow-y-auto" aria-live="polite">
+                {messages.length === 0 ? (
+                  <p className="px-4 py-3 text-sm text-texte-2">{t.aucunEchange}</p>
+                ) : (
+                  <ol className="divide-y divide-ligne">
+                    {messages.map((m, i) =>
+                      m.role === "user" ? (
+                        <li key={i} className="px-4 pb-3 pt-3">
+                          <p className="mb-2 whitespace-pre-wrap font-semibold">{m.content}</p>
+                          {messages[i + 1] && (
+                            <ReponseDansLeFil message={messages[i + 1]} index={i + 1} selection={selection} occupe={chargement} consent={consent} t={t} onSelection={setSelection} onOption={envoyer} />
                           )}
-                        </div>
-                      )}
+                        </li>
+                      ) : null,
+                    )}
+                  </ol>
+                )}
+                <div ref={finDuFil} />
+              </div>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  envoyer(saisie);
+                }}
+                className="fixed inset-x-0 bottom-0 z-20 flex gap-2 border-t border-ligne bg-surface p-3 lg:static"
+              >
+                <input
+                  type="text"
+                  value={saisie}
+                  maxLength={1000}
+                  disabled={!consent}
+                  onChange={(e) => setSaisie(e.target.value)}
+                  placeholder={consent ? t.placeholder : t.placeholderBloque}
+                  aria-label={t.champ}
+                  className="min-w-0 flex-1 rounded border border-ligne-forte bg-surface px-2.5 py-2 placeholder:text-texte-2 disabled:cursor-not-allowed disabled:bg-fond"
+                />
+                <button
+                  type="submit"
+                  disabled={!consent || chargement || !saisie.trim()}
+                  className="shrink-0 rounded bg-accent px-3.5 py-2 font-semibold text-white hover:bg-accent-fonce disabled:cursor-not-allowed disabled:bg-[#e3e6ea] disabled:text-[#55606d]"
+                >
+                  {t.envoyer}
+                </button>
+              </form>
+            </section>
 
-                      <TexteAgent texte={m.content} />
-
-                      {!!m.options?.length && (
-                        <div className="flex flex-col items-start gap-1.5 mt-3">
-                          {m.options.map((o) => (
-                            <button
-                              key={o.message}
-                              disabled={chargement || !consent}
-                              onClick={() => envoyer(o.message)}
-                              className="text-xs font-semibold text-left text-[#0369A1] border border-[#0369A1] rounded-lg px-3 py-1.5 hover:bg-[#E0F2FE] disabled:opacity-50"
-                            >
-                              {o.libelle}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-
-                      {!!m.citations?.length && (
-                        <details className="mt-3">
-                          <summary className="text-xs font-bold text-[#92400E] cursor-pointer">{t.sources(m.citations.length)}</summary>
-                          <div className="mt-2 flex flex-col gap-2">
-                            {m.citations.map((c) => (
-                              <a key={c.id} href={c.source_url} target="_blank" rel="noopener noreferrer" className="citation-card block px-3 py-2">
-                                <div className="flex flex-wrap items-center gap-1.5 text-xs font-bold text-[#92400E]">
-                                  <span>{c.article}</span>
-                                  <span className="font-normal opacity-80">· {t.typesSource[c.type_source]}</span>
-                                  <span className={`font-semibold px-1.5 rounded ${c.statut_verification === "verifie" ? "audit-conforme" : "audit-partiel"}`}>
-                                    {c.statut_verification === "verifie" ? t.verifie : t.aVerifier}
-                                  </span>
-                                </div>
-                                <div className="text-[11px] text-[#92400E] font-semibold mt-0.5">{c.titre}</div>
-                                <div className="text-xs text-[#92400E] opacity-90 mt-0.5">{c.texte}</div>
-                              </a>
-                            ))}
-                          </div>
-                        </details>
-                      )}
-
-                      {m.formulaire && <FormulaireCitoyen initial={m.formulaire} langue={langue} consent={consent} />}
-
-                      {m.audit && (
-                        <details className="mt-3">
-                          <summary className="flex items-center gap-2 cursor-pointer list-none">
-                            <span
-                              className={`text-xs font-bold px-2.5 py-1 rounded-full ${
-                                m.audit.verdict === "conforme" ? "audit-conforme" : m.audit.verdict === "partiel" ? "audit-partiel" : "audit-non-conforme"
-                              }`}
-                            >
-                              {m.audit.verdict === "conforme" ? "✓" : m.audit.verdict === "partiel" ? "⚠" : "✗"} {t.verdicts[m.audit.verdict]}
-                            </span>
-                            <span className="text-[10px] text-[#475569] underline">
-                              {t.auditeur} · {t.auditDetail}
-                            </span>
-                          </summary>
-                          <ul className="mt-2 space-y-1 text-[11px] text-[#475569]">
-                            {m.audit.controles.map((c, k) => (
-                              <li key={k}>
-                                {c.resultat === "ok" ? "✓" : c.resultat === "reserve" ? "⚠" : "✗"} <strong>{c.nom}</strong> : {c.detail}
-                              </li>
-                            ))}
-                            {m.audit.gaps
-                              .filter((g) => !m.audit?.controles.some((c) => c.detail === g))
-                              .map((g, k) => (
-                                <li key={`g${k}`}>⚠ {g}</li>
-                              ))}
-                          </ul>
-                        </details>
-                      )}
-                    </>
-                  )}
+            <section ref={panneau} aria-label={t.fiche} className="scroll-mt-0 pb-20 lg:h-full lg:overflow-y-auto lg:pb-0">
+              {!consent ? (
+                <div className="px-4 py-6 lg:px-8">
+                  <Notice notice={notice} erreur={erreurNotice} langue={langue} consent={consent} enAttente={enAttente} onAccepter={accepter} onRefuser={refuser} onRetirer={retirerConsentement} />
                 </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-          <div ref={fin} />
-        </div>
+              ) : ficheOuverte ? (
+                <Fiche key={selection} message={ficheOuverte} langue={langue} consent={consent} />
+              ) : (
+                <div className="max-w-[720px] px-4 py-6 lg:px-8">
+                  <h1 className="text-[26px] font-bold leading-tight">{t.assistantTitre}</h1>
+                  <p className="mt-2 text-texte-2">{t.assistantTexte}</p>
+                  <h2 className="mt-6 border-b-2 border-texte pb-1.5 text-[17px] font-bold">{t.exemplesTitre}</h2>
+                  <ul className="divide-y divide-ligne">
+                    {t.exemples.map((exemple) => (
+                      <li key={exemple}>
+                        <button
+                          disabled={chargement}
+                          onClick={() => envoyer(exemple)}
+                          className="block w-full py-2 text-left font-medium text-accent underline-offset-2 hover:underline disabled:opacity-50"
+                        >
+                          {exemple}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-5 text-sm text-texte-2">
+                    <Etat ton="ok">{t.accordDonne}</Etat>
+                    <span aria-hidden="true"> · </span>
+                    <button onClick={() => setVue("donnees")} className="text-accent underline underline-offset-2">
+                      {t.vues.donnees}
+                    </button>
+                  </p>
+                </div>
+              )}
+            </section>
+          </div>
+        )}
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            envoyer(saisie);
-          }}
-          className="flex gap-2 pt-2"
-        >
-          <input
-            type="text"
-            value={saisie}
-            maxLength={1000}
-            disabled={!consent}
-            onChange={(e) => setSaisie(e.target.value)}
-            placeholder={consent ? t.placeholder : t.placeholderBloque}
-            aria-label={t.placeholder}
-            className="flex-1 bg-white border border-[#E2E8F0] rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#0369A1] focus:border-transparent transition-all shadow-sm disabled:bg-[#F1F5F9]"
-          />
-          <button
-            type="submit"
-            disabled={!consent || chargement || !saisie.trim()}
-            className="bg-[#0F172A] text-white text-sm font-bold px-5 rounded-xl hover:bg-[#0369A1] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
-          >
-            {chargement ? "..." : t.envoyer}
-          </button>
-        </form>
+        {vue !== "assistant" && <footer className="max-w-[1180px] px-4 pb-6 pt-2 text-[13px] text-texte-2 lg:px-6">{t.pied}</footer>}
       </main>
-
-      <footer className="text-center text-[10px] text-[#475569] py-3 px-4">{t.pied}</footer>
     </div>
   );
 }
