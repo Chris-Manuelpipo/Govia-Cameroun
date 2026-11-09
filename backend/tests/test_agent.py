@@ -288,3 +288,154 @@ def test_un_ancien_cas_ne_resert_pas_pour_une_nouvelle_demande(agent):
 
 def test_le_cas_d_une_autre_demarche_n_est_pas_repris(agent):
     assert agent.respond("Je veux une CNI", ["J'ai perdu mon passeport"])["type_reponse"] == "clarification"
+
+
+# ------------------------------------------------------------------ Conversation
+@pytest.mark.parametrize(
+    "message, sujet, langue",
+    [
+        ("Bonjour", "salutation", "FR"),
+        ("Salut !", "salutation", "FR"),
+        ("Bonsoir, comment ça va ?", "etat", "FR"),
+        ("Hi", "salutation", "EN"),
+        ("Hello there", "salutation", "EN"),
+        ("Merci beaucoup", "remerciement", "FR"),
+        ("thanks a lot", "remerciement", "EN"),
+        ("Au revoir", "au_revoir", "FR"),
+        ("bye", "au_revoir", "EN"),
+        ("Que peux-tu faire ?", "aide", "FR"),
+        ("Qui es-tu ?", "aide", "FR"),
+        ("Comment ça marche ?", "aide", "FR"),
+        ("what can you do?", "aide", "EN"),
+        ("Peux tu m'en dire plus en ce qui concerne les procédures administratives ??", "apercu", "FR"),
+        ("Quelles démarches existent ?", "apercu", "FR"),
+        ("tell me about administrative procedures", "apercu", "EN"),
+        ("Je veux faire une démarche", "apercu", "FR"),
+        ("Salut mon ami", "salutation", "FR"),
+        ("Bonjour mon cher ami", "salutation", "FR"),
+        ("Non", "accord", "FR"),
+        ("Oui d'accord", "accord", "FR"),
+        ("ok", "accord", "FR"),
+        ("Comment tu t'appelles ?", "aide", "FR"),
+        ("Tu es un robot ?", "identite", "FR"),
+        ("Comment vas tu ?", "etat", "FR"),
+        ("Yo", "salutation", "FR"),
+        ("Qui t'a créé ?", "createur", "FR"),
+        ("who made you?", "createur", "EN"),
+        ("Tu parles anglais ?", "identite", "FR"),
+        ("are you a human?", "identite", "EN"),
+    ],
+)
+def test_une_conversation_recoit_une_reponse_directe(agent, message, sujet, langue):
+    analyse = agent.analyse.analyser(message)
+    assert analyse.issue == "conversation" and analyse.sujet.nom == sujet and analyse.sujet.langue == langue
+    reponse = agent.respond(message)
+    assert reponse["type_reponse"] == "conversation"
+    assert not reponse["citations"] and not reponse["etapes"] and not reponse["reponse"].startswith("Je n'ai pas trouvé")
+
+
+def test_la_reponse_repond_dans_la_langue_du_message_meme_si_l_interface_est_en_francais(agent):
+    assert agent.respond("Hi", langue="FR")["reponse"].startswith("Hello")
+    assert agent.respond("Bonjour", langue="EN")["reponse"].startswith("Bonjour")
+
+
+def test_l_apercu_est_chiffre_d_apres_le_catalogue(agent):
+    texte = agent.respond("Quelles démarches connais-tu ?")["reponse"]
+    total = len(agent.catalogue.demarches)
+    lacunes = sum(d["statut"] == "lacune" for d in agent.catalogue.demarches)
+    assert f"J'en connais {total}" in texte and f"Pour {lacunes} autres" in texte
+
+
+def test_salutation_et_aide_proposent_des_exemples_qui_aboutissent(agent):
+    for message in ("Bonjour", "Que peux-tu faire ?", "Quelles démarches existent ?"):
+        options = agent.respond(message)["options"]
+        assert len(options) >= 3
+        for option in options:
+            assert agent.respond(option["message"])["type_reponse"] in ("reponse", "clarification")
+
+
+@pytest.mark.parametrize(
+    "message",
+    ["Bonjour, je veux un passeport", "Salut, comment payer la patente ?", "Hello, I want to renew my passport"],
+)
+def test_une_salutation_n_empeche_pas_de_traiter_la_demande(agent, message):
+    assert agent.respond(message)["type_reponse"] == "reponse"
+
+
+@pytest.mark.parametrize(
+    "message",
+    ["Quel est le prix du pain ?", "Quelle est la capitale du Cameroun ?", "Bonjour, j'ai un souci avec mon dossier", "Merci pour le pain"],
+)
+def test_un_autre_sujet_n_est_pas_pris_pour_de_la_conversation(agent, message):
+    assert agent.respond(message)["type_reponse"] == "hors_perimetre"
+
+
+def test_hors_perimetre_propose_des_exemples_au_lieu_d_une_impasse(agent):
+    reponse = agent.respond("Bonjour, j'ai un souci avec mon dossier")
+    assert reponse["reponse"].startswith("Bonjour.") and len(reponse["options"]) >= 4
+
+
+def test_un_mot_vague_du_quotidien_demande_une_precision(agent):
+    for message, attendu in (("Data", "protection_donnees"), ("J'ai perdu mes papiers", "cni")):
+        reponse = agent.respond(message)
+        assert reponse["type_reponse"] == "clarification", message
+        assert attendu in [agent.catalogue.demarches_citees(o["message"])[0]["id"] for o in reponse["options"]], message
+
+
+def test_la_conversation_passe_l_audit_sans_blocage(agent):
+    from agent import AgentAssistant  # noqa: F401  (même instance que la fixture)
+    for message in ("Bonjour", "Que peux-tu faire ?", "Quelles démarches existent ?", "Merci", "Au revoir", "Hi"):
+        reponse = agent.respond(message)
+        resultat = agent.validation.controler_reponse(reponse, None)
+        assert resultat.decision == "publier", (message, resultat.gaps)
+
+
+@pytest.mark.parametrize(
+    "message, attendu",
+    [("Mon enfant vient de naître", "acte_naissance"), ("Je veux ouvrir une boutique", "commercant_individuel")],
+)
+def test_une_formulation_courante_retrouve_la_demarche_ou_demande_laquelle(agent, message, attendu):
+    reponse = agent.respond(message)
+    ids = [reponse["procedure_id"]] if reponse["procedure_id"] else [agent.catalogue.demarches_citees(o["message"])[0]["id"] for o in reponse["options"]]
+    assert attendu in ids, (message, reponse["type_reponse"])
+
+
+def test_une_deuxieme_salutation_n_est_pas_une_repetition_de_la_presentation(agent):
+    premiere = agent.respond("Bonjour")["reponse"]
+    suite = agent.respond("Salut", ["Bonjour"])["reponse"]
+    assert premiere != suite and "je vous écoute" in suite
+    assert "bien" in agent.respond("Comment vas tu ?", ["Yo"])["reponse"]
+
+
+# ------------------------------------------------------------------ Conversation rédigée par le modèle
+def test_le_modele_redige_la_conversation_quand_il_est_actif(monkeypatch):
+    vu = {}
+    monkeypatch.setattr("agent.appeler_llm", lambda prompt: vu.setdefault("prompt", prompt) and "Bonjour ! Dites-moi quelle démarche vous intéresse.")
+    agent = AgentAssistant(use_llm=True)
+    reponse = agent.respond("Bonjour")
+    assert reponse["type_reponse"] == "conversation" and reponse["mode_generation"] == "llm"
+    assert reponse["reponse"].startswith("Bonjour !") and reponse["options"]
+    agent.respond("Salut, je m'appelle Jean Mballa, tel 699123456")
+    assert "Mballa" not in vu["prompt"] and "699123456" not in vu["prompt"]
+
+
+def test_le_modele_repond_aussi_aux_messages_inconnus_mais_pas_aux_demandes_de_demarche(monkeypatch):
+    monkeypatch.setattr("agent.appeler_llm", lambda prompt: "Je ne peux pas vous aider sur ce sujet, mais je connais de nombreuses démarches.")
+    agent = AgentAssistant(use_llm=True)
+    assert agent.respond("Quel temps fait-il ?")["mode_generation"] == "llm"
+    assert agent.respond("Que peux-tu faire ?")["mode_generation"] == "regles"  # texte fixe, chiffré d'après le catalogue
+
+
+@pytest.mark.parametrize("texte", ["Le passeport coûte 500 000 FCFA.", "Voir http://exemple.cm", "", "x" * 900])
+def test_une_reponse_de_conversation_inventee_est_ecartee_au_profit_des_textes_fixes(monkeypatch, texte):
+    monkeypatch.setattr("agent.appeler_llm", lambda prompt: texte)
+    reponse = AgentAssistant(use_llm=True).respond("Bonjour")
+    assert reponse["mode_generation"] == "regles" and "je suis GOVIA" in reponse["reponse"]
+
+
+def test_modele_indisponible_la_conversation_reste_assuree(monkeypatch):
+    def panne(prompt):
+        raise ConnectionError("hors ligne")
+
+    monkeypatch.setattr("agent.appeler_llm", panne)
+    assert AgentAssistant(use_llm=True).respond("Bonjour")["reponse"].startswith("Bonjour, je suis GOVIA")

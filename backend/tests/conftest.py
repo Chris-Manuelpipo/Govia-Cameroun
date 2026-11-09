@@ -6,6 +6,7 @@ from pathlib import Path
 
 if not os.getenv("GOVIA_TEST_CHROMA"):
     os.environ["GOVIA_DISABLE_CHROMA"] = "1"
+os.environ["GOVIA_SANS_DOTENV"] = "1"
 os.environ["GOVIA_USE_LLM"] = "0"
 os.environ["GOVIA_AUDIT_LOG"] = str(Path(tempfile.mkdtemp()) / "audit.jsonl")
 

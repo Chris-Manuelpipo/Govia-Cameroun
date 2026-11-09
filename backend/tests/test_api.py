@@ -118,3 +118,19 @@ def test_catalogue_expose_les_lacunes(client):
 def test_recherche_bornee(client):
     assert client.get("/kb/search", params={"q": "passeport", "n": 1000}).status_code == 422
     assert client.get("/kb/search", params={"q": "passeport validité"}).json()["results"]
+
+
+def test_chat_repond_a_une_salutation(client):
+    donnees = _chat(client, "Bonjour").json()
+    assert donnees["agent"]["type_reponse"] == "conversation"
+    assert donnees["audit"]["decision"] == "publier" and donnees["agent"]["options"]
+
+
+def test_la_notice_dit_la_verite_quand_le_cloud_est_actif(client, monkeypatch):
+    assert "Groq" not in json.dumps(client.get("/consentement").json())
+    monkeypatch.setenv("GOVIA_ALLOW_CLOUD_LLM", "1")
+    monkeypatch.setenv("GROQ_API_KEY", "cle-de-test")
+    monkeypatch.setattr(main.agent, "use_llm", True)
+    notice = client.get("/consentement").json()
+    assert "Groq" in notice["destinataires"] and "étranger" in notice["transfert"]
+    assert client.get("/").json()["llm_cloud"] is True

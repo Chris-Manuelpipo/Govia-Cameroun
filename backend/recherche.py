@@ -9,7 +9,8 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from rag import KnowledgeBase, citation_de, kb as kb_par_defaut
+from rag import MOTS_VIDES, KnowledgeBase, citation_de, kb as kb_par_defaut
+from textes_utils import normaliser
 
 MAX_CITATIONS_RAG = 3
 
@@ -24,7 +25,15 @@ class AgentRecherche:
 
     def orienter(self, query: str, n_k: int = 3) -> List[dict]:
         """Passages proches d'une demande qu'aucune démarche du catalogue ne couvre."""
-        return self.kb.retrieve(query, n_k=n_k)
+        # Un seul mot utile (« data ») ne désigne rien : mieux vaut demander que citer un passage au hasard.
+        utiles = [m for m in normaliser(query).split() if m not in MOTS_VIDES and len(m) > 2]
+        if len(utiles) < 2:
+            return []
+        passages = self.kb.retrieve(query, n_k=n_k)
+        # Sans index vectoriel, un seul mot en commun sur deux ne suffit pas à orienter.
+        if self.kb.mode == "mots_cles":
+            passages = [p for p in passages if p["score"] >= 0.75]
+        return passages
 
     @staticmethod
     def _fiches_retenues(demarche: dict, cas: Optional[dict]) -> List[dict]:

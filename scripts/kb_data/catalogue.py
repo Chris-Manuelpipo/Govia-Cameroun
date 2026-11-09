@@ -66,6 +66,14 @@ AMBIGUS = {
     "volee": ["cni", "passeport"],
     "lost": ["cni", "passeport"],
     "stolen": ["cni", "passeport"],
+    "papiers": ["cni", "passeport", "certificat_nationalite"],
+    "papier": ["cni", "passeport", "certificat_nationalite"],
+    "boutique": ["commercant_individuel", "creation_societe"],
+    "magasin": ["commercant_individuel", "creation_societe"],
+    "identite": ["cni", "passeport", "acte_naissance"],
+    "identity": ["cni", "passeport", "acte_naissance"],
+    "data": ["protection_donnees", "signature_electronique"],
+    "donnees": ["protection_donnees", "signature_electronique"],
     "importer": ["fichier_importateurs"],
     "exporter": ["fichier_exportateurs"],
 }
@@ -196,7 +204,7 @@ DEMARCHES = [
         "domaine": "Identité et état civil",
         "statut": "couvert",
         "autorite": "Officier d'état civil",
-        "mots_cles": ["acte de naissance", "declarer une naissance", "declaration de naissance", "certificat de naissance", "naissance", "birth certificate", "birth registration"],
+        "mots_cles": ["acte de naissance", "declarer une naissance", "declaration de naissance", "vient de naitre", "est ne", "est nee", "nouveau ne", "nouveau nee", "certificat de naissance", "naissance", "birth certificate", "birth registration"],
         "etapes": [
             {"chunk": "ordonnance_81_02_etat_civil::art_30", "texte": "La naissance doit être déclarée à l'officier d'état civil du lieu de naissance dans les 30 jours suivant l'accouchement"},
             {"chunk": "ordonnance_81_02_etat_civil::art_33", "texte": "Lorsqu'une naissance n'a pas été déclarée dans le délai de trois mois, elle ne peut être enregistrée par l'officier d'état civil qu'en vertu d'un jugement rendu par le tribunal compétent"},

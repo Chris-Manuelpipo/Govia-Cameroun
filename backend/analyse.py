@@ -1,6 +1,7 @@
 """Agent d'analyse : comprend la demande du citoyen et classe la procédure concernée.
 
 Il ne cherche aucun texte et ne rédige rien. Il rend une seule issue :
+- « conversation » : salutation, remerciement, demande d'aide ou question générale, sans démarche ;
 - « refus » : la demande vise à contourner une procédure ou à falsifier un document ;
 - « clarification_demarche » : plusieurs démarches correspondent, on demande laquelle ;
 - « hors_perimetre » : aucune démarche du catalogue ne correspond ;
@@ -14,8 +15,9 @@ from dataclasses import dataclass, field
 from typing import List, Literal, Optional
 
 from catalogue import Catalogue
+from conversation import Sujet, reconnaitre
 
-Issue = Literal["refus", "clarification_demarche", "hors_perimetre", "lacune", "clarification_cas", "demarche"]
+Issue = Literal["refus", "clarification_demarche", "conversation", "hors_perimetre", "lacune", "clarification_cas", "demarche"]
 
 
 @dataclass
@@ -24,13 +26,14 @@ class Analyse:
     demarche: Optional[dict] = None
     cas: Optional[dict] = None
     candidats: List[dict] = field(default_factory=list)
+    sujet: Optional[Sujet] = None
 
 
 class AgentAnalyse:
     def __init__(self, catalogue: Optional[Catalogue] = None):
         self.catalogue = catalogue or Catalogue()
 
-    def analyser(self, query: str, historique: Optional[List[str]] = None) -> Analyse:
+    def analyser(self, query: str, historique: Optional[List[str]] = None, langue: str = "FR") -> Analyse:
         historique = historique or []
         detection = self.catalogue.detecter(query, historique)
         if detection.illicite:
@@ -38,7 +41,11 @@ class AgentAnalyse:
         if detection.demarche is None:
             if detection.ambigu:
                 return Analyse("clarification_demarche", candidats=detection.candidats)
-            return Analyse("hors_perimetre")
+            # Aucune démarche : est-ce de la conversation (« bonjour », « que peux-tu faire ? ») ou un autre sujet ?
+            sujet = reconnaitre(query, langue, deja_salue=any(
+                (ancien := reconnaitre(h, langue)) is not None and ancien.nom in ("salutation", "etat") for h in (historique or [])
+            ))
+            return Analyse("conversation", sujet=sujet) if sujet else Analyse("hors_perimetre")
 
         demarche = detection.demarche
         if demarche["statut"] == "lacune":

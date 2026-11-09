@@ -14,6 +14,7 @@ L'agent ne soumet jamais rien à la place du citoyen.
 """
 from __future__ import annotations
 
+import chargement_env  # noqa: F401  (lit .env avant les modules qui lisent l'environnement)
 import json
 import os
 from collections import Counter
@@ -21,7 +22,7 @@ from collections import Counter
 from fastapi import FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
-from agent import AgentAssistant, prefill_form
+from agent import AgentAssistant, _llm_cloud_autorise, prefill_form
 from catalogue import KB_DIR
 from journal import consigner
 from ocr import extract_text
@@ -88,12 +89,30 @@ def health():
         "base_de_connaissances": len(kb.chunks),
         "recherche": kb.mode,
         "llm_active": agent.use_llm,
+        "llm_cloud": cloud_actif(),
     }
+
+
+# Quand le modèle cloud est actif, la notice ne peut plus dire que rien ne quitte le serveur.
+NOTICE_CLOUD = {
+    "FR": {
+        "destinataires": "Groq, fournisseur du modèle de langage, reçoit le texte de vos questions après masquage des données personnelles.",
+        "transfert": "Oui : le texte masqué de vos questions est transmis à un service situé à l'étranger. Aucune autorisation de l'Autorité de protection des données n'a été délivrée : n'envoyez que des questions fictives.",
+    },
+    "EN": {
+        "destinataires": "Groq, the language model provider, receives the text of your questions after personal data has been masked.",
+        "transfert": "Yes: the masked text of your questions is sent to a service located abroad. No authorisation from the Data Protection Authority has been issued: send fictitious questions only.",
+    },
+}
+
+
+def cloud_actif() -> bool:
+    return agent.use_llm and _llm_cloud_autorise()
 
 
 @app.get("/consentement")
 def consentement(langue: str = Query("FR", pattern="^(FR|EN)$")):
-    return NOTICE[langue]
+    return {**NOTICE[langue], **(NOTICE_CLOUD[langue] if cloud_actif() else {})}
 
 
 @app.get("/kb/stats")

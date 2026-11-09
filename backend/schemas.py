@@ -52,7 +52,7 @@ class OptionClarification(BaseModel):
 
 
 class AgentResponse(BaseModel):
-    type_reponse: Literal["reponse", "clarification", "lacune", "hors_perimetre", "refus", "non_gouvernee"]
+    type_reponse: Literal["reponse", "clarification", "lacune", "hors_perimetre", "conversation", "refus", "non_gouvernee"]
     reponse: str
     procedure_id: Optional[str] = None
     procedure_identifiee: Optional[str] = None

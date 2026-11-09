@@ -249,6 +249,42 @@
    "cni",
    "passeport"
   ],
+  "papiers": [
+   "cni",
+   "passeport",
+   "certificat_nationalite"
+  ],
+  "papier": [
+   "cni",
+   "passeport",
+   "certificat_nationalite"
+  ],
+  "boutique": [
+   "commercant_individuel",
+   "creation_societe"
+  ],
+  "magasin": [
+   "commercant_individuel",
+   "creation_societe"
+  ],
+  "identite": [
+   "cni",
+   "passeport",
+   "acte_naissance"
+  ],
+  "identity": [
+   "cni",
+   "passeport",
+   "acte_naissance"
+  ],
+  "data": [
+   "protection_donnees",
+   "signature_electronique"
+  ],
+  "donnees": [
+   "protection_donnees",
+   "signature_electronique"
+  ],
   "importer": [
    "fichier_importateurs"
   ],
@@ -644,6 +680,11 @@
     "acte de naissance",
     "declarer une naissance",
     "declaration de naissance",
+    "vient de naitre",
+    "est ne",
+    "est nee",
+    "nouveau ne",
+    "nouveau nee",
     "certificat de naissance",
     "naissance",
     "birth certificate",

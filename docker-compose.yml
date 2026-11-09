@@ -41,6 +41,8 @@ services:
       - LLM_TIMEOUT=${LLM_TIMEOUT:-180}
       - GOVIA_USE_LLM=${GOVIA_USE_LLM:-1}
       - GOVIA_ALLOW_VERSION_A=${GOVIA_ALLOW_VERSION_A:-0}
+      - GOVIA_ALLOW_CLOUD_LLM=${GOVIA_ALLOW_CLOUD_LLM:-0}
+      - GROQ_API_KEY=${GROQ_API_KEY:-}
       - GOVIA_CORS_ORIGINS=http://localhost:3000
       - GOVIA_CHROMA_DIR=/app/chroma_db
       - GOVIA_AUDIT_LOG=/app/logs/audit.jsonl
