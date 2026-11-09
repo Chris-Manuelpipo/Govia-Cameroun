@@ -42,6 +42,11 @@ TEXTES = {
         "sources": "Textes et sources",
         "partiel": "Attention : cette démarche s'appuie sur une reproduction ancienne ou incomplète. Faites-la confirmer par l'administration.",
         "a_verifier": "Attention : certaines informations viennent de sources que nous n'avons pas encore pu vérifier.",
+        "intro": "Pour {nom}{cas} les textes prévoient {resume}. Voici le détail, avec les sources.",
+        "intro_etapes": "{n} étape{s}",
+        "intro_pieces": "{n} pièce{s} à fournir",
+        "intro_et": " et ",
+        "intro_cas": ", dans le cas « {cas} »,",
         "responsable": "Vous restez responsable des informations que vous validez et soumettez : l'administration compétente et le texte officiel font foi.",
         "clarifier": "Plusieurs démarches correspondent à votre demande. Laquelle vous concerne ?",
         "hors": "Je n'ai pas trouvé de démarche correspondant à votre demande dans ma base. Pouvez-vous préciser la démarche ou l'administration concernée ?",
@@ -64,6 +69,11 @@ TEXTES = {
         "sources": "Texts and sources",
         "partiel": "Warning: this procedure relies on an old or incomplete reproduction. Please have it confirmed by the administration.",
         "a_verifier": "Warning: some information comes from sources we have not yet been able to verify.",
+        "intro": "For {nom}{cas} the texts provide for {resume}. Here are the details, with sources.",
+        "intro_etapes": "{n} step{s}",
+        "intro_pieces": "{n} document{s} to provide",
+        "intro_et": " and ",
+        "intro_cas": ", in the case “{cas}”,",
         "responsable": "You remain responsible for the information you validate and submit: the competent administration and the official text prevail.",
         "clarifier": "Several procedures match your request. Which one applies to you?",
         "hors": "I could not find a procedure matching your request in my knowledge base. Could you specify the procedure or the administration concerned?",
@@ -220,6 +230,7 @@ Règles impératives :
 3. Cite la source de chaque exigence entre crochets, par exemple [Article 6].
 4. Si une information manque, dis-le : ne la déduis pas.
 5. Rappelle que le citoyen reste responsable des informations qu'il valide et soumet.
+6. Style : écris en phrases complètes et naturelles, comme un conseiller qui explique la démarche à voix haute. Commence par une ou deux phrases qui résument la démarche, puis explique les étapes dans l'ordre, en phrases (« Vous commencez par…, puis… »), et indique les pièces à fournir dans une phrase ou une courte liste. Pas de tableau, pas de HTML (ni <br>), pas d'émoji, pas de titres avec #. Le gras est permis. Cite les sources avec des crochets ASCII [ ], jamais avec d'autres signes.
 Les marqueurs comme [NOM] ou [DATE] remplacent des données masquées : ne cherche pas à les deviner.
 
 Réponds en {langue_reponse}, de manière claire et concise."""
@@ -412,6 +423,14 @@ class AgentOrchestrateur:
         lignes = [f"**{textes['demarche']} : {_nom(demarche, langue)}**"]
         if cas:
             lignes.append(f"{textes['cas']} : {_libelle(cas, langue)}")
+        # Une phrase d'introduction : la réponse sourcée commence par une phrase, pas par une liste.
+        n_etapes, n_pieces = len(elements["etapes"]), len(dict.fromkeys(p["texte"] for p in elements["pieces"]))
+        parties = [textes["intro_etapes"].format(n=n, s="s" if n > 1 else "") for n in (n_etapes,) if n] + [
+            textes["intro_pieces"].format(n=n, s="s" if n > 1 else "") for n in (n_pieces,) if n
+        ]
+        if parties:
+            cas_texte = textes["intro_cas"].format(cas=_libelle(cas, langue)) if cas else ","
+            lignes += ["", textes["intro"].format(nom=_nom(demarche, langue), cas=cas_texte, resume=textes["intro_et"].join(parties))]
         if demarche["statut"] == "partiel":
             lignes += ["", textes["partiel"]]
         if any(c["statut_verification"] != "verifie" for c in elements["citations"]):

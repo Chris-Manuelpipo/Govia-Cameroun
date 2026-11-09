@@ -61,10 +61,20 @@ export default function Home() {
       .catch(() => setErreurDocuments(true));
   }, []);
 
+  // Quitter l'assistant interrompt l'affichage progressif : à son retour, tout est affiché.
+  useEffect(() => {
+    if (vue !== "assistant") setMessages((liste) => (liste.some((m) => m.nouveau) ? liste.map((m) => (m.nouveau ? { ...m, nouveau: false } : m)) : liste));
+  }, [vue]);
+
   useEffect(() => {
     contenu.current?.scrollTo(0, 0);
     window.scrollTo(0, 0);
   }, [vue]);
+
+  /** Le texte d'une réponse a fini de s'afficher : elle ne s'animera plus. */
+  function marquerLu(index: number) {
+    setMessages((liste) => liste.map((m, i) => (i === index && m.nouveau ? { ...m, nouveau: false } : m)));
+  }
 
   function effacer() {
     setMessages([]);
@@ -153,6 +163,7 @@ export default function Home() {
         pieces: corps.agent.pieces_requises,
         audit: corps.audit,
         formulaire: corps.agent.formulaire_prerempli,
+        nouveau: true,
       };
       remplacer(message);
       // Fiche, précision requise ou aucun texte : la réponse s'ouvre dans le panneau. Sur grand écran le focus reste
@@ -221,6 +232,7 @@ export default function Home() {
             onSaisie={setSaisie}
             onEnvoyer={envoyer}
             onEffacer={effacer}
+            onLu={marquerLu}
             onOuvrir={ouvrirPanneau}
             onFermerFeuille={() => setFeuille(false)}
             onAccepter={accepter}

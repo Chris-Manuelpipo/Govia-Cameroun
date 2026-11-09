@@ -41,6 +41,7 @@ export function Assistant({
   onSaisie,
   onEnvoyer,
   onEffacer,
+  onLu,
   onOuvrir,
   onFermerFeuille,
   onAccepter,
@@ -64,6 +65,7 @@ export function Assistant({
   onSaisie: (texte: string) => void;
   onEnvoyer: (texte: string) => void;
   onEffacer: () => void;
+  onLu: (index: number) => void;
   onOuvrir: OuvrirPanneau;
   onFermerFeuille: () => void;
   onAccepter: () => void;
@@ -161,7 +163,7 @@ export function Assistant({
         </div>
 
         <div ref={fil} tabIndex={0} className="flex-1 pb-32 lg:min-h-0 lg:overflow-y-auto lg:pb-0">
-          {messages.length === 0 ? <p className="px-4 py-4 text-sm text-texte-2">{t.aucunEchange}</p> : <Echanges messages={messages} selection={selection} occupe={chargement} t={t} onOuvrir={onOuvrir} onEnvoyer={onEnvoyer} />}
+          {messages.length === 0 ? <p className="px-4 py-4 text-sm text-texte-2">{t.aucunEchange}</p> : <Echanges messages={messages} selection={selection} occupe={chargement} t={t} onOuvrir={onOuvrir} onEnvoyer={onEnvoyer} onLu={onLu} />}
         </div>
 
         <form
@@ -223,7 +225,7 @@ export function Assistant({
             <Notice notice={notice} erreur={erreurNotice} langue={langue} consent={consent} enAttente={enAttente} onAccepter={onAccepter} onRefuser={onRefuser} onRetirer={onRetirer} />
           </div>
         ) : ouverte && genre === "fiche" ? (
-          <Fiche key={`${selection}-${ouverture.n}`} message={ouverte} langue={langue} consent={consent} administration={administration} ongletInitial={ouverture.onglet} />
+          <Fiche key={`${selection}-${ouverture.n}`} message={ouverte} langue={langue} consent={consent} administration={administration} ongletInitial={ouverture.onglet} anime={!!ouverte.nouveau} onFini={() => onLu(selection as number)} />
         ) : ouverte && genre === "precision" ? (
           <Precision key={selection} message={ouverte} reponduePar={reponduePar} occupe={chargement} t={t} onChoisir={onEnvoyer} onReformuler={() => revenir("champ")} />
         ) : ouverte && genre === "aucun" ? (

@@ -6,6 +6,7 @@ import { Message, Option } from "../types";
 import { ConfianceEnLigne, STYLE_CONFIANCE } from "./Confiance";
 import { Icone } from "./icones";
 import { SourcesCitees } from "./SourcesCitees";
+import { TexteProgressif } from "./TexteProgressif";
 
 export type OuvrirPanneau = (index: number, onglet?: "sources") => void;
 
@@ -68,6 +69,7 @@ function BulleAgent({
   t,
   onOuvrir,
   onEnvoyer,
+  onLu,
 }: {
   message: Message;
   index: number;
@@ -77,6 +79,7 @@ function BulleAgent({
   t: Textes;
   onOuvrir: OuvrirPanneau;
   onEnvoyer: (texte: string) => void;
+  onLu: (index: number) => void;
 }) {
   const nom = <span className="sr-only">{t.govia} : </span>;
 
@@ -111,9 +114,9 @@ function BulleAgent({
         <div className="px-3 py-2.5">
           <p className="whitespace-pre-wrap break-words">
             {nom}
-            {message.content.replace(/\*\*/g, "")}
+            <TexteProgressif texte={message.content.replace(/\*\*/g, "")} anime={!!message.nouveau} onFini={() => onLu(index)} />
           </p>
-          {!suivant && !!message.options?.length && <Puces options={message.options} desactive={occupe} onEnvoyer={onEnvoyer} />}
+          {!suivant && !message.nouveau && !!message.options?.length && <Puces options={message.options} desactive={occupe} onEnvoyer={onEnvoyer} />}
         </div>
       </Cadre>
     );
@@ -171,7 +174,14 @@ function BulleAgent({
   const titre = message.procedure || analyse.titre;
   const nombreEtapes = compter(analyse, "etapes") || message.etapes?.length || 0;
   const nombrePieces = compter(analyse, "pieces") || message.pieces?.length || 0;
-  const resume = [analyse.cas, nombreEtapes ? t.etapesN(nombreEtapes) : "", nombrePieces ? t.piecesN(nombrePieces) : ""].filter(Boolean).join(" · ");
+  const resumeChiffre = [analyse.cas, nombreEtapes ? t.etapesN(nombreEtapes) : "", nombrePieces ? t.piecesN(nombrePieces) : ""].filter(Boolean).join(" · ");
+  // La bulle montre la phrase d'introduction de la réponse ; à défaut, les chiffres.
+  const intro = (analyse.paragraphes.find((p) => !/^[#|•-]/.test(p.trim())) || "")
+    .replace(/\*\*/g, "")
+    .replace(/[\[【][^\]】]*[\]】]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  const resume = intro.length > 20 ? intro : resumeChiffre;
   const documents = documentsCites(message.citations || []);
 
   return (
@@ -179,8 +189,9 @@ function BulleAgent({
       <div className="px-3 pb-2 pt-2.5">
         {nom}
         {niveau && <ConfianceEnLigne confiance={niveau} t={t} />}
-        <p className="mt-1 text-[16px] font-bold leading-snug">{titre || t.textesProches}</p>
-        {resume && <p className="mt-0.5 text-[14px] text-texte-2">{resume}</p>}
+        {/* Sur grand écran, la fiche ouverte à côté porte déjà ce titre. */}
+        <p className={`mt-1 text-[16px] font-bold leading-snug ${ouverte ? "lg:hidden" : ""}`}>{titre || t.textesProches}</p>
+        {resume && <p className="mt-0.5 line-clamp-3 text-[14px] text-texte-2">{resume}</p>}
         <BoutonPanneau ouverte={ouverte} onClick={() => onOuvrir(index)}>
           {ouverte ? t.ficheOuverte : t.voirFiche}
         </BoutonPanneau>
@@ -198,6 +209,7 @@ export function Echanges({
   t,
   onOuvrir,
   onEnvoyer,
+  onLu,
 }: {
   messages: Message[];
   selection: number | null;
@@ -205,6 +217,7 @@ export function Echanges({
   t: Textes;
   onOuvrir: OuvrirPanneau;
   onEnvoyer: (texte: string) => void;
+  onLu: (index: number) => void;
 }) {
   return (
     <ol className="space-y-5 px-4 py-4">
@@ -213,7 +226,7 @@ export function Echanges({
           <li key={i} className="scroll-mt-[calc(var(--nav-h)+8px)]">
             <BulleUtilisateur texte={m.content} t={t} />
             {messages[i + 1] && (
-              <BulleAgent message={messages[i + 1]} index={i + 1} suivant={messages[i + 2]} selection={selection} occupe={occupe} t={t} onOuvrir={onOuvrir} onEnvoyer={onEnvoyer} />
+              <BulleAgent message={messages[i + 1]} index={i + 1} suivant={messages[i + 2]} selection={selection} occupe={occupe} t={t} onOuvrir={onOuvrir} onEnvoyer={onEnvoyer} onLu={onLu} />
             )}
           </li>
         ) : null,

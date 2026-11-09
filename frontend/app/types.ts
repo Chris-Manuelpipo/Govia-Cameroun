@@ -57,6 +57,8 @@ export interface Message {
   formulaire?: Formulaire | null;
   chargement?: boolean;
   erreur?: boolean;
+  /** Réponse qui vient d'arriver : son texte s'affiche progressivement, une seule fois. */
+  nouveau?: boolean;
 }
 
 export type Statut = "couvert" | "partiel" | "lacune";

@@ -439,3 +439,16 @@ def test_modele_indisponible_la_conversation_reste_assuree(monkeypatch):
 
     monkeypatch.setattr("agent.appeler_llm", panne)
     assert AgentAssistant(use_llm=True).respond("Bonjour")["reponse"].startswith("Bonjour, je suis GOVIA")
+
+
+def test_la_reponse_sourcee_commence_par_une_phrase_formulee(agent):
+    texte = agent.respond("Ma CNI est périmée, je veux la renouveler")["reponse"]
+    phrase = texte.split("\n")[3]
+    assert phrase.startswith("Pour Carte nationale d'identité (CNI), dans le cas « Renouvellement d'une carte périmée », les textes prévoient 5 étapes et 3 pièces à fournir.")
+    anglais = agent.respond("I want to renew my passport", langue="EN")["reponse"]
+    assert "For Passport, the texts provide for" in anglais
+
+
+def test_la_phrase_d_introduction_passe_l_audit(agent):
+    reponse = agent.respond("Je veux un permis de construire")
+    assert agent.validation.controler_reponse(reponse, agent.catalogue.par_id["permis_construire"]).decision != "bloquer"

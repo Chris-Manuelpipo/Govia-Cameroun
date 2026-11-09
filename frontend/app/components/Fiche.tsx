@@ -7,7 +7,9 @@ import { Audit, Citation, Message } from "../types";
 import { ConfianceComplete } from "./Confiance";
 import { FormulaireCitoyen } from "./Formulaire";
 import { Etat, Icone } from "./icones";
+import { MarkdownProgressif } from "./Markdown";
 import { SourcesCitees } from "./SourcesCitees";
+import { useRevelation } from "../lib/revelation";
 
 /** Affiche le gras produit par l'agent, sans jamais injecter de HTML. */
 function Riche({ texte }: { texte: string }) {
@@ -291,6 +293,8 @@ export function Fiche({
   consent,
   administration,
   ongletInitial = "demarche",
+  anime = false,
+  onFini = () => {},
 }: {
   message: Message;
   langue: Langue;
@@ -298,6 +302,9 @@ export function Fiche({
   /** Administration compétente, d'après le catalogue. */
   administration?: string | null;
   ongletInitial?: Onglet;
+  /** Réponse qui vient d'arriver : son contenu se révèle progressivement. */
+  anime?: boolean;
+  onFini?: () => void;
 }) {
   const t = TEXTES[langue];
   const [onglet, setOnglet] = useState<Onglet>(ongletInitial);
@@ -318,6 +325,60 @@ export function Fiche({
     ...(controles.length ? [{ id: "controle" as Onglet, libelle: `${t.onglets.controle} (${controles.length})` }] : []),
     ...(message.formulaire ? [{ id: "formulaire" as Onglet, libelle: t.onglets.formulaire }] : []),
   ];
+
+  // Texte rédigé par le modèle : rendu en markdown. Sinon, la fiche sourcée est révélée bloc par bloc.
+  const markdown = message.mode === "llm" && message.type === "reponse";
+  const blocs: React.ReactNode[] = [];
+  analyse.alertes
+    .filter((a) => !(niveau?.raison === "sources" && /pas encore pu v[ée]rifier|not yet been able to verify/i.test(a)))
+    .forEach((alerte) =>
+      blocs.push(
+        <p key={`a-${alerte}`} className="extrait-exact border-l-4 border-attention-vif bg-attention-clair px-3 py-2">
+          {alerte.replace(/^(Attention|Warning)\s*:\s*/, "")}
+        </p>,
+      ),
+    );
+  if (analyse.paragraphes.length > 0)
+    blocs.push(
+      <div key="paragraphes" className="space-y-2">
+        {analyse.paragraphes.map((p, i) => (
+          <p key={i}>
+            <Riche texte={p} />
+          </p>
+        ))}
+      </div>,
+    );
+  blocs.push(<Faits key="faits" analyse={analyse} t={t} />);
+  trouver("etapes").forEach((s, i) => blocs.push(<Etapes key={`e${i}`} section={s} />));
+  trouver("pieces").forEach((s, i) => blocs.push(<Pieces key={`p${i}`} section={s} t={t} />));
+  trouver("extraits").forEach((s, i) => blocs.push(<Extraits key={`x${i}`} section={s} />));
+  autres.forEach((s, i) =>
+    blocs.push(
+      <section key={`o${i}`}>
+        {s.titre && <Titre2>{s.titre}</Titre2>}
+        <ul className="mt-2 list-disc space-y-1 pl-5">
+          {s.items.map((item, j) => (
+            <li key={j}>
+              <Riche texte={item} />
+            </li>
+          ))}
+        </ul>
+      </section>,
+    ),
+  );
+  if (analyse.notes.length > 0)
+    blocs.push(
+      <div key="notes" className="space-y-1 border-t border-ligne pt-3 text-sm text-texte-2">
+        {analyse.notes.map((note, i) => (
+          <p key={i}>
+            <Riche texte={note} />
+          </p>
+        ))}
+      </div>,
+    );
+  const [lu, setLu] = useState(!anime);
+  const animeBlocs = anime && !markdown;
+  const visibles = useRevelation(blocs.length, animeBlocs, onFini, Math.min(1800, blocs.length * 220), 110);
 
   return (
     <article className="mx-auto w-full max-w-[960px] border-ligne bg-surface lg:my-6 lg:border">
@@ -364,53 +425,9 @@ export function Fiche({
 
       <div role="tabpanel" id="panneau-fiche" aria-labelledby={`onglet-${onglet}`} className="px-4 py-5 lg:px-8">
         {onglet === "demarche" && (
-          <div className="space-y-6">
-            {analyse.alertes.filter((a) => !(niveau?.raison === "sources" && /pas encore pu v[ée]rifier|not yet been able to verify/i.test(a))).map((alerte) => (
-              <p key={alerte} className="extrait-exact border-l-4 border-attention-vif bg-attention-clair px-3 py-2">
-                {alerte.replace(/^(Attention|Warning)\s*:\s*/, "")}
-              </p>
-            ))}
-            {analyse.paragraphes.length > 0 && (
-              <div className="space-y-2">
-                {analyse.paragraphes.map((p, i) => (
-                  <p key={i}>
-                    <Riche texte={p} />
-                  </p>
-                ))}
-              </div>
-            )}
-            <Faits analyse={analyse} t={t} />
-            {trouver("etapes").map((s, i) => (
-              <Etapes key={i} section={s} />
-            ))}
-            {trouver("pieces").map((s, i) => (
-              <Pieces key={i} section={s} t={t} />
-            ))}
-            {trouver("extraits").map((s, i) => (
-              <Extraits key={i} section={s} />
-            ))}
-            {autres.map((s, i) => (
-              <section key={i}>
-                {s.titre && <Titre2>{s.titre}</Titre2>}
-                <ul className="mt-2 list-disc space-y-1 pl-5">
-                  {s.items.map((item, j) => (
-                    <li key={j}>
-                      <Riche texte={item} />
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
-            {analyse.notes.length > 0 && (
-              <div className="space-y-1 border-t border-ligne pt-3 text-sm text-texte-2">
-                {analyse.notes.map((note, i) => (
-                  <p key={i}>
-                    <Riche texte={note} />
-                  </p>
-                ))}
-              </div>
-            )}
-            {documents.length > 0 && (
+          <div className="space-y-6" data-progressif={animeBlocs && visibles < blocs.length ? "" : undefined}>
+            {markdown ? <MarkdownProgressif texte={message.content} anime={anime} onFini={() => { setLu(true); onFini(); }} /> : blocs.slice(0, visibles)}
+            {(markdown ? lu : visibles >= blocs.length) && documents.length > 0 && (
               <div className="border border-ligne">
                 <SourcesCitees documents={documents} t={t} className="border-t-0" />
                 <button

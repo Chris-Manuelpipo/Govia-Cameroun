@@ -24,7 +24,6 @@ export function AucunTexte({ message, t, onAutreQuestion }: { message: Message; 
   const analyse = useMemo(() => (lacune ? analyserLacune(message.content) : null), [lacune, message.content]);
   const demarche = message.procedure || analyse?.titre || null;
   const administration = analyse?.autorite && !NON_IDENTIFIEE.test(analyse.autorite) ? analyse.autorite : null;
-  const constat = lacune ? analyse?.constat : message.content.replace(/\*\*/g, "");
 
   const etapes = [
     administration ? t.aucunTexte.etapeAdministration(administration) : t.aucunTexte.etapeIdentifier,
@@ -50,7 +49,6 @@ export function AucunTexte({ message, t, onAutreQuestion }: { message: Message; 
           <h1 id={`${id}-titre`} className="mt-6 text-balance text-[24px] font-bold leading-tight text-titre">
             {t.aucunTexte.titre}
           </h1>
-          <p className="mt-1.5 text-[16px] text-texte-2">{demarche || t.aucunTexte.horsPerimetre}</p>
         </div>
 
         {/* Encadré de transparence */}
@@ -64,24 +62,18 @@ export function AucunTexte({ message, t, onAutreQuestion }: { message: Message; 
           </div>
         </div>
 
-        {(constat || analyse?.guide) && (
-          <div className="border-t border-ligne px-6 py-4">
-            <h2 className="font-semibold">{t.aucunTexte.constat}</h2>
-            {constat && <p className="mt-1 text-texte-2">{constat}</p>}
-            {analyse?.guide && (
-              <p className="mt-2 flex items-start gap-2 text-[14px]">
-                <Icone nom="alerte" taille={16} className="mt-1 text-attention-vif" />
-                {estLien(analyse.guide) ? (
-                  <a href={analyse.guide} target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2">
-                    {t.aucunTexte.guide}
-                    <Icone nom="externe" taille={13} className="ml-1 align-[-1px]" />
-                  </a>
-                ) : (
-                  <span>{t.aucunTexte.guide}</span>
-                )}
-              </p>
+        {analyse?.guide && (
+          <p className="flex items-start gap-2 border-t border-ligne px-6 py-3 text-[14px]">
+            <Icone nom="alerte" taille={16} className="mt-1 shrink-0 text-attention-vif" />
+            {estLien(analyse.guide) ? (
+              <a href={analyse.guide} target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-2">
+                {t.aucunTexte.guide}
+                <Icone nom="externe" taille={13} className="ml-1 align-[-1px]" />
+              </a>
+            ) : (
+              <span>{t.aucunTexte.guide}</span>
             )}
-          </div>
+          </p>
         )}
 
         <div className="border-t border-ligne px-6 py-4">

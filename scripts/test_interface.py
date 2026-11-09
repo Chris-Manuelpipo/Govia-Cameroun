@@ -46,7 +46,7 @@ shutil.copytree(f"{FRONT}/.next/static", f"{STANDALONE}/.next/static", dirs_exis
 shutil.copytree(f"{FRONT}/public", f"{STANDALONE}/public", dirs_exist_ok=True)
 
 env_api = dict(
-    os.environ, GOVIA_DISABLE_CHROMA="1", GOVIA_USE_LLM="1", LLM_URL="http://127.0.0.1:9/api/generate",
+    os.environ, GOVIA_SANS_DOTENV="1", GOVIA_DISABLE_CHROMA="1", GOVIA_USE_LLM="1", LLM_URL="http://127.0.0.1:9/api/generate",
     LLM_TIMEOUT="1", GOVIA_AUDIT_LOG=f"{B}/ui_audit.jsonl", GOVIA_CORS_ORIGINS=ORIGINE,
 )
 env_web = dict(os.environ, PORT=WEB, HOSTNAME="127.0.0.1", API_URL=f"http://127.0.0.1:{API}", NEXT_TELEMETRY_DISABLED="1")
@@ -149,6 +149,7 @@ try:
     def attendre_fin():
         time.sleep(0.4)
         attente.until(lambda d: not d.find_elements(By.CSS_SELECTOR, "[data-chargement]"))
+        attente.until(lambda d: not d.find_elements(By.CSS_SELECTOR, "[data-progressif]"))  # texte entièrement affiché
         time.sleep(0.5)
 
     def poser(question):
@@ -444,7 +445,7 @@ try:
         texte[-600:],
     )
     verifier("L'encadré de transparence a une bordure verte", driver.execute_script("return Array.from(document.querySelectorAll('h2')).some(h => h.textContent.includes('Transparence') && getComputedStyle(h.parentElement).borderTopColor === 'rgb(26, 127, 55)')"))
-    verifier("La base dit ce qu'elle a constaté et l'administration à contacter", "n'a pas pu être consulté" in texte and "Contactez l'administration indiquée : Ministère des Transports" in texte, texte[-800:])
+    verifier("L'administration à contacter est indiquée, sans note interne de la base", "Contactez l'administration indiquée : Ministère des Transports" in texte and "étude de faisabilité" not in texte and "Ce que GOVIA a constaté" not in texte, texte[-800:])
     verifier("Les deux actions sont proposées", {"Poser une autre question", "Contacter un service public"} <= {b.text for b in boutons()})
     verifier("Ce n'est pas présenté comme une fiche", not driver.find_elements(By.TAG_NAME, "article"))
     verifier("La bulle du fil l'annonce aussi", "AUCUN TEXTE OUVERT TROUVÉ" in echanges()[-1].text.upper())
@@ -488,6 +489,10 @@ try:
     verifier("Un remerciement reçoit une réponse polie", "Avec plaisir" in corps())
     poser("Hi")
     verifier("« Hi » reçoit une réponse en anglais même si l'interface est en français", "Hello, I'm GOVIA" in corps(), corps()[-300:])
+
+    poser("Quelles démarches existent ?")
+    premier = driver.execute_script("return document.querySelectorAll('[data-progressif]').length")
+    verifier("Le texte validé s'affiche progressivement puis reste entier", premier == 0 and "J'en connais 43" in corps())
 
     print("--- mode clair et mode sombre ---")
     verifier("Le thème clair est actif par défaut", driver.find_element(By.TAG_NAME, "html").get_attribute("data-theme") == "light")

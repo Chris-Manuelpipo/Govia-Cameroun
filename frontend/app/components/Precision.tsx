@@ -55,7 +55,6 @@ export function Precision({
           <h1 id={`${id}-titre`} className="mt-1 text-balance text-[22px] font-bold leading-snug text-titre">
             {t.precision.titre}
           </h1>
-          {message.procedure && <p className="mt-1.5 text-texte-2">{message.procedure}</p>}
         </div>
 
         <form
