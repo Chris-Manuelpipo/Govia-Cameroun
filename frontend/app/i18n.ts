@@ -80,7 +80,7 @@ const FR = {
     aucun: { libelle: "Aucun texte ouvert trouvé", detail: "Sans texte ouvert, GOVIA ne détaille aucune procédure." },
   },
   raisons: {
-    sources: "Au moins une source citée n'a pas encore été vérifiée à la source.",
+    sources: "Au moins une source citée n'a pas encore été contrôlée.",
     partiel: "La démarche s'appuie sur une reproduction ancienne ou incomplète.",
     proches: "Textes proches seulement : aucune démarche précise n'a été identifiée.",
     retenue: "La réponse a été retenue par l'auditeur de conformité.",
@@ -183,7 +183,7 @@ const FR = {
   verdicts: { conforme: "Conforme", partiel: "Partiel", non_conforme: "Non conforme" },
   decisions: { publier: "Publiée", publier_avec_reserve: "Publiée avec réserve", bloquer: "Bloquée" },
   modes: {
-    llm: "Rédigée par le modèle local, puis contrôlée",
+    llm: "Rédigée par le modèle de langage, puis contrôlée",
     extraits_sources: "Extraits des sources uniquement",
     extraits_sources_llm_indisponible: "Extraits des sources uniquement (modèle indisponible)",
     extraits_sources_apres_rejet_llm: "Extraits des sources : texte du modèle rejeté par l'auditeur",
@@ -326,7 +326,7 @@ const EN: Textes = {
     aucun: { libelle: "No open text found", detail: "Without an open text, GOVIA details no procedure." },
   },
   raisons: {
-    sources: "At least one cited source has not yet been verified at the source.",
+    sources: "At least one cited source has not been checked yet.",
     partiel: "The procedure relies on an old or incomplete reproduction.",
     proches: "Related texts only: no specific procedure was identified.",
     retenue: "The answer was withheld by the compliance auditor.",
@@ -424,7 +424,7 @@ const EN: Textes = {
   verdicts: { conforme: "Compliant", partiel: "Partial", non_conforme: "Non-compliant" },
   decisions: { publier: "Published", publier_avec_reserve: "Published with a reservation", bloquer: "Blocked" },
   modes: {
-    llm: "Drafted by the local model, then checked",
+    llm: "Drafted by the language model, then checked",
     extraits_sources: "Source extracts only",
     extraits_sources_llm_indisponible: "Source extracts only (model unavailable)",
     extraits_sources_apres_rejet_llm: "Source extracts: model draft rejected by the auditor",

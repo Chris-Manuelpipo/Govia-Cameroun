@@ -76,11 +76,13 @@ export function Markdown({ texte }: { texte: string }) {
       } else if (/^\s*([-*•])\s+/.test(l) || /^\s*\d+[.)]\s+/.test(l)) {
         const ordonnee = /^\s*\d+[.)]\s+/.test(l);
         const motif = ordonnee ? /^\s*\d+[.)]\s+/ : /^\s*[-*•]\s+/;
+        // Une liste coupée par une ligne vide ou une sous-liste reprend au numéro écrit, pas à 1.
+        const debut = ordonnee ? parseInt(l.trim(), 10) : undefined;
         const items: string[] = [];
         while (i < lignes.length && motif.test(lignes[i])) items.push(lignes[i++].replace(motif, ""));
         const Liste = ordonnee ? "ol" : "ul";
         sortie.push(
-          <Liste key={cle++} className={`space-y-1 pl-5 ${ordonnee ? "list-decimal" : "list-disc"}`}>
+          <Liste key={cle++} start={debut && debut > 1 ? debut : undefined} className={`space-y-1 pl-5 ${ordonnee ? "list-decimal" : "list-disc"}`}>
             {items.map((it, k) => <li key={k}>{enLigne(it)}</li>)}
           </Liste>,
         );

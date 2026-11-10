@@ -382,7 +382,7 @@ try:
     texte = fiche()
     verifier("Le choix du cas donne la bonne pièce", "attestation de déclaration de perte" in texte.lower(), texte[:600])
     verifier("L'état ne prétend pas que tout est vérifié", "À vérifier" in texte and "Vérifié — sources ouvertes" not in texte, texte[:400])
-    verifier("La raison est donnée", "n'a pas encore été vérifiée" in texte, texte[:400])
+    verifier("La raison est donnée", "n'a pas encore été contrôlée" in texte, texte[:400])
     verifier("L'avertissement sur les sources à vérifier n'est pas répété", texte.count("pas encore") == 1, texte[:500])
     verifier("Les onglets annoncent leur contenu", all(any(b.text.startswith(n) for b in driver.find_elements(By.CSS_SELECTOR, "[role=tab]")) for n in ["Démarche", "Sources (", "Contrôle (", "Formulaire"]))
     photo("11_fiche_cni")

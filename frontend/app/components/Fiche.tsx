@@ -248,23 +248,24 @@ function OngletControle({ audit, mode, t }: { audit: Audit; mode?: string; t: Te
         )}
       </dl>
 
+      {/* Sur téléphone, chaque contrôle s'empile : nom et résultat, puis le détail sur toute la largeur. */}
       <div className="mt-5 overflow-x-auto">
         <table className="w-full border-collapse">
-          <thead>
+          <thead className="hidden sm:table-header-group">
             <tr className="border-b-2 border-titre text-sm">
               <th className="py-1.5 pr-4">{t.colonnesControle.controle}</th>
               <th className="py-1.5 pr-4">{t.colonnesControle.resultat}</th>
               <th className="py-1.5">{t.colonnesControle.detail}</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="border-t-2 border-titre sm:border-t-0">
             {audit.controles.map((c, i) => (
-              <tr key={`${c.nom}${i}`} className="border-b border-ligne align-top">
-                <td className="whitespace-nowrap py-2 pr-4 font-medium">{t.controles[c.nom] || c.nom}</td>
-                <td className="py-2 pr-4">
+              <tr key={`${c.nom}${i}`} className="block border-b border-ligne py-2 align-top sm:table-row sm:py-0">
+                <td className="inline-block pr-3 font-medium sm:table-cell sm:whitespace-nowrap sm:py-2 sm:pr-4">{t.controles[c.nom] || c.nom}</td>
+                <td className="inline-block sm:table-cell sm:py-2 sm:pr-4">
                   <Etat ton={tons[c.resultat]}>{t.resultatsControle[c.resultat]}</Etat>
                 </td>
-                <td className="py-2 text-texte-2">{c.detail}</td>
+                <td className="block pt-0.5 text-texte-2 sm:table-cell sm:py-2">{c.detail}</td>
               </tr>
             ))}
           </tbody>

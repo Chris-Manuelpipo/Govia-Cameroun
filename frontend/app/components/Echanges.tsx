@@ -28,16 +28,32 @@ function Cadre({ barre, fond = "bg-surface", children, ...reste }: { barre: stri
   );
 }
 
-/** Lien d'action discret : pas de cadre, seulement du texte et une flèche. */
-function BoutonPanneau({ ouverte, onClick, children }: { ouverte: boolean; onClick: () => void; children: React.ReactNode }) {
+/**
+ * Lien d'action discret : pas de cadre, seulement du texte et une flèche.
+ * Sur mobile, le panneau ouvert est caché dès qu'on revient au fil : le lien reste donc actif
+ * à cette taille. Sur grand écran, le panneau est visible à côté et le lien devient un simple état.
+ */
+function BoutonPanneau({ ouverte, onClick, voir, affiche }: { ouverte: boolean; onClick: () => void; voir: string; affiche: string }) {
+  const lien = (
+    <>
+      <span>{voir}</span>
+      <Icone nom="envoyer" taille={16} />
+    </>
+  );
   return (
     <button
       onClick={onClick}
       aria-current={ouverte ? "true" : undefined}
-      className={`-ml-1 mt-1 inline-flex min-h-[44px] items-center gap-1.5 px-1 font-semibold hover:underline ${ouverte ? "text-texte-2" : "text-accent"}`}
+      className={`-ml-1 mt-1 inline-flex min-h-[44px] items-center gap-1.5 px-1 font-semibold hover:underline ${ouverte ? "text-accent lg:text-texte-2" : "text-accent"}`}
     >
-      <span>{children}</span>
-      {!ouverte && <Icone nom="envoyer" taille={16} />}
+      {ouverte ? (
+        <>
+          <span className="inline-flex items-center gap-1.5 lg:hidden">{lien}</span>
+          <span className="hidden lg:inline">{affiche}</span>
+        </>
+      ) : (
+        lien
+      )}
     </button>
   );
 }
@@ -142,9 +158,7 @@ function BulleAgent({
               {t.precision.repondue}
             </p>
           ) : (
-            <BoutonPanneau ouverte={ouverte} onClick={() => onOuvrir(index)}>
-              {ouverte ? t.precision.affichee : t.precision.voirOptions}
-            </BoutonPanneau>
+            <BoutonPanneau ouverte={ouverte} onClick={() => onOuvrir(index)} voir={t.precision.voirOptions} affiche={t.precision.affichee} />
           )}
         </div>
       </Cadre>
@@ -161,9 +175,7 @@ function BulleAgent({
           {nom}
           {niveau && <ConfianceEnLigne confiance={niveau} t={t} />}
           {message.procedure && <p className="mt-1 text-[16px] font-bold leading-snug">{message.procedure}</p>}
-          <BoutonPanneau ouverte={ouverte} onClick={() => onOuvrir(index)}>
-            {ouverte ? t.pistesAffichees : t.voirPistes}
-          </BoutonPanneau>
+          <BoutonPanneau ouverte={ouverte} onClick={() => onOuvrir(index)} voir={t.voirPistes} affiche={t.pistesAffichees} />
         </div>
       </Cadre>
     );
@@ -192,9 +204,7 @@ function BulleAgent({
         {/* Sur grand écran, la fiche ouverte à côté porte déjà ce titre. */}
         <p className={`mt-1 text-[16px] font-bold leading-snug ${ouverte ? "lg:hidden" : ""}`}>{titre || t.textesProches}</p>
         {resume && <p className="mt-0.5 line-clamp-3 text-[14px] text-texte-2">{resume}</p>}
-        <BoutonPanneau ouverte={ouverte} onClick={() => onOuvrir(index)}>
-          {ouverte ? t.ficheOuverte : t.voirFiche}
-        </BoutonPanneau>
+        <BoutonPanneau ouverte={ouverte} onClick={() => onOuvrir(index)} voir={t.voirFiche} affiche={t.ficheOuverte} />
       </div>
       <SourcesCitees documents={documents} t={t} max={3} compact onTout={() => onOuvrir(index, "sources")} />
     </Cadre>
