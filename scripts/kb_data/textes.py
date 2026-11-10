@@ -298,4 +298,46 @@ DOCUMENTS = [
             ("etape_4", "Étape 4 — Retrait", "Une fois le passeport produit, le demandeur est notifié par SMS et mail. Le retrait peut être effectué par un tiers muni d'une procuration dûment légalisée."),
         ],
     },
+    # ------------------------------------------------------------------
+    # Référence internationale (analyse d'écarts) : jamais citée à un citoyen.
+    {
+        "doc": 'ue_2016_679_rgpd',
+        "titre": "Règlement (UE) 2016/679 du 27 avril 2016 relatif à la protection des personnes physiques à l'égard du traitement des données à caractère personnel (RGPD)",
+        "autorite": "Union européenne (Parlement européen et Conseil)",
+        "source_url": 'https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32016R0679',
+        "date_publication": '2016-04-27',
+        "type": "politique",
+        "type_source": "texte_officiel",
+        "statut_verification": "verifie",
+        "methode": "Copié le 2026-11-10 depuis la version HTML française d'EUR-Lex, extrait sans reformulation.",
+        "note": "Référence internationale, hors droit camerounais : elle sert à comparer les lacunes du droit camerounais aux bonnes pratiques (analyse d'écarts) et n'est jamais citée comme règle applicable dans une réponse au citoyen.",
+        "procedure_id": "references_internationales",
+        "chunks": [
+            ('art_4_5', 'Article 4, point 5) — Pseudonymisation', '«pseudonymisation», le traitement de données à caractère personnel de telle façon que celles-ci ne puissent plus être attribuées à une personne concernée précise sans avoir recours à des informations supplémentaires, pour autant que ces informations supplémentaires soient conservées séparément et soumises à des mesures techniques et organisationnelles afin de garantir que les données à caractère personnel ne sont pas attribuées à une personne physique identifiée ou identifiable;'),
+            ('art_22_1', 'Article 22, paragraphe 1 — Décision individuelle automatisée', "1. La personne concernée a le droit de ne pas faire l'objet d'une décision fondée exclusivement sur un traitement automatisé, y compris le profilage, produisant des effets juridiques la concernant ou l'affectant de manière significative de façon similaire."),
+            ('art_22_3', 'Article 22, paragraphe 3 — Intervention humaine', "3. Dans les cas visés au paragraphe 2, points a) et c), le responsable du traitement met en œuvre des mesures appropriées pour la sauvegarde des droits et libertés et des intérêts légitimes de la personne concernée, au moins du droit de la personne concernée d'obtenir une intervention humaine de la part du responsable du traitement, d'exprimer son point de vue et de contester la décision."),
+            ('considerant_26', 'Considérant 26 — Données pseudonymisées', "Il y a lieu d'appliquer les principes relatifs à la protection des données à toute information concernant une personne physique identifiée ou identifiable. Les données à caractère personnel qui ont fait l'objet d'une pseudonymisation et qui pourraient être attribuées à une personne physique par le recours à des informations supplémentaires devraient être considérées comme des informations concernant une personne physique identifiable. […]"),
+        ],
+    },
+    # ------------------------------------------------------------------
+    # Référence internationale (analyse d'écarts) : jamais citée à un citoyen.
+    {
+        "doc": 'ue_2024_1689_reglement_ia',
+        "titre": "Règlement (UE) 2024/1689 du 13 juin 2024 établissant des règles harmonisées concernant l'intelligence artificielle (règlement sur l'IA)",
+        "autorite": "Union européenne (Parlement européen et Conseil)",
+        "source_url": 'https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32024R1689',
+        "date_publication": '2024-06-13',
+        "type": "politique",
+        "type_source": "texte_officiel",
+        "statut_verification": "verifie",
+        "methode": "Copié le 2026-11-10 depuis la version HTML française d'EUR-Lex, extrait sans reformulation.",
+        "note": "Référence internationale, hors droit camerounais : elle sert à comparer les lacunes du droit camerounais aux bonnes pratiques (analyse d'écarts) et n'est jamais citée comme règle applicable dans une réponse au citoyen.",
+        "procedure_id": "references_internationales",
+        "chunks": [
+            ('art_12_1', 'Article 12, paragraphe 1 — Enregistrement (journaux)', '1. Les systèmes d’IA à haut risque permettent, techniquement, l’enregistrement automatique des événements (journaux) tout au long de la durée de vie du système.'),
+            ('art_14_1', 'Article 14, paragraphe 1 — Contrôle humain', '1. La conception et le développement des systèmes d’IA à haut risque permettent, notamment au moyen d’interfaces homme-machine appropriées, un contrôle effectif par des personnes physiques pendant leur période d’utilisation.'),
+            ('art_50_1', 'Article 50, paragraphe 1 — Information des personnes qui interagissent avec une IA', '1. Les fournisseurs veillent à ce que les systèmes d’IA destinés à interagir directement avec des personnes physiques soient conçus et développés de manière que les personnes physiques concernées soient informées qu’elles interagissent avec un système d’IA, sauf si cela ressort clairement du point de vue d’une personne physique normalement informée et raisonnablement attentive et avisée, compte tenu des circonstances et du contexte d’utilisation. Cette obligation ne s’applique pas aux systèmes d’IA dont la loi autorise l’utilisation à des fins de prévention ou de détection des infractions pénales, d’enquêtes ou de poursuites en la matière, sous réserve de garanties appropriées pour les droits et libertés des tiers, sauf si ces systèmes sont mis à la disposition du public pour permettre le signalement d’une infraction pénale.'),
+            ('art_50_2', 'Article 50, paragraphe 2 — Marquage des contenus générés', '2. Les fournisseurs de systèmes d’IA, y compris de systèmes d’IA à usage général, qui génèrent des contenus de synthèse de type audio, image, vidéo ou texte, veillent à ce que les sorties des systèmes d’IA soient marquées dans un format lisible par machine et identifiables comme ayant été générées ou manipulées par une IA. Les fournisseurs veillent à ce que leurs solutions techniques soient aussi efficaces, interopérables, solides et fiables que la technologie le permet, compte tenu des spécificités et des limites des différents types de contenus, des coûts de mise en œuvre et de l’état de la technique généralement reconnu, comme cela peut ressortir des normes techniques pertinentes. Cette obligation ne s’applique pas dans la mesure où les systèmes d’IA remplissent une fonction d’assistance pour la mise en forme standard ou ne modifient pas de manière substantielle les données d’entrée fournies par le déployeur ou leur sémantique, ou lorsque leur utilisation est autorisée par la loi à des fins de prévention ou de détection des infractions pénales, d’enquêtes ou de poursuites en la matière.'),
+        ],
+    },
 ]

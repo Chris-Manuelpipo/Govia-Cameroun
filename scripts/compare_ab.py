@@ -50,7 +50,26 @@ def main() -> int:
     version_a = AgentAssistant(use_llm=True)
     resultats = []
 
-    for titre, question, langue in SCENARIOS:
+    # Quota du cloud (Groq gratuit : 8 000 tokens par minute) : pause entre scénarios, 0 en local.
+    pause = float(os.getenv("COMPARE_PAUSE", "0"))
+
+    def version_a_avec_reprise(question: str, langue: str) -> dict:
+        import time
+        import requests
+
+        for tentative in range(4):
+            try:
+                # Questions fixes et fictives : la version A peut utiliser le même modèle que B, même en cloud.
+                return version_a.respond_ungoverned(question, langue, questions_fictives=True)
+            except requests.HTTPError as erreur:
+                if erreur.response is None or erreur.response.status_code != 429 or tentative == 3:
+                    raise
+                time.sleep(30)
+
+    for numero, (titre, question, langue) in enumerate(SCENARIOS):
+        if numero and pause:
+            import time
+            time.sleep(pause)
         b = version_b.respond(question, langue=langue)
         demarche = version_b.catalogue.par_id.get(b["procedure_id"] or "")
         audit_b = audit(
@@ -60,7 +79,10 @@ def main() -> int:
             type_reponse=b["type_reponse"], statut_demarche=b["statut_demarche"],
         )
         try:
-            a = version_a.respond_ungoverned(question, langue)
+            if pause:
+                import time
+                time.sleep(pause)  # B et A ne partagent pas la même minute de quota
+            a = version_a_avec_reprise(question, langue)
             audit_a = audit(a["reponse"], [], base=kb.par_id, type_reponse="non_gouvernee")
             bloc_a = {"executee": True, "reponse": a["reponse"], "verdict_observe": audit_a.verdict, "motifs": audit_a.gaps}
         except Exception as erreur:  # LLM absent : la version A ne peut pas exister sans lui
@@ -93,7 +115,8 @@ def main() -> int:
         "",
         f"Générée le {date.today().isoformat()} par `scripts/compare_ab.py`. Les réponses complètes sont dans `comparaison_ab.json`.",
         "",
-        f"Recherche : {kb.mode}. LLM de la version B : {'activé' if utiliser_llm else 'désactivé'}.",
+        f"Recherche : {kb.mode}. LLM de la version B : {'activé' if utiliser_llm else 'désactivé'}. "
+        f"Modèle (A et B) : {os.getenv('GROQ_MODEL', 'openai/gpt-oss-120b') + ' via Groq' if os.getenv('GOVIA_ALLOW_CLOUD_LLM') == '1' and os.getenv('GROQ_API_KEY') else 'LLM local (' + os.environ['LLM_URL'] + ')'}.",
         "",
     ]
     if not any(r["version_a"]["executee"] for r in resultats):

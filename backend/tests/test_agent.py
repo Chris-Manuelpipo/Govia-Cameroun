@@ -452,3 +452,24 @@ def test_la_reponse_sourcee_commence_par_une_phrase_formulee(agent):
 def test_la_phrase_d_introduction_passe_l_audit(agent):
     reponse = agent.respond("Je veux un permis de construire")
     assert agent.validation.controler_reponse(reponse, agent.catalogue.par_id["permis_construire"]).decision != "bloquer"
+
+
+def test_le_modele_ne_peut_pas_afficher_un_marqueur_de_masquage(monkeypatch):
+    monkeypatch.setattr("agent.appeler_llm", lambda prompt: "Bonjour [NOM], ravi de vous rencontrer. Quelle démarche vous intéresse ?")
+    agent = AgentAssistant(use_llm=True)
+    reponse = agent.respond("Je m'appelle Chris")["reponse"]
+    assert reponse.startswith("Bonjour, ravi") and "[NOM]" not in reponse
+
+
+def test_le_nom_donne_ne_part_pas_chez_le_modele_et_son_marqueur_ne_revient_pas(monkeypatch):
+    vu = {}
+    monkeypatch.setattr("agent.appeler_llm", lambda prompt: vu.setdefault("prompt", prompt) and "Merci, dites-moi quelle démarche vous intéresse.")
+    AgentAssistant(use_llm=True).respond("Je m'appelle Chris")
+    assert "Chris" not in vu["prompt"]
+
+
+def test_retirer_marqueurs():
+    from privacy import retirer_marqueurs
+
+    assert retirer_marqueurs("Bonjour [NOM], ravi. Votre date [DATE] !") == "Bonjour, ravi. Votre date !"
+    assert retirer_marqueurs("Voir l'article [Article 6].") == "Voir l'article [Article 6]."

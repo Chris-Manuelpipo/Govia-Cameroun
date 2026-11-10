@@ -5,14 +5,14 @@
     "EN",
     "FR"
   ],
-  "total_chunks": 256,
-  "total_documents": 44,
+  "total_chunks": 264,
+  "total_documents": 46,
   "chunks_par_statut": {
-    "verifie": 248,
+    "verifie": 256,
     "a_verifier": 8
   },
   "chunks_par_type_source": {
-    "texte_officiel": 56,
+    "texte_officiel": 64,
     "reproduction": 32,
     "portail_institutionnel": 168
   },
@@ -177,6 +177,32 @@
       "note": "",
       "chunks": 4,
       "fichier": "procedure_passcam_passeport.jsonl"
+    },
+    {
+      "doc": "ue_2016_679_rgpd",
+      "titre": "Règlement (UE) 2016/679 du 27 avril 2016 relatif à la protection des personnes physiques à l'égard du traitement des données à caractère personnel (RGPD)",
+      "autorite": "Union européenne (Parlement européen et Conseil)",
+      "source_url": "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32016R0679",
+      "date_publication": "2016-04-27",
+      "type_source": "texte_officiel",
+      "statut_verification": "verifie",
+      "methode_verification": "Copié le 2026-11-10 depuis la version HTML française d'EUR-Lex, extrait sans reformulation.",
+      "note": "Référence internationale, hors droit camerounais : elle sert à comparer les lacunes du droit camerounais aux bonnes pratiques (analyse d'écarts) et n'est jamais citée comme règle applicable dans une réponse au citoyen.",
+      "chunks": 4,
+      "fichier": "ue_2016_679_rgpd.jsonl"
+    },
+    {
+      "doc": "ue_2024_1689_reglement_ia",
+      "titre": "Règlement (UE) 2024/1689 du 13 juin 2024 établissant des règles harmonisées concernant l'intelligence artificielle (règlement sur l'IA)",
+      "autorite": "Union européenne (Parlement européen et Conseil)",
+      "source_url": "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32024R1689",
+      "date_publication": "2024-06-13",
+      "type_source": "texte_officiel",
+      "statut_verification": "verifie",
+      "methode_verification": "Copié le 2026-11-10 depuis la version HTML française d'EUR-Lex, extrait sans reformulation.",
+      "note": "Référence internationale, hors droit camerounais : elle sert à comparer les lacunes du droit camerounais aux bonnes pratiques (analyse d'écarts) et n'est jamais citée comme règle applicable dans une réponse au citoyen.",
+      "chunks": 4,
+      "fichier": "ue_2024_1689_reglement_ia.jsonl"
     },
     {
       "doc": "eregulations_180_135",

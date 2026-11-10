@@ -27,7 +27,7 @@ from analyse import AgentAnalyse, Analyse
 from auditor import AgentValidation, audit
 from conversation import Sujet, contient_salutation
 from catalogue import Catalogue
-from privacy import masquer
+from privacy import masquer, retirer_marqueurs
 from recherche import AgentRecherche
 
 TEXTES = {
@@ -231,7 +231,7 @@ Règles impératives :
 4. Si une information manque, dis-le : ne la déduis pas.
 5. Rappelle que le citoyen reste responsable des informations qu'il valide et soumet.
 6. Style : écris en phrases complètes et naturelles, comme un conseiller qui explique la démarche à voix haute. Commence par une ou deux phrases qui résument la démarche, puis explique les étapes dans l'ordre, en phrases (« Vous commencez par…, puis… »), et indique les pièces à fournir dans une phrase ou une courte liste. Pas de tableau, pas de HTML (ni <br>), pas d'émoji, pas de titres avec #. Le gras est permis. Cite les sources avec des crochets ASCII [ ], jamais avec d'autres signes.
-Les marqueurs comme [NOM] ou [DATE] remplacent des données masquées : ne cherche pas à les deviner.
+Les marqueurs comme [NOM] ou [DATE] remplacent des données masquées : ne cherche pas à les deviner et ne les recopie pas.
 
 Réponds en {langue_reponse}, de manière claire et concise."""
 
@@ -249,7 +249,7 @@ Règles impératives :
 2. Tu ne donnes AUCUN montant, délai, pièce à fournir, étape, article de loi, administration ou lien : ces informations viennent des textes sources, que tu n'as pas ici. Si l'utilisateur veut un détail, invite-le à nommer la démarche.
 3. Tu ne prétends pas soumettre, payer ou conserver quoi que ce soit : le citoyen soumet lui-même.
 4. Tu es un assistant automatique, pas une personne. Tu n'inventes rien sur toi : tu as été conçu par l'équipe GOVIA Cameroun pour le hackathon ITU AI for Good Lab.
-5. Pas d'émoji, pas de liste, pas de gras. Les marqueurs comme [NOM] remplacent des données masquées.
+5. Pas d'émoji, pas de liste, pas de gras. Les marqueurs comme [NOM] remplacent des données personnelles masquées : ne les écris jamais dans ta réponse et n'interpelle pas l'utilisateur par un nom.
 Démarches connues (noms seulement) : {demarches}
 Messages précédents de l'utilisateur :
 {echanges}
@@ -359,12 +359,15 @@ class AgentOrchestrateur:
         noms = ", ".join(d["nom"] for d in self.catalogue.demarches if d["statut"] != "lacune")
         precedents = [masquer(m)[:300] for m in (historique or [])[-3:]]
         try:
-            texte = appeler_llm(construire_prompt_conversation(masquer(query), precedents, noms)).strip()
-        except Exception:  # service indisponible, clé absente, délai dépassé
+            texte = retirer_marqueurs(appeler_llm(construire_prompt_conversation(masquer(query), precedents, noms)))
+        except Exception as erreur:  # service indisponible, clé absente, limite de débit, délai dépassé
+            print(f"[LLM] conversation : repli sur les textes fixes ({type(erreur).__name__}).")
             return None
         if not texte or len(texte) > 800 or "http" in texte.lower():
+            print("[LLM] conversation : réponse écartée (vide, trop longue ou avec un lien).")
             return None
         if audit(texte, [], base=self.recherche.kb.par_id, type_reponse="conversation").decision == "bloquer":
+            print("[LLM] conversation : réponse écartée par l'auditeur.")
             return None
         return texte
 
@@ -471,7 +474,7 @@ class AgentOrchestrateur:
         reponse, mode, journal = secours, "extraits_sources", []
         if self.use_llm:
             try:
-                brouillon = appeler_llm(construire_prompt(masquer(query), demarche, cas, elements["citations"], langue))
+                brouillon = retirer_marqueurs(appeler_llm(construire_prompt(masquer(query), demarche, cas, elements["citations"], langue)))
             except Exception as erreur:  # service indisponible, délai dépassé, réponse invalide
                 mode = "extraits_sources_llm_indisponible"
                 journal.append({"agent": "orchestrateur", "etape": "llm_indisponible", "erreur": type(erreur).__name__})
@@ -507,13 +510,15 @@ class AgentOrchestrateur:
         }
 
     # ---------------------------------------------------------------- Version A
-    def respond_ungoverned(self, query: str, langue: str = "FR") -> dict:
+    def respond_ungoverned(self, query: str, langue: str = "FR", questions_fictives: bool = False) -> dict:
         """Version A : LLM seul, sans base, sans masquage, sans contrôle bloquant.
 
         Elle sert uniquement à mesurer l'apport de la gouvernance. Si le cloud est
         configuré, elle reste indisponible : des données non masquées en sortiraient.
+        Seul scripts/compare_ab.py lève cette limite (`questions_fictives=True`), pour
+        ses questions fixes et fictives, afin que A et B utilisent le même modèle.
         """
-        if _llm_cloud_autorise():
+        if _llm_cloud_autorise() and not questions_fictives:
             raise RuntimeError("La version A n'est disponible qu'avec le LLM local.")
         consigne = "Réponds en anglais." if langue == "EN" else "Réponds en français."
         texte = appeler_llm(f"Tu aides les citoyens du Cameroun dans leurs démarches administratives. {consigne}\n\nQuestion : {query}")

@@ -8,6 +8,7 @@ import { ListeSources } from "./components/ListeSources";
 import { Navigation } from "./components/Navigation";
 import { Langue, TEXTES } from "./i18n";
 import { panneauDe } from "./lib/confiance";
+import { Conversation, enregistrer, lire, nouvelId, pourStockage, supprimer, titreDe, toutEffacer as viderHistorique } from "./lib/historique";
 import { DemarcheCatalogue, DocumentSource, Message, Notice as TypeNotice, Stats, Vue } from "./types";
 
 export default function Home() {
@@ -28,6 +29,9 @@ export default function Home() {
   const [documents, setDocuments] = useState<DocumentSource[]>([]);
   const [erreurDocuments, setErreurDocuments] = useState(false);
   const [erreurCatalogue, setErreurCatalogue] = useState(false);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [idCourant, setIdCourant] = useState<string | null>(null);
+  const [historiqueOuvert, setHistoriqueOuvert] = useState(false);
   const contenu = useRef<HTMLElement>(null);
   const t = TEXTES[langue];
 
@@ -71,23 +75,73 @@ export default function Home() {
     window.scrollTo(0, 0);
   }, [vue]);
 
+  // L'historique n'est lu et écrit qu'avec l'accord de la personne, et reste dans son navigateur.
+  useEffect(() => {
+    if (consent) setConversations(lire());
+  }, [consent]);
+
+  useEffect(() => {
+    if (!consent || chargement || !messages.some((m) => m.role === "user")) return;
+    const id = idCourant || nouvelId();
+    if (!idCourant) setIdCourant(id);
+    const gardes = pourStockage(messages);
+    const existante = conversations.find((c) => c.id === id);
+    if (existante && JSON.stringify(existante.messages) === JSON.stringify(gardes)) return;
+    setConversations(enregistrer(conversations, { id, titre: titreDe(gardes), maj: new Date().toISOString(), messages: gardes }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages, consent, chargement]);
+
   /** Le texte d'une réponse a fini de s'afficher : elle ne s'animera plus. */
   function marquerLu(index: number) {
     setMessages((liste) => liste.map((m, i) => (i === index && m.nouveau ? { ...m, nouveau: false } : m)));
   }
 
-  function effacer() {
+  /** Nouvelle conversation : la précédente reste dans l'historique. */
+  function nouvelleConversation() {
     setMessages([]);
     setSelection(null);
     setFeuille(false);
     setOuverture({ n: 0, onglet: "demarche" });
+    setIdCourant(null);
+    setHistoriqueOuvert(false);
   }
 
+  function ouvrirConversation(id: string) {
+    const conversation = conversations.find((c) => c.id === id);
+    if (!conversation) return;
+    const rouvertes = conversation.messages.map((m) => ({ ...m, nouveau: false }));
+    setMessages(rouvertes);
+    setIdCourant(id);
+    // On rouvre la dernière réponse qui a un panneau (fiche, précision...).
+    let dernier: number | null = null;
+    rouvertes.forEach((m, i) => {
+      if (m.role === "agent" && panneauDe(m)) dernier = i;
+    });
+    setSelection(dernier);
+    setFeuille(false);
+    setOuverture({ n: 0, onglet: "demarche" });
+    setHistoriqueOuvert(false);
+  }
+
+  function supprimerConversation(id: string) {
+    setConversations((liste) => supprimer(liste, id));
+    if (id === idCourant) nouvelleConversation();
+  }
+
+  function toutEffacer() {
+    viderHistorique();
+    setConversations([]);
+    nouvelleConversation();
+  }
+
+  /** Retirer son accord efface aussi l'historique enregistré sur l'appareil. */
   function retirerConsentement() {
+    viderHistorique();
+    setConversations([]);
     setConsent(false);
     setEnAttente(null);
     setSaisie("");
-    effacer();
+    nouvelleConversation();
   }
 
   function refuser() {
@@ -231,7 +285,14 @@ export default function Home() {
             enAttente={enAttente}
             onSaisie={setSaisie}
             onEnvoyer={envoyer}
-            onEffacer={effacer}
+            onNouvelle={nouvelleConversation}
+            conversations={conversations}
+            idCourant={idCourant}
+            historiqueOuvert={historiqueOuvert}
+            onHistorique={() => setHistoriqueOuvert((ouvert) => !ouvert)}
+            onOuvrirConversation={ouvrirConversation}
+            onSupprimerConversation={supprimerConversation}
+            onToutEffacer={toutEffacer}
             onLu={marquerLu}
             onOuvrir={ouvrirPanneau}
             onFermerFeuille={() => setFeuille(false)}

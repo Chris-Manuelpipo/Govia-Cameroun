@@ -91,3 +91,20 @@ def test_index_coherent_avec_les_fichiers(chunks):
 
     index = json.loads((KB_DIR / "index.json").read_text(encoding="utf-8"))
     assert index["total_chunks"] == len(chunks) == len(kb.chunks)
+
+
+def test_references_internationales_hors_reponses_citoyennes(chunks):
+    """RGPD et règlement IA servent à l'analyse d'écarts, jamais de règle citée au citoyen."""
+    from agent import AgentAssistant
+
+    etrangers = {i for i, c in chunks.items() if c["procedure_id"] == "references_internationales"}
+    assert {"ue_2016_679_rgpd::art_22_1", "ue_2024_1689_reglement_ia::art_50_1"} <= etrangers
+    agent = AgentAssistant(use_llm=False)
+    for question in [
+        "Une décision automatisée par intelligence artificielle est-elle permise ?",
+        "Mes données peuvent-elles être envoyées à l'étranger ?",
+        "pseudonymisation des données personnelles par une intelligence artificielle",
+    ]:
+        reponse = agent.respond(question)
+        cites = {c["id"] for c in reponse["citations"]}
+        assert not cites & etrangers, (question, cites & etrangers)

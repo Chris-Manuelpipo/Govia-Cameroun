@@ -203,7 +203,9 @@ def construire_catalogue(chunks: dict, fiches: dict) -> list[dict]:
             raise ErreurKB(f"{cid} : démarche sans aucune source")
         catalogue.append(entree)
 
-    orphelins = set(par_procedure) - set(identifiants) - {"etat_civil"}
+    # references_internationales : textes étrangers pour l'analyse d'écarts, hors catalogue
+    # citoyen, pour que l'agent ne les cite jamais comme droit camerounais.
+    orphelins = set(par_procedure) - set(identifiants) - {"etat_civil", "references_internationales"}
     if orphelins:
         raise ErreurKB(f"chunks rattachés à une démarche inconnue : {sorted(orphelins)}")
     return catalogue

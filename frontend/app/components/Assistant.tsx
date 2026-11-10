@@ -7,7 +7,9 @@ import { DemarcheCatalogue, Message, Notice as TypeNotice, Vue } from "../types"
 import { AucunTexte } from "./AucunTexte";
 import { Echanges, OuvrirPanneau } from "./Echanges";
 import { Fiche, Onglet } from "./Fiche";
+import { Historique } from "./Historique";
 import { Etat, Icone } from "./icones";
+import { Conversation } from "../lib/historique";
 import { Notice } from "./Notice";
 import { Precision } from "./Precision";
 
@@ -40,7 +42,14 @@ export function Assistant({
   enAttente,
   onSaisie,
   onEnvoyer,
-  onEffacer,
+  onNouvelle,
+  conversations,
+  idCourant,
+  historiqueOuvert,
+  onHistorique,
+  onOuvrirConversation,
+  onSupprimerConversation,
+  onToutEffacer,
   onLu,
   onOuvrir,
   onFermerFeuille,
@@ -64,7 +73,14 @@ export function Assistant({
   enAttente: string | null;
   onSaisie: (texte: string) => void;
   onEnvoyer: (texte: string) => void;
-  onEffacer: () => void;
+  onNouvelle: () => void;
+  conversations: Conversation[];
+  idCourant: string | null;
+  historiqueOuvert: boolean;
+  onHistorique: () => void;
+  onOuvrirConversation: (id: string) => void;
+  onSupprimerConversation: (id: string) => void;
+  onToutEffacer: () => void;
   onLu: (index: number) => void;
   onOuvrir: OuvrirPanneau;
   onFermerFeuille: () => void;
@@ -155,15 +171,24 @@ export function Assistant({
       <section aria-label={t.echanges} className={`${panneauVisible ? "hidden" : "flex"} min-h-[60vh] flex-col bg-fond lg:flex lg:h-full lg:min-h-0 lg:border-r lg:border-ligne`}>
         <div className="flex shrink-0 items-center justify-between border-b border-ligne bg-surface px-4">
           <h2 className="py-2.5 text-[15px] font-semibold">{t.echanges}</h2>
-          {messages.length > 0 && (
-            <button onClick={onEffacer} disabled={chargement} className="min-h-[44px] px-1 text-accent underline underline-offset-2 disabled:opacity-50">
-              {t.effacer}
-            </button>
-          )}
+          <div className="flex items-center gap-3">
+            {conversations.length > 0 && (
+              <button onClick={onHistorique} aria-pressed={historiqueOuvert} className={`min-h-[44px] px-1 underline underline-offset-2 ${historiqueOuvert ? "font-semibold text-titre" : "text-accent"}`}>
+                {t.historique}
+              </button>
+            )}
+            {messages.length > 0 && (
+              <button onClick={onNouvelle} disabled={chargement} className="min-h-[44px] px-1 text-accent underline underline-offset-2 disabled:opacity-50">
+                {t.nouvelleConversation}
+              </button>
+            )}
+          </div>
         </div>
 
         <div ref={fil} tabIndex={0} className="flex-1 pb-32 lg:min-h-0 lg:overflow-y-auto lg:pb-0">
-          {messages.length === 0 ? <p className="px-4 py-4 text-sm text-texte-2">{t.aucunEchange}</p> : <Echanges messages={messages} selection={selection} occupe={chargement} t={t} onOuvrir={onOuvrir} onEnvoyer={onEnvoyer} onLu={onLu} />}
+          {historiqueOuvert ? (
+            <Historique conversations={conversations} idCourant={idCourant} langue={langue} t={t} onOuvrir={onOuvrirConversation} onSupprimer={onSupprimerConversation} onToutEffacer={onToutEffacer} />
+          ) : messages.length === 0 ? <p className="px-4 py-4 text-sm text-texte-2">{t.aucunEchange}</p> : <Echanges messages={messages} selection={selection} occupe={chargement} t={t} onOuvrir={onOuvrir} onEnvoyer={onEnvoyer} onLu={onLu} />}
         </div>
 
         <form

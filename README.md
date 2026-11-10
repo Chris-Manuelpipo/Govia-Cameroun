@@ -47,8 +47,8 @@ Chaque entrée de `audit_log` indique l'agent qui l'a produite (`analyse`, `rech
 
 | Élément | Valeur |
 |---|---|
-| Documents | 44 |
-| Chunks | 256 (248 vérifiés à la source, 8 à vérifier) |
+| Documents | 46 (dont 2 références internationales) |
+| Chunks | 264 (256 vérifiés à la source, 8 à vérifier) |
 | Démarches | 43 : 31 couvertes, 2 partielles, 10 lacunes |
 | Langues | Français ; anglais pour la loi sur la cybersécurité |
 
@@ -58,6 +58,8 @@ Chaque entrée de `audit_log` indique l'agent qui l'a produite (`analyse`, `rech
 Chaque chunk indique notamment `article`, `texte`, `source_url`, `type_source` et `statut_verification`.
 
 **Sources :** textes officiels (Présidence, ANTIC, Ministère du Commerce), reproductions de textes par des tiers (signalées comme telles) et 32 fiches du portail [eRegulations Yaoundé](https://yaounde.eregulations.org).
+
+**Références internationales :** le RGPD (UE 2016/679) et le règlement européen sur l'IA (UE 2024/1689), recopiés depuis EUR-Lex, servent à comparer les lacunes camerounaises aux bonnes pratiques. Rangés sous `references_internationales`, hors catalogue, ils ne sont jamais cités au citoyen comme droit applicable.
 
 ### Mettre à jour la base
 

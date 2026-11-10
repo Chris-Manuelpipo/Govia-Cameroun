@@ -29,7 +29,8 @@ class AgentRecherche:
         utiles = [m for m in normaliser(query).split() if m not in MOTS_VIDES and len(m) > 2]
         if len(utiles) < 2:
             return []
-        passages = self.kb.retrieve(query, n_k=n_k)
+        # Les références internationales servent à l'analyse d'écarts : jamais présentées comme droit camerounais.
+        passages = [p for p in self.kb.retrieve(query, n_k=n_k + 4) if p["procedure_id"] != "references_internationales"][:n_k]
         # Sans index vectoriel, un seul mot en commun sur deux ne suffit pas à orienter.
         if self.kb.mode == "mots_cles":
             passages = [p for p in passages if p["score"] >= 0.75]

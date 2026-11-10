@@ -105,6 +105,11 @@ def test_journal_sans_donnee_personnelle(client):
     assert "Mballa" not in json.dumps(entree)
 
 
+def test_la_notice_dit_que_l_historique_reste_dans_le_navigateur(client):
+    assert "navigateur" in client.get("/consentement").json()["conservation"]
+    assert "browser" in client.get("/consentement?langue=EN").json()["conservation"]
+
+
 def test_notice_de_consentement_bilingue(client):
     assert "consentement" in client.get("/consentement").json()["titre"]
     assert "consent" in client.get("/consentement?langue=EN").json()["titre"]

@@ -34,3 +34,10 @@ docs/etude/*.log
 # Vidéo brute de capture
 demo/*.webm
 demo/concat_list.txt
+
+# Site vitrine (site/)
+site/node_modules/
+site/.next/
+site/out/
+site/next-env.d.ts
+site/tsconfig.tsbuildinfo

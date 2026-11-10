@@ -56,6 +56,14 @@ _REGLES: list[tuple[re.Pattern[str], str]] = [
 ]
 
 
+_MARQUEUR = re.compile(r"\s*\[(?:NOM|EMAIL|ADRESSE|LIEU|NIU|TELEPHONE|DATE|ID)\]", re.I)
+
+
+def retirer_marqueurs(texte: str) -> str:
+    """Retire les marqueurs de masquage qu'un modèle aurait recopiés (« Bonjour [NOM], » devient « Bonjour, »)."""
+    return re.sub(r"[ \t]{2,}", " ", _MARQUEUR.sub("", texte)).strip()
+
+
 def masquer(texte: str) -> str:
     """Remplace les identifiants directs repérables par des marqueurs."""
     for motif, remplacement in _REGLES:
