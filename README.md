@@ -10,6 +10,7 @@ GOVIA covers identity documents and civil status, as well as company creation, t
 
 | What | Where |
 |---|---|
+| Demo video (2:19): the governed assistant in use, version A vs B, Y.3172 mapping and gap analysis | [`demo/GOVIA_Demo_Cameroun.mp4`](demo/GOVIA_Demo_Cameroun.mp4) |
 | Technical report (5 pages): Y.3172 mapping, AI Readiness dimensions, error scenarios, gap analysis | [`docs/rapport/GOVIA_Cameroun_Rapport_Technique.docx`](docs/rapport/GOVIA_Cameroun_Rapport_Technique.docx) |
 | Open knowledge base: 264 machine-readable chunks from 46 documents | [`knowledge_base/`](knowledge_base/), inventory in [`knowledge_base/index.json`](knowledge_base/index.json) |
 | Procedure coverage and documented gaps (43 procedures) | [`docs/catalogue_demarches.md`](docs/catalogue_demarches.md) |
@@ -220,7 +221,6 @@ See [`.env.example`](.env.example). The retrieval threshold `GOVIA_MIN_SCORE` is
 - Steps, documents and check details stay in French, even in an English answer.
 - The four agents share one mandate: there is no coordination yet between institutional agents (regulator, data protection authority) holding different information, and error scenarios are scripted rather than released as fragmented live events.
 - IDCAM and PassCam offer no public API: the form helps prepare the entry, nothing is submitted.
-- The video in `demo/` shows an earlier version of the interface; the screenshots above are current.
 
 ## Content licence
 

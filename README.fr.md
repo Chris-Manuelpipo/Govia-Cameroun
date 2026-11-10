@@ -211,7 +211,6 @@ Voir [`.env.example`](.env.example). Le seuil de recherche `GOVIA_MIN_SCORE` vau
 - Les étapes, les pièces et le détail des contrôles restent en français, y compris dans une réponse en anglais.
 - Les quatre agents partagent un même mandat : pas encore de coordination entre agents institutionnels (régulateur, autorité de protection des données) recevant des informations différentes, et les scénarios d'erreur sont scriptés plutôt que libérés par fragments.
 - Il n'existe pas d'API publique IDCAM ou PassCam : le formulaire aide à préparer la saisie, rien n'est soumis.
-- La vidéo de `demo/` montre l'ancienne version de l'interface ; les captures de `docs/captures/` sont à jour.
 
 ## Licence des contenus
 
